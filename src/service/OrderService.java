@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import beans.Order;
+import beans.User;
 import generic.GenericService;
 import repository.orders.OrdersRepository;
 
@@ -16,5 +17,8 @@ public class OrderService extends GenericService<Order> {
 	public List<Order> getAllByRestaurant(String id){
 		return ((OrdersRepository)this.repository).getAllByRestaurant(id);
 	}
-
+	
+	public List<User> getAllBuyersByRestaruantId(String id){
+		return ((OrdersRepository)this.repository).getAllBuyersByRestaruantId(id);
+	}
 }

@@ -28,6 +28,8 @@ public class SparkFoodOrderMain {
         get("/rest/restaurant/:id",RestaurantController.handleGetRestaurantById);
         
         get("/rest/restaurant/:id/orders",OrdersController.handleGetOrdersByRestaurant);
+
+        get("/rest/restaurant/:id/buyers",OrdersController.handleGetBuyersByRestaurant);
         	
     }
 }

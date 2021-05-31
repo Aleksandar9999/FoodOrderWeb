@@ -20,5 +20,11 @@ public class OrdersController {
         List<Order> orders=ordersService.getAllByRestaurant(id);
         return gson.toJson(orders);
     };
+    public static Route handleGetBuyersByRestaurant = (Request request, Response response) -> {
+        response.type("application/json");
+        String id = request.params("id");
+        List<User> orders=ordersService.getAllBuyersByRestaruantId(id);
+        return gson.toJson(orders);
+    };
 	
 }

@@ -9,6 +9,7 @@ import com.google.gson.reflect.TypeToken;
 
 import beans.Order;
 import beans.Restaurant;
+import beans.User;
 import generic.GenericRepository;
 
 public class OrdersRepository extends GenericRepository<Order> {
@@ -33,5 +34,13 @@ public class OrdersRepository extends GenericRepository<Order> {
 				retVal.add(order);
 		}
 		return retVal;
+	}
+	public List<User> getAllBuyersByRestaruantId(String id){
+		List<User> users=new ArrayList<User>();
+		for (Order order : readAll().values()) {
+			if(order.getRestaurant().getId().equals(id))
+				users.add(order.getBuyer());
+		}
+		return users;
 	}
 }
