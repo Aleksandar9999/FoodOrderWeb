@@ -1,5 +1,6 @@
 package beans;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import enumerations.Role;
@@ -9,7 +10,7 @@ public class User {
 	private String password;
 	private String name;
 	private String surname;
-	private Date dateOfBirth;
+	private LocalDate dateOfBirth;
 	private Role userRole;
 
 	public User() {
@@ -19,7 +20,7 @@ public class User {
 		this.userRole = userRole;
 	}
 
-	public User(String username, String password, String name, String surname, Date dateOfBirth, Role userRole) {
+	public User(String username, String password, String name, String surname,Role userRole) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -53,11 +54,11 @@ public class User {
 		this.surname = surname;
 	}
 
-	public Date getDateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 

@@ -7,7 +7,10 @@ import static spark.Spark.staticFiles;
 
 import java.io.File;
 
+import beans.Administrator;
+import controller.RestaurantController;
 import controller.UserController;
+import service.UsersService;
 import spark.Route;
 public class SparkFoodOrderMain {
     public static void main(String[] args) throws Exception{
@@ -18,12 +21,10 @@ public class SparkFoodOrderMain {
         
         post("/rest/user/registration", UserController.handleRegisterPost);
         
-		get("/test", (req, res) -> {
-			return "Works";
-		});
-		
-		
+        get("/rest/user", UserController.handleGetAllUsers);
+        
+        
+        get("/rest/restaurant/:id",RestaurantController.handleGetRestaurantById);
+        	
     }
-
-
 }

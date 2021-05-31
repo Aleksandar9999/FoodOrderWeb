@@ -27,4 +27,9 @@ public class Buyer extends User {
 		orders=new ArrayList<Order>();
 	}
 
+	public Buyer(String string, String string2, String string3, String string4) {
+
+		super(string,string2,string3,string4, Role.Buyer);
+	}
+
 }

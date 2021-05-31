@@ -1,0 +1,19 @@
+{
+  "1": {
+    "id": "1",
+    "name": "BulevarPizza",
+    "restaurantType": "Other",
+    "status": false,
+    "location": {
+      "longitude": 11.0,
+      "latitude": 25.0,
+      "address": {
+        "street": "Bulevar",
+        "number": "22",
+        "city": "Novi Sad",
+        "zipCode": "2100"
+      }
+    },
+    "logoUrl": "logo"
+  }
+}

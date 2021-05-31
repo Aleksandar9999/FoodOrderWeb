@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import beans.User;
 import exceptions.LoginException;
-import repository.UsersRepository;
+import repository.users.UsersRepository;
 
 public class UsersService {
 
@@ -15,19 +15,19 @@ public class UsersService {
 		this.repository=new UsersRepository();
 	}
 	
-	public User AddNew(User user) {
-		return this.repository.AddNew(user);
+	public User addNew(User user) {
+		return this.repository.addNew(user);
 	} 
-	public ArrayList<User> GetAll() {
-		return this.repository.GetAll();
+	public ArrayList<User> getAll() {
+		return this.repository.getAll();
 	}
 
-	public User Login(User user) {
-		return this.repository.Login(user);
+	public User login(User user) {
+		return this.repository.login(user);
 	}
 
-	public void Update(User user) {
-		this.repository.Update(user);
+	public void update(User user) {
+		this.repository.update(user);
 	}
 	
 }

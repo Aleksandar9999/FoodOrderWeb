@@ -26,7 +26,7 @@ Vue.component("login", {
                 </tr>
                 <tr>
                     <td>
-                        <a href="registration">Registrujte se.</a>
+                        <a href="/registration">Registrujte se.</a>
                     </td>
                 </tr>
             </table>
@@ -36,8 +36,15 @@ Vue.component("login", {
 	methods : {
 		loginUser : function () {
 			event.preventDefault();
-			axios.post('rest/users/login', this.user).
-			then(response => (router.push(`/`)));
+			axios.post('/rest/user/login', this.user).
+			then(response => {
+                if(response.data['userRole']=="Administrator")
+                    router.push('/administrator');
+                else if(response.data['userRole']=="Manager")
+                    router.push('/restaurant/'+response.data['restaurantId']);
+                else router.push('/profile');
+                
+            } );
 		}
 	}
 });

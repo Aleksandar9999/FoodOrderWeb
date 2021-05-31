@@ -7,7 +7,7 @@ Vue.component("registration", {
                  password:'',
                  name:'',
                  surname:'',
-                 dateOfBirth:null,
+                 //dateOfBirth:null,
                  userRole:''
               }
 		    }
@@ -47,7 +47,7 @@ Vue.component("registration", {
                         <p>Datum rodjenja</p>
                     </td>
                     <td>
-                        <input id="txtDateOfBirth" type="date" v-model = "user.dateOfBirth">
+
                     </td>
                 </tr>
                 <td>
@@ -89,8 +89,11 @@ Vue.component("registration", {
 			event.preventDefault();
 			axios.post('/rest/user/registration', this.user).
 			then(response => {
-                alert(response);
-                router.push(`/`); });
+                router.push(`/`); 
+            }).catch(err=> {
+                   console.log(err.data)
+                });
 		}
 	}
 });
+// <input id="txtDateOfBirth" type="date" v-model = "user.dateOfBirth">

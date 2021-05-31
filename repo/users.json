@@ -1,1 +1,27 @@
-{"aca":{"username":"aca","password":"aca","name":"Aca","surname":"Sima","dateOfBirth":"May 29, 2021, 12:00:00 AM","userRole":"Buyer"},"aca1":{"pointsCollected":0.0,"orders":[],"username":"aca1","password":"aca","name":"Aca","surname":"Sima","dateOfBirth":"May 29, 2021, 12:00:00 AM","userRole":"Buyer"}}
+[
+  {
+    "pointsCollected": 0.0,
+    "orders": [],
+    "username": "aca",
+    "password": "aca",
+    "name": "Aca",
+    "surname": "Sima",
+    "userRole": "Buyer"
+  },
+  {
+    "username": "admin",
+    "password": "admin",
+    "name": "Aca",
+    "surname": "Admin",
+    "userRole": "Administrator"
+  },
+  {
+    "username": "manager",
+    "password": "manager",
+    "name": "Aca",
+    "surname": "Admin",
+    "restaurantId":"1",
+    "userRole": "Manager"
+  }
+  
+]
