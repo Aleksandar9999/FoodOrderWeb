@@ -8,6 +8,7 @@ import static spark.Spark.staticFiles;
 import java.io.File;
 
 import beans.Administrator;
+import controller.OrdersController;
 import controller.RestaurantController;
 import controller.UserController;
 import service.UsersService;
@@ -25,6 +26,8 @@ public class SparkFoodOrderMain {
         
         
         get("/rest/restaurant/:id",RestaurantController.handleGetRestaurantById);
+        
+        get("/rest/restaurant/:id/orders",OrdersController.handleGetOrdersByRestaurant);
         	
     }
 }

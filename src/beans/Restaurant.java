@@ -4,9 +4,7 @@ import java.util.List;
 
 import enumerations.RestaurantType;
 
-public class Restaurant {
-
-	private String id;
+public class Restaurant extends Entity{
 	private String name;
 	private RestaurantType restaurantType;
 	private List<Article> articles;
@@ -16,8 +14,7 @@ public class Restaurant {
 
 	public Restaurant(String id,String name, RestaurantType restaurantType, List<Article> articles, boolean status,
 			Location location, String logoUrl) {
-		super();
-		this.id=id;
+		super(id);
 		this.name = name;
 		this.restaurantType = restaurantType;
 		this.articles = articles;
@@ -27,15 +24,7 @@ public class Restaurant {
 	}
 
 	public Restaurant() {}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
+	
 	public String getName() {
 		return name;
 	}

@@ -26,7 +26,7 @@ Vue.component("login", {
                 </tr>
                 <tr>
                     <td>
-                        <a href="/registration">Registrujte se.</a>
+                        <a href="./registration">Registrujte se.</a>
                     </td>
                 </tr>
             </table>

@@ -14,7 +14,6 @@ public class RestaurantController {
 	private static RestaurantService restaurantService=new RestaurantService();
 	private static Gson gson=new Gson();
 	
-	
 	public static Route handleGetRestaurantById = (Request request, Response response) -> {
         response.type("application/json");
         String id = request.params("id");
