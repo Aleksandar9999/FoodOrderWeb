@@ -14,6 +14,5 @@ public class RestaurantService extends GenericService<Restaurant> {
 	}
 	public List<Restaurant> getAllRestaurantsSorted(){
 		return ((RestaurantRepository)repository).getAllRestaurantsSorted();
-		
 	}
 }

@@ -1,8 +1,10 @@
 package beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import enumerations.RestaurantType;
+import exceptions.ArticleExistException;
 
 public class Restaurant extends Entity{
 	private String name;
@@ -73,6 +75,11 @@ public class Restaurant extends Entity{
 		this.logoUrl = logoUrl;
 	}
 	
-	
-	
+	public void addArticle(Article article){
+		if(articles==null)
+			articles=new ArrayList<Article>();
+		if(!articles.contains(article)){
+			articles.add(article);
+		}else throw new ArticleExistException();
+	}
 }
