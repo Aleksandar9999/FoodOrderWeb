@@ -1,5 +1,7 @@
 package beans;
 
+import java.util.UUID;
+
 import enumerations.ArticleType;
 
 public class Article {
@@ -25,9 +27,9 @@ public class Article {
 		return super.hashCode();
 	}
 
+
 	public Article(String name, double price, ArticleType articleType, Restaurant restaurant, double quantity,
 			String comment, String imageUrl) {
-		super();
 		this.name = name;
 		this.price = price;
 		this.articleType = articleType;

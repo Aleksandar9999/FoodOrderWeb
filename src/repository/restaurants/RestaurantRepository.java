@@ -68,7 +68,7 @@ public class RestaurantRepository extends GenericRepository<Restaurant> {
 	public List<Restaurant> getAllByAvgRate(String name) {
 		throw new UnsupportedOperationException("Implementirj");
 	}
-
+	
 	public static void main(String[] args) {
 		RestaurantRepository restaurantRepository = new RestaurantRepository();
 		for (Restaurant res : restaurantRepository.getAllByName("pizza")) {

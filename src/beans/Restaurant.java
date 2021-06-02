@@ -82,4 +82,14 @@ public class Restaurant extends Entity{
 			articles.add(article);
 		}else throw new ArticleExistException();
 	}
+	public void updateArticle(String name,Article newArticle){
+		if(articles.contains(newArticle)) throw new ArticleExistException();
+		for (Article article : articles) {
+			if(article.getName().equals(name)){
+				articles.remove(article);
+				break;
+			}
+		}
+		articles.add(newArticle);
+	}
 }
