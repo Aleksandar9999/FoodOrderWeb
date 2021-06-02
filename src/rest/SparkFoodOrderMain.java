@@ -7,12 +7,9 @@ import static spark.Spark.staticFiles;
 
 import java.io.File;
 
-import beans.Administrator;
 import controller.OrdersController;
 import controller.RestaurantController;
 import controller.UserController;
-import service.UsersService;
-import spark.Route;
 public class SparkFoodOrderMain {
     public static void main(String[] args) throws Exception{
         port(8080);

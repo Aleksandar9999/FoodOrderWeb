@@ -3,7 +3,6 @@ package controller;
 import com.google.gson.Gson;
 
 import beans.Restaurant;
-import beans.User;
 import service.RestaurantService;
 import spark.Request;
 import spark.Response;
@@ -20,4 +19,16 @@ public class RestaurantController {
         Restaurant restaurant=restaurantService.getById(id);
         return gson.toJson(restaurant);
     };
+    public static Route handleAddNewRestaurant = (Request request, Response response) -> {
+        response.type("application/json");
+        String body=request.body();
+        Restaurant restaurant=gson.fromJson(body, Restaurant.class);
+        restaurantService.addNew(restaurant);
+        return gson.toJson(restaurant);
+    };
+    public static Route handleGetAllRestaurantsSorted = (Request request, Response response) -> {
+        response.type("application/json");
+        return gson.toJson(restaurantService.getAllRestaurantsSorted());
+    };
+    
 }

@@ -1,4 +1,5 @@
 package generic;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -13,26 +14,29 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import beans.Entity;
-import beans.Restaurant;
 
 public abstract class GenericRepository<T extends Entity> {
 
 	private String filePath;
 	protected Gson gson;
-	private Type type = new TypeToken<HashMap<String, T>>() {}.getType();
+	private Type type = new TypeToken<HashMap<String, T>>() {
+	}.getType();
+
 	public GenericRepository(String filepath) {
 		this.filePath = filepath;
-		this.gson= new GsonBuilder().setPrettyPrinting().create();
+		this.gson = new GsonBuilder().setPrettyPrinting().create();
 	}
-	
+
 	public ArrayList<T> getAll() {
 		return new ArrayList<T>(readAll().values());
 	}
+
 	public T getById(String id) {
 		HashMap<String, T> restaurants = readAll();
 
 		return restaurants.get(id);
 	}
+
 	public T addNew(T restaurant) {
 		HashMap<String, T> restaurants = readAll();
 		if (restaurants == null)
@@ -51,7 +55,7 @@ public abstract class GenericRepository<T extends Entity> {
 	}
 
 	private void saveAll(HashMap<String, T> users) {
-		
+
 		String json = gson.toJson(users, type);
 		BufferedWriter writer;
 		try {
@@ -81,5 +85,5 @@ public abstract class GenericRepository<T extends Entity> {
 			return null;
 		}
 	}
-	
+
 }
