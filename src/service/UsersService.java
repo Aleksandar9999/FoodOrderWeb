@@ -29,7 +29,7 @@ public class UsersService {
 		this.repository.update(user);
 	}
 
-	public User getById(String id) {
+	public User getByUsername(String id) {
 		return this.repository.getByUsername(id);
 	}
 }

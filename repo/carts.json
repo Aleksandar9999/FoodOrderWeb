@@ -1,0 +1,21 @@
+{
+  "6cf111fb-f31d-4cea-9f6e-ab49ef8ff334": {
+    "articles": [
+      {
+        "article": {
+          "id": "418c28ad-89b9-4c3e-9713-4f7e1939261a",
+          "name": "Pizza",
+          "price": 12.0,
+          "articleType": "Food",
+          "amount": 500.0,
+          "comment": "TOP TOP PONUDA",
+          "imageUrl": "image"
+        },
+        "qauantity": 3
+      }
+    ],
+    "buyerUsername": "Aca",
+    "price": 36.0,
+    "id": "6cf111fb-f31d-4cea-9f6e-ab49ef8ff334"
+  }
+}

@@ -26,7 +26,6 @@ public class RestaurantController {
         response.type("application/json");
         String body=request.body();
         Restaurant restaurant=gson.fromJson(body, Restaurant.class);
-        restaurant.setId(UUID.randomUUID().toString());
         restaurantService.addNew(restaurant);
         return gson.toJson(restaurant);
     };

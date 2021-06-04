@@ -1,6 +1,7 @@
 package generic;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import beans.Entity;
 
@@ -21,6 +22,7 @@ public abstract class GenericService<T extends Entity,E extends Entity> {
 	}
 
 	public T addNew(T restaurant) {
+		restaurant.setId(UUID.randomUUID().toString());
 		return repository.addNew(restaurant);
 	}
 

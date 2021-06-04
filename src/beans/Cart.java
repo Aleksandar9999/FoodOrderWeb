@@ -34,11 +34,13 @@ public class Cart extends Entity{
 		this.buyer = buyer;
 	}
 	public double getPrice() {
-		return price;
+		this.price=0.0;
+		for (ArticleInCart articleInCart : articles) {
+			this.price+=articleInCart.getQauantity()*articleInCart.getArticle().getPrice();
+		}
+		return this.price;
 	}
-	public void setPrice(double price) {
-		this.price = price;
-	}
+	
 	public List<ArticleInCart> getArticles() {
 		return articles;
 	}
@@ -50,22 +52,14 @@ public class Cart extends Entity{
 		if(articles==null)
 			articles=new ArrayList<ArticleInCart>();
 		articles.add(article);
-		calculatePrice();
 	}
 	
 	public void updateArticle(ArticleInCart article) {
 		articles.remove(articles.indexOf(article));
 		articles.add(article);
-		calculatePrice();
 	}
 	public void deleteArticle(ArticleInCart article) {
 		articles.remove(articles.indexOf(article));
-		calculatePrice();
 	}
-	private void calculatePrice() {
-		this.price=0;
-		for (ArticleInCart articleInCart : articles) {
-			this.price+=articleInCart.getQauantity()*articleInCart.getArticle().getPrice();
-		}
-	}
+	
 }
