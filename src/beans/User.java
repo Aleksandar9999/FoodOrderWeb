@@ -1,8 +1,6 @@
 package beans;
 
 import java.time.LocalDate;
-import java.util.Date;
-
 import enumerations.Role;
 
 public class User {
@@ -26,12 +24,10 @@ public class User {
 		this.password = password;
 		this.name = name;
 		this.surname = surname;
-		this.dateOfBirth = dateOfBirth;
 		this.userRole = userRole;
 	}
 
 	public User(User user) {
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getUsername() {

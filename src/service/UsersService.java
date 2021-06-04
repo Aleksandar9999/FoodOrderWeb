@@ -1,10 +1,8 @@
 package service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import beans.User;
-import exceptions.LoginException;
 import repository.users.UsersRepository;
 
 public class UsersService {

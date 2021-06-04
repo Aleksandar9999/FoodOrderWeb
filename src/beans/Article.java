@@ -1,7 +1,4 @@
 package beans;
-
-import java.util.UUID;
-
 import enumerations.ArticleType;
 
 public class Article {

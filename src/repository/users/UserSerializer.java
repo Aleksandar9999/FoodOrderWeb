@@ -6,8 +6,6 @@ import java.util.HashMap;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
@@ -28,7 +26,6 @@ public class UserSerializer implements JsonSerializer<HashMap<String, User>>{
 			if(us instanceof Administrator)
 			{
 				JsonElement jsonElement = g.toJsonTree((Administrator)us);
-				JsonObject jsonObject = (JsonObject) jsonElement;
 				array.add(jsonElement);
 				continue;
 			}
@@ -36,7 +33,6 @@ public class UserSerializer implements JsonSerializer<HashMap<String, User>>{
 			if(us instanceof Buyer)
 			{
 				JsonElement jsonElement = g.toJsonTree((Buyer)us);
-				JsonObject jsonObject = (JsonObject) jsonElement;
 				array.add(jsonElement);
 				continue;
 			}
@@ -44,14 +40,12 @@ public class UserSerializer implements JsonSerializer<HashMap<String, User>>{
 			if(us instanceof Deliverer)
 			{
 				JsonElement jsonElement = g.toJsonTree((Deliverer)us);
-				JsonObject jsonObject = (JsonObject) jsonElement;
 				array.add(jsonElement);
 				continue;
 			}
 			if(us instanceof Manager)
 			{
 				JsonElement jsonElement = g.toJsonTree((Manager)us);
-				JsonObject jsonObject = (JsonObject) jsonElement;
 				array.add(jsonElement);
 				continue;
 			}

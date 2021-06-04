@@ -13,6 +13,6 @@ public class Manager extends User {
 		return restaurantId;
 	}
 	public void setRestaurantId(String restaurantId) {
-		restaurantId = restaurantId;
+		this.restaurantId = restaurantId;
 	}
 }

@@ -7,7 +7,6 @@ public class Comment {
 	private int mark;
 
 	public Comment() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Comment(Buyer buyer, Restaurant restaurant, String comment, int mark) {
@@ -17,5 +16,38 @@ public class Comment {
 		this.comment = comment;
 		this.mark = mark;
 	}
+
+	public Buyer getBuyer() {
+		return buyer;
+	}
+
+	public void setBuyer(Buyer buyer) {
+		this.buyer = buyer;
+	}
+
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public int getMark() {
+		return mark;
+	}
+
+	public void setMark(int mark) {
+		this.mark = mark;
+	}
+	
 
 }

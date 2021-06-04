@@ -5,5 +5,7 @@ public class RegistrationException extends RuntimeException {
 	public RegistrationException(String err) {
 		this.errorMessage=err;
 	}
-
+	public String getErrorMessage() {
+		return errorMessage;
+	}
 }
