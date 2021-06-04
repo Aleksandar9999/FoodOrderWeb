@@ -1,12 +1,11 @@
 [
   {
-    "pointsCollected": 0.0,
-    "orders": [],
-    "username": "aca",
-    "password": "aca",
+    "restaurantId": "1",
+    "username": "manager",
+    "password": "manager",
     "name": "Aca",
-    "surname": "Sima",
-    "userRole": "Buyer"
+    "surname": "Admin",
+    "userRole": "Manager"
   },
   {
     "username": "admin",
@@ -16,12 +15,12 @@
     "userRole": "Administrator"
   },
   {
-    "username": "manager",
-    "password": "manager",
+    "pointsCollected": 4.787999999999999,
+    "orders": [],
+    "username": "aca",
+    "password": "aca",
     "name": "Aca",
-    "surname": "Admin",
-    "restaurantId":"1",
-    "userRole": "Manager"
+    "surname": "Sima",
+    "userRole": "Buyer"
   }
-  
 ]

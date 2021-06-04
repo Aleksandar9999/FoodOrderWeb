@@ -29,8 +29,6 @@ public class UserController {
         	response.status(401);
         	return g.toJson(null);
         }
-        
-        
     };
 	
     public static Route handleRegisterPost = (Request request, Response response) -> {

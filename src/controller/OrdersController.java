@@ -26,5 +26,4 @@ public class OrdersController {
         List<User> orders=ordersService.getAllBuyersByRestaruantId(id);
         return gson.toJson(orders);
     };
-	
 }

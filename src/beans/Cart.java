@@ -11,10 +11,13 @@ public class Cart extends Entity{
 	public List<ArticleInCart> articles;
 	public Buyer buyer;
 	public double price;
-	public Cart() {
+	public Cart(Buyer buyer) {
 		price=0;
 		articles=new ArrayList<ArticleInCart>();
+		this.buyer=buyer;
 	}
+
+
 	public Cart(List<ArticleInCart> articles, Buyer buyer, double price) {
 		super(UUID.randomUUID().toString());
 		this.articles = articles;

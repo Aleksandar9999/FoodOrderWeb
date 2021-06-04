@@ -15,7 +15,7 @@ public class CartRepository extends GenericRepository<Cart,CartDAO> {
     public CartRepository() {
         super("./repo/carts.json");
     }
-
+    //#region ImplementationOfAbstractMethods
     @Override
     public HashMap<String, Cart> readAll() {
         String json = readFromFile();
@@ -46,5 +46,16 @@ public class CartRepository extends GenericRepository<Cart,CartDAO> {
         }
         return ret;
     }
-    
+    //#endregion
+
+    public Cart getCartByBuyerUsername(String username){
+        HashMap<String, Cart> map=readAll();
+        for (Cart cart : map.values()) {
+            if(cart.getBuyer().getUsername().equals(username))
+                return cart;
+        }
+        UsersRepository usersRepository=new UsersRepository();
+        return new Cart((Buyer)usersRepository.getByUsername(username));
+    }
+
 }

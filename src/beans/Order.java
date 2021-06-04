@@ -7,21 +7,28 @@ import DAO.OrderDAO;
 import enumerations.OrderStatus;
 
 public class Order extends Entity {
-	private List<Article> articles;
+	private List<ArticleInCart> articles;
 	private Restaurant restaurant;
 	private LocalDateTime timestamp;
 	private double price;
 	private Buyer buyer;
 	private OrderStatus orderStatus;
 
-	public Order(OrderDAO dto) {
-		this.articles=dto.getArticles();
-		this.timestamp=dto.getTimestamp();
-		this.price=dto.getPrice();
-		this.orderStatus=dto.getOrderStatus();
+	public Order(OrderDAO dAo) {
+		this.articles=dAo.getArticles();
+		this.timestamp=dAo.getTimestamp();
+		this.price=dAo.getPrice();
+		this.orderStatus=dAo.getOrderStatus();
+		this.setId(dAo.getId());
 	}
-
-	public Order(List<Article> articles, Restaurant restaurant, LocalDateTime timestamp, double price,
+	public Order(Cart cart){
+		this.articles=cart.getArticles();
+		this.buyer=cart.getBuyer();
+		this.timestamp=LocalDateTime.now();
+		this.price=cart.getPrice();
+		this.orderStatus=OrderStatus.Processing;
+	}
+	public Order(List<ArticleInCart> articles, Restaurant restaurant, LocalDateTime timestamp, double price,
 			Buyer buyer, OrderStatus orderStatus) {
 		super();
 		this.articles = articles;
@@ -32,11 +39,11 @@ public class Order extends Entity {
 		this.orderStatus = orderStatus;
 	}
 public Order(){}
-	public List<Article> getArticles() {
+	public List<ArticleInCart> getArticles() {
 		return articles;
 	}
 
-	public void setArticles(List<Article> articles) {
+	public void setArticles(List<ArticleInCart> articles) {
 		this.articles = articles;
 	}
 
@@ -79,7 +86,12 @@ public Order(){}
 	public void setOrderStatus(OrderStatus orderStatus) {
 		this.orderStatus = orderStatus;
 	}
-	
+	public double getPointsCollected(){
+		return this.price/1000*133;
+	}
+	public double getPointsForCanceledOrder(){
+		return this.price/1000*133*4;
+	}
 	
 	
 }

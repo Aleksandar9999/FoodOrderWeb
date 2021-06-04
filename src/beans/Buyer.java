@@ -57,4 +57,7 @@ public class Buyer extends User {
 			this.orders=new ArrayList<Order>();
 		this.orders.add(order);
 	}
+	public void addCollectedPoints(double points){
+		this.pointsCollected+=points;
+	}
 }

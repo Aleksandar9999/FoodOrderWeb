@@ -20,7 +20,7 @@ public class CartDAO extends Entity {
 	public CartDAO(Cart cart){
 		super(cart.getId());
 		this.articles=cart.getArticles();
-		this.buyerUsername=cart.getBuyer().getName();
+		this.buyerUsername=cart.getBuyer().getUsername();
 		this.price=cart.getPrice();
 	}
 	public List<ArticleInCart> getArticles() {

@@ -5,18 +5,20 @@ import java.util.List;
 import java.util.UUID;
 
 import beans.Article;
+import beans.ArticleInCart;
 import beans.Entity;
 import beans.Order;
 import enumerations.OrderStatus;
 
 public class OrderDAO extends Entity{
-    private List<Article> articles;
+    private List<ArticleInCart> articles;
 	private String restaurantId;
 	private LocalDateTime timestamp;
 	private double price;
 	private String buyerUsername;
 	private OrderStatus orderStatus;
     public OrderDAO(Order order){
+        this.setId(order.getId());
         this.articles=order.getArticles();
         this.restaurantId=order.getRestaurant().getId();
         this.timestamp=order.getTimestamp();
@@ -24,9 +26,9 @@ public class OrderDAO extends Entity{
         this.buyerUsername=order.getBuyer().getUsername();
         this.orderStatus=order.getOrderStatus();
     }
-    public OrderDAO(List<Article> articles, String restaurantId, LocalDateTime timestamp, double price, String buyerId,
+    public OrderDAO(String id,List<ArticleInCart> articles, String restaurantId, LocalDateTime timestamp, double price, String buyerId,
             OrderStatus orderStatus) {
-        super(UUID.randomUUID().toString());
+        super(id);
         this.articles = articles;
         this.restaurantId = restaurantId;
         this.timestamp = timestamp;
@@ -34,10 +36,10 @@ public class OrderDAO extends Entity{
         this.buyerUsername = buyerId;
         this.orderStatus = orderStatus;
     }
-    public List<Article> getArticles() {
+    public List<ArticleInCart> getArticles() {
         return articles;
     }
-    public void setArticles(List<Article> articles) {
+    public void setArticles(List<ArticleInCart> articles) {
         this.articles = articles;
     }
     public String getRestaurantId() {
