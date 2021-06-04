@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import beans.Entity;
 
-public abstract class GenericService<T extends Entity> {
+public abstract class GenericService<T extends Entity,E extends Entity> {
 
-	protected GenericRepository<T> repository;
+	protected GenericRepository<T,E> repository;
 
-	public GenericService(GenericRepository<T> repository) {
+	public GenericService(GenericRepository<T,E> repository) {
 		this.repository=repository;
 	}
 
