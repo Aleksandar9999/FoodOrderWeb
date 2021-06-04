@@ -5,21 +5,37 @@ import java.util.UUID;
 import enumerations.ArticleType;
 
 public class Article {
-
+	private String id;
 	private String name;
 	private double price;
 	private ArticleType articleType;
 	private Restaurant restaurant;
-	private double quantity;
+	private double amount;
 	private String comment;
 	private String imageUrl;
 
 	public Article() {
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public double getWeight() {
+		return amount;
+	}
+
+	public void setWeight(double weight) {
+		this.amount = weight;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
-		return ((Article) obj).getName().equals(name);
+		return ((Article) obj).getId().equals(id);
 	}
 
 	@Override
@@ -28,13 +44,14 @@ public class Article {
 	}
 
 
-	public Article(String name, double price, ArticleType articleType, Restaurant restaurant, double quantity,
+	public Article(String id,String name, double price, ArticleType articleType, Restaurant restaurant, double quantity,
 			String comment, String imageUrl) {
 		this.name = name;
+		this.id=id;
 		this.price = price;
 		this.articleType = articleType;
 		this.restaurant = restaurant;
-		this.quantity = quantity;
+		this.amount = quantity;
 		this.comment = comment;
 		this.imageUrl = imageUrl;
 	}
@@ -72,11 +89,11 @@ public class Article {
 	}
 
 	public double getQuantity() {
-		return quantity;
+		return amount;
 	}
 
 	public void setQuantity(double quantity) {
-		this.quantity = quantity;
+		this.amount = quantity;
 	}
 
 	public String getComment() {

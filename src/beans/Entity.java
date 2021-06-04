@@ -1,8 +1,11 @@
 package beans;
 
+import java.util.UUID;
+
 public class Entity {
 	private String id;
 	public Entity() {
+		this.id=UUID.randomUUID().toString();
 	}
 	public String getId() {
 		return id;
@@ -11,7 +14,7 @@ public class Entity {
 		this.id = id;
 	}
 	public Entity(String id) {
-		this.id = id;
+		this.id=id;
 	}
 	
 }

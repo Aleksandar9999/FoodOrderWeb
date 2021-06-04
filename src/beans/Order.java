@@ -3,23 +3,27 @@ package beans;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import DAO.OrderDAO;
 import enumerations.OrderStatus;
 
 public class Order extends Entity {
 	private List<Article> articles;
 	private Restaurant restaurant;
-	private String restaurantId;
 	private LocalDateTime timestamp;
 	private double price;
 	private Buyer buyer;
 	private OrderStatus orderStatus;
 
-	public Order() {}
+	public Order(OrderDAO dto) {
+		this.articles=dto.getArticles();
+		this.timestamp=dto.getTimestamp();
+		this.price=dto.getPrice();
+		this.orderStatus=dto.getOrderStatus();
+	}
 
-	public Order(String id, List<Article> articles, Restaurant restaurant, LocalDateTime timestamp, double price,
+	public Order(List<Article> articles, Restaurant restaurant, LocalDateTime timestamp, double price,
 			Buyer buyer, OrderStatus orderStatus) {
-		super(id);
-		this.restaurantId=restaurant.getId();
+		super();
 		this.articles = articles;
 		this.restaurant = restaurant;
 		this.timestamp = timestamp;
@@ -27,7 +31,7 @@ public class Order extends Entity {
 		this.buyer = buyer;
 		this.orderStatus = orderStatus;
 	}
-
+public Order(){}
 	public List<Article> getArticles() {
 		return articles;
 	}
@@ -41,7 +45,6 @@ public class Order extends Entity {
 	}
 
 	public void setRestaurant(Restaurant restaurant) {
-		this.restaurantId=restaurant.getId();
 		this.restaurant = restaurant;
 	}
 

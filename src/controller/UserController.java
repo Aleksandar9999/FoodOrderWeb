@@ -1,18 +1,11 @@
 package controller;
 import exceptions.*;
-import static spark.Spark.get;
-import static spark.Spark.port;
-import static spark.Spark.post;
-import static spark.Spark.staticFiles;
 
 import java.util.ArrayList;
-
-import org.eclipse.jetty.util.log.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import beans.Administrator;
 import beans.Buyer;
 import beans.User;
 import service.UsersService;
@@ -28,23 +21,28 @@ public class UserController {
 	
 	public static Route handleLoginPost = (Request request, Response response) -> {
         response.type("application/json");
-        String body = request.body();
         User user=g.fromJson(request.body(), User.class);
-        user=usersService.login(user);
-        return g.toJson(user);
+        try {
+        	user=usersService.login(user);
+        	return g.toJson(user);
+        }catch(LoginException ex) {
+        	response.status(401);
+        	return g.toJson(null);
+        }
+        
         
     };
 	
     public static Route handleRegisterPost = (Request request, Response response) -> {
         response.type("application/json");
-        String body = request.body();
         User user=g.fromJson(request.body(), User.class);
         Buyer buyer=new Buyer(user);
         try {
 			user=usersService.addNew(buyer); 
+			response.status(201);
 			return g.toJson(user);
 		} catch (RegistrationException ex) {
-	        response.status(401);
+	        
 			response.body(ex.getMessage());
 			System.out.print(response.body());
 			return response;
@@ -57,6 +55,15 @@ public class UserController {
         ArrayList<User> users=usersService.getAll();
         return g.toJson(users);
     };
-    
+    public static Route handleUpdateUser = (Request request, Response response) -> {
+        throw new Exception();
+        /*response.type("application/json");
+        String username=request.queryParams("id");
+        //TODO: Provjera koja je uloga korisnika
+        User user=g.fromJson(request.body(), User.class);
+        usersService.update(user);
+        return g.toJson(user);*/
+    };
+
     
 }

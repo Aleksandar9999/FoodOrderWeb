@@ -32,4 +32,29 @@ public class Buyer extends User {
 		super(string,string2,string3,string4, Role.Buyer);
 	}
 
+	public double getPointsCollected() {
+		return pointsCollected;
+	}
+
+	public void setPointsCollected(double pointsCollected) {
+		this.pointsCollected = pointsCollected;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
+
+	public void addNewOrder(Order order){
+		if(this.orders==null)
+			this.orders=new ArrayList<Order>();
+		this.orders.add(order);
+	}
 }

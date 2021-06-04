@@ -3,6 +3,7 @@ package beans;
 import java.util.ArrayList;
 import java.util.List;
 
+import DAO.RestaurantDAO;
 import enumerations.RestaurantType;
 import exceptions.ArticleExistException;
 
@@ -13,10 +14,10 @@ public class Restaurant extends Entity{
 	private boolean status;
 	private Location location;
 	private String logoUrl;
-
-	public Restaurant(String id,String name, RestaurantType restaurantType, List<Article> articles, boolean status,
+	
+	public Restaurant(String name, RestaurantType restaurantType, List<Article> articles, boolean status,
 			Location location, String logoUrl) {
-		super(id);
+		super();
 		this.name = name;
 		this.restaurantType = restaurantType;
 		this.articles = articles;
@@ -25,7 +26,15 @@ public class Restaurant extends Entity{
 		this.logoUrl = logoUrl;
 	}
 
-	public Restaurant() {}
+	public Restaurant(RestaurantDAO restaurantDAO) {
+		super(restaurantDAO.getId());
+        this.name=restaurantDAO.getName();
+        this.restaurantType=restaurantDAO.getRestaurantType();
+        this.articles=restaurantDAO.getArticles();
+        this.status=restaurantDAO.isStatus();
+        this.location=restaurantDAO.getLocation();
+        this.logoUrl=restaurantDAO.getLogoUrl();
+	}
 	
 	public String getName() {
 		return name;
@@ -82,14 +91,20 @@ public class Restaurant extends Entity{
 			articles.add(article);
 		}else throw new ArticleExistException();
 	}
-	public void updateArticle(String name,Article newArticle){
-		if(articles.contains(newArticle)) throw new ArticleExistException();
+	public void updateArticle(String idArticle,Article newArticle){
+		ValidateNewName(newArticle);
 		for (Article article : articles) {
-			if(article.getName().equals(name)){
+			if(article.getId().equals(idArticle)){
 				articles.remove(article);
 				break;
 			}
 		}
 		articles.add(newArticle);
+	}
+
+	private void ValidateNewName(Article newArticle) {
+		for (Article article : articles) {
+			if(article.getName().equals(newArticle.getName()) && !article.getId().equals(newArticle.getId())) throw new ArticleExistException();
+		}
 	}
 }

@@ -2,6 +2,17 @@
   "1": {
     "name": "Aca pizza",
     "restaurantType": "Other",
+    "articles": [
+      {
+        "id": "418c28ad-89b9-4c3e-9713-4f7e1939261a",
+        "name": "Pizza",
+        "price": 12.0,
+        "articleType": "Food",
+        "amount": 500.0,
+        "comment": "TOP TOP PONUDA",
+        "imageUrl": "image"
+      }
+    ],
     "status": true,
     "location": {
       "longitude": 0.0,
@@ -49,5 +60,22 @@
     },
     "logoUrl": "logo",
     "id": "3"
+  },
+  "04345527-8079-4eae-aa98-29ece2f8354e": {
+    "name": "NovaPizza",
+    "restaurantType": "Other",
+    "status": true,
+    "location": {
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "address": {
+        "street": "BUlevar",
+        "number": "12",
+        "city": "Novi Sad",
+        "zipCode": "21000"
+      }
+    },
+    "logoUrl": "logo",
+    "id": "04345527-8079-4eae-aa98-29ece2f8354e"
   }
 }
