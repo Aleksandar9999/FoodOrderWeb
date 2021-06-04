@@ -43,7 +43,9 @@ public class UsersRepository{
 		} else
 			throw new LoginException("Neispravno korisnicko ime");
 	}
-
+	public User getByUsername(String id){
+		return readAll().get(id);
+	}
 	public User addNew(User user) {
 		HashMap<String, User> users = readAll();
 		if (users == null)

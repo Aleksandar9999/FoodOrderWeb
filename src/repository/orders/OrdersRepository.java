@@ -1,18 +1,24 @@
 package repository.orders;
 
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
 
+import DAO.OrderDAO;
+import beans.Buyer;
 import beans.Order;
-import beans.Restaurant;
 import beans.User;
+import enumerations.OrderStatus;
+import enumerations.RestaurantType;
 import generic.GenericRepository;
+import repository.restaurants.RestaurantRepository;
+import repository.users.UsersRepository;
 
-public class OrdersRepository extends GenericRepository<Order> {
+public class OrdersRepository extends GenericRepository<Order,OrderDAO> {
 
 	public OrdersRepository() {
 		super("./repo/orders.json");	
@@ -21,19 +27,38 @@ public class OrdersRepository extends GenericRepository<Order> {
 	@Override
 	public HashMap<String, Order> readAll() {
 		String json = readFromFile();
-		Type type = new TypeToken<HashMap<String, Order>>() {
+		Type type = new TypeToken<HashMap<String, OrderDAO>>() {
 		}.getType();
-		HashMap<String, Order> users = gson.fromJson(json, type);
-		return users;
+		HashMap<String, OrderDAO> data = gson.fromJson(json, type);
+		if(data==null) data=new HashMap<>();
+		return transformDAO(data);
 	}
-	public List<Order> getAllByRestaurant(String id){
-		HashMap<String, Order> orders=readAll();
-		List<Order> retVal=new ArrayList<Order>();
-		for (Order order : orders.values()) {
-			if(order.getRestaurant().getId().equals(id))
-				retVal.add(order);
+	@Override
+	public HashMap<String, OrderDAO> transformData(HashMap<String, Order> data) {
+		HashMap<String, OrderDAO> retVal=new HashMap<>();
+		for (Order order : data.values()) {
+			retVal.put(order.getId(), new OrderDAO(order));
 		}
 		return retVal;
+	}
+
+	@Override
+	public HashMap<String, Order> transformDAO(HashMap<String, OrderDAO> data) {
+		HashMap<String, Order> retVal=new HashMap<>();
+		UsersRepository usersRepository=new UsersRepository();
+		RestaurantRepository restaurantRepository=new RestaurantRepository();
+		for (OrderDAO dao : data.values()) {
+			Order order=new Order(dao);
+			order.setRestaurant(restaurantRepository.getById(dao.getRestaurantId()));
+			order.setBuyer((Buyer)usersRepository.getByUsername(dao.getBuyerId()));
+			retVal.put(dao.getId(), order);
+		}
+		return retVal;
+	}
+	public List<Order> getAllByRestaurant(String id){
+		List<Order> orders= getAll();
+		orders.removeIf(or->!or.getRestaurant().getId().equals(id));
+		return orders;
 	}
 	public List<User> getAllBuyersByRestaruantId(String id){
 		List<User> users=new ArrayList<User>();
@@ -43,4 +68,26 @@ public class OrdersRepository extends GenericRepository<Order> {
 		}
 		return users;
 	}
+	public List<Order> getAllByStatus(OrderStatus status){
+		List<Order> orders= getAll();
+		orders.removeIf(or->!or.getOrderStatus().equals(status));
+		return orders;
+	}	
+	public List<Order> getAllByPriceRange(double min, double max){
+		List<Order> orders= getAll();
+		orders.removeIf(or->!(or.getPrice()>=min && or.getPrice()<=max));
+		return orders;
+	}	
+	
+	public List<Order> getAllByDateRange(LocalDateTime min, LocalDateTime max){
+		List<Order> orders= getAll();
+		orders.removeIf(or->!(or.getTimestamp().isAfter(min) && or.getTimestamp().isBefore(max)));
+		return orders;
+	}	
+	
+	public List<Order> getAllByRestaurantType(RestaurantType type){
+		List<Order> orders= getAll();
+		orders.removeIf(or->!or.getRestaurant().getRestaurantType().equals(type));
+		return orders;
+	}	
 }
