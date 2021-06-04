@@ -1,7 +1,9 @@
 package repository.comment;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -50,5 +52,14 @@ public class CommentRepository extends GenericRepository<Comment,CommentDAO>{
         }
         return ret;
     }
-    
+
+    public List<Comment> getApprovedCommentsForRestaurant(String id){
+        HashMap<String, Comment> map=readAll();
+        List<Comment> list=new ArrayList<>();
+        for (Comment comment : map.values()) {
+            if(comment.isApproved() && comment.getRestaurant().getId().equals(id))
+                list.add(comment);
+        }
+        return list;
+    }
 }

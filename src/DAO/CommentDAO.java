@@ -8,13 +8,31 @@ public class CommentDAO extends Entity {
     private String restaurantId;
     private String comment;
     private int mark;
+    private boolean approved;
 
     public CommentDAO(Comment comment) {
         super(comment.getId());
+        this.approved=comment.isApproved();
         this.buyerUsername = comment.getBuyer().getUsername();
         this.restaurantId = comment.getRestaurant().getId();
         this.comment = comment.getComment();
         this.mark = comment.getMark();
+    }
+
+    public String getBuyerUsername() {
+        return buyerUsername;
+    }
+
+    public void setBuyerUsername(String buyerUsername) {
+        this.buyerUsername = buyerUsername;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 
     public String getBuyerId() {

@@ -7,6 +7,7 @@ public class Comment extends Entity {
 	private Restaurant restaurant;
 	private String comment;
 	private int mark;
+	private boolean approved;
 
 	public Comment(CommentDAO dao) {
 		super(dao.getId());
@@ -14,8 +15,17 @@ public class Comment extends Entity {
 		this.mark = dao.getMark();
 	}
 
-	public Comment(String id,Buyer buyer, Restaurant restaurant, String comment, int mark) {
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+
+	public Comment(String id,Buyer buyer, Restaurant restaurant, String comment, int mark,boolean approved) {
 		super(id);
+		this.approved=approved;
 		this.buyer = buyer;
 		this.restaurant = restaurant;
 		this.comment = comment;
