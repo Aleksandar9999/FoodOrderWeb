@@ -1,16 +1,21 @@
 package beans;
 
-public class Comment {
+import DAO.CommentDAO;
+
+public class Comment extends Entity {
 	private Buyer buyer;
 	private Restaurant restaurant;
 	private String comment;
 	private int mark;
 
-	public Comment() {
+	public Comment(CommentDAO dao) {
+		super(dao.getId());
+		this.comment = dao.getComment();
+		this.mark = dao.getMark();
 	}
 
-	public Comment(Buyer buyer, Restaurant restaurant, String comment, int mark) {
-		super();
+	public Comment(String id,Buyer buyer, Restaurant restaurant, String comment, int mark) {
+		super(id);
 		this.buyer = buyer;
 		this.restaurant = restaurant;
 		this.comment = comment;
