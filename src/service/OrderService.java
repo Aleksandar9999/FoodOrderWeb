@@ -1,15 +1,13 @@
 package service;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
+import DAO.OrderDAO;
 import beans.Order;
 import beans.User;
 import generic.GenericService;
 import repository.orders.OrdersRepository;
 
-public class OrderService extends GenericService<Order> {
+public class OrderService extends GenericService<Order,OrderDAO>{
 
 	public OrderService() {
 		super(new OrdersRepository());
