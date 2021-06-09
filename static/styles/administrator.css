@@ -1,0 +1,36 @@
+#userList{
+    z-index: 999;
+    border: 0;
+}
+table td{
+    width: 35%;
+    padding: 15px 5px 15px 5px ;
+    border: 0px;
+    column-span: 2;
+}
+table th{
+    width: 35%;
+    padding: 15px 0px 5px 5px ;
+    border: 0px;
+    color: white;
+}
+#headertable:hover{
+    background-color: transparent;
+}
+table tr:hover{
+    background-color: rgba(255, 255, 255, 0.3);
+}
+#searchtabe tr:hover{
+    background-color: transparent;
+}
+#usernamep{
+    font-style: italic;
+    color: gray;
+}
+#userrolep{
+    font-weight: 700;
+    color: gray;
+}
+#userList{
+    text-align: left;
+}

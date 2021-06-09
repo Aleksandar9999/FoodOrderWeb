@@ -27,7 +27,7 @@ public class UserController {
         	return g.toJson(user);
         }catch(LoginException ex) {
         	response.status(401);
-        	return g.toJson(null);
+        	return ex.getErrorMessage();
         }
     };
 	

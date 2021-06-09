@@ -3,24 +3,24 @@
     "restaurantId": "1",
     "username": "manager",
     "password": "manager",
-    "name": "Aca",
-    "surname": "Admin",
+    "name": "Aleksandar",
+    "surname": "Brkljac",
     "userRole": "Manager"
   },
   {
-    "username": "admin",
+    "username": "daca",
     "password": "admin",
-    "name": "Aca",
-    "surname": "Admin",
+    "name": "Danijel",
+    "surname": "Dankic",
     "userRole": "Administrator"
   },
   {
     "pointsCollected": 4.787999999999999,
     "orders": [],
-    "username": "aca",
+    "username": "andrea",
     "password": "aca",
-    "name": "Aca",
-    "surname": "Sima",
+    "name": "Aleksandra",
+    "surname": "Simic",
     "userRole": "Buyer"
   }
 ]

@@ -7,7 +7,7 @@ const router = new VueRouter({
 	  routes: [
 		{ path: '/', name: 'login', component: Login},
 		{ path: '/registration', name: 'registration', component: Registration},
-		{ path: '/administrator', name: 'administrator', component: Administrator},//TODO: IZMJENA
+		{ path: '/administrator', name: 'administrator', component: Administrator},
 	  ]
 });
 

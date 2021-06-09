@@ -6,32 +6,24 @@ Vue.component("login", {
 		    }
 	},
 	template: ` 
-	
-	<form>
-            <table>
-                <tr>
-                    <td>
-                        <input v-model = "user.username" name = "username" type="text" placeholder="Username">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input v-model = "user.password" name = "password" type="password" placeholder="Password">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-						<input type = "submit" v-on:click = "loginUser" value = "LOGIN">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="./registration">Registrujte se.</a>
-                    </td>
-                </tr>
-            </table>
-       </form>	  
-`
+	<div id="loginForm">
+    <p id="title">Prijava</p>
+        <form>  
+            <div class="field">
+            <span></span>
+                <input v-model = "user.username" name = "username" type="text" placeholder="Username">
+            </div>    
+            <div class="field">
+            <span></span>    
+                <input v-model = "user.password" name = "password" type="password" placeholder="Password">
+            </div>
+            <div class="field">       
+                <input type = "submit" v-on:click = "loginUser" value = "LOGIN">
+            </div>    
+        <a href="#/registration">Registrujte se.</a>
+        </form>	  
+    </div>
+       `
 	, 
 	methods : {
 		loginUser : function () {
@@ -44,7 +36,11 @@ Vue.component("login", {
                     router.push('/restaurant/'+response.data['restaurantId']);
                 else router.push('/profile');
                 
-            } );
+            })
+            .catch(function(error){
+                alert(error.response.data,"Greska")
+            })
+            
 		}
 	}
 });

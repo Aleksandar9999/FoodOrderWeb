@@ -1,4 +1,4 @@
-Vue.component("administrator", {
+Vue.component("users", {
 	data: function () {
 		return {
 			idAdmin: -1,
