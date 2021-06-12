@@ -22,11 +22,13 @@ public class SparkFoodOrderMain {
         get("/rest/users/:id", UserController.handleGetUser); 
         put("/rest/users/:id", UserController.handleUpdateUser);
 
-        get("/rest/restaurant",RestaurantController.handleGetAllRestaurantsSorted);
-        get("/rest/restaurant/:id",RestaurantController.handleGetRestaurantById);
-        post("/rest/restaurant",RestaurantController.handleAddNewRestaurant);
-        post("/rest/restaurant/:id/article",RestaurantController.handleAddNewArticle);
-        post("/rest/restaurant/:id/article/:name",RestaurantController.handleUpdateArticle);
+        get("/rest/restaurants",RestaurantController.handleGetAllRestaurantsSorted);
+        get("/rest/restaurants/:id",RestaurantController.handleGetRestaurantById);
+        post("/rest/restaurants",RestaurantController.handleAddNewRestaurant);
+        put("/rest/restaurants/:id",RestaurantController.handleUpdateRestaurant);
+        
+        post("/rest/restaurants/:id/article",RestaurantController.handleAddNewArticle);
+        put("/rest/restaurants/:id/article/:name",RestaurantController.handleUpdateArticle);
         
         get("/rest/restaurant/:id/orders",OrdersController.handleGetOrdersByRestaurant);
         get("/rest/restaurant/:id/buyers",OrdersController.handleGetBuyersByRestaurant);

@@ -40,7 +40,7 @@ Vue.component("restaurants", {
 				<th @click="sort('avgRate')">Prosecna ocjena</th>
 			</tr>
 				
-			<tr v-for="(p, index) in sortedList" >
+			<tr v-for="(p, index) in sortedList" @click=showRestaurant(p.id) >
 				<td>
 					<img width="90px" height="90px"  src="../files/images/pizza.jpg">
 					<p>{{p.name}}</p>
@@ -62,7 +62,7 @@ Vue.component("restaurants", {
 	,
 	mounted() {
 		axios
-			.get('rest/restaurant')
+			.get('rest/restaurants')
 			.then(response => (this.restaurants = response.data))
 	},
 	computed: {
@@ -97,6 +97,9 @@ Vue.component("restaurants", {
 				this.currentSortDir = this.currentSortDir === 'asc' ? 'desc' : 'asc';
 			}
 			this.currentSort = s
+		},
+		showRestaurant:function(s){
+			router.push('restaurants/'+s)
 		}
 	}
 });

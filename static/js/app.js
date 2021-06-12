@@ -11,6 +11,7 @@ const router = new VueRouter({
 		{ path: '/users', name: 'users', component: Users},
 		{ path: '/restaurants', name: 'restautants', component: Restaurants},
 		{ path: '/profile', name: 'profile', component: { template: '<profile></profile>' }},
+		{ path: '/restaurants/:id', name: 'restaurants', component: { template: '<restaurant></restaurant>' }},
 
 	  ]
 });

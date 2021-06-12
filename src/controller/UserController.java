@@ -55,7 +55,7 @@ public class UserController {
     public static Route handleGetAllUsers = (Request request, Response response) -> {
         response.type("application/json");
         System.out.println("User"+request.cookie("user"));
-        //TODO: provjera da li je admin
+        //TODO: provjera da li je admin 
         //if(!request.cookie("user").equals("admin")) return g.toJson(new ArrayList<>());
         ArrayList<User> users=usersService.getAll();
         return g.toJson(users);

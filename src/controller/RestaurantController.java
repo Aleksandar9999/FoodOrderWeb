@@ -19,9 +19,12 @@ public class RestaurantController {
 	public static Route handleGetRestaurantById = (Request request, Response response) -> {
         response.type("application/json");
         String id = request.params("id");
+        System.out.println("ID RESTORANA"+id);
         Restaurant restaurant=restaurantService.getById(id);
+        System.out.println(restaurant.getName());
         return gson.toJson(restaurant);
     };
+
     public static Route handleAddNewRestaurant = (Request request, Response response) -> {
         response.type("application/json");
         String body=request.body();
@@ -29,6 +32,15 @@ public class RestaurantController {
         restaurantService.addNew(restaurant);
         return gson.toJson(restaurant);
     };
+
+    public static Route handleUpdateRestaurant = (Request request, Response response) -> {
+        response.type("application/json");
+        String body=request.body();
+        Restaurant restaurant=gson.fromJson(body, Restaurant.class);
+        restaurantService.update(restaurant);
+        return gson.toJson(restaurant);
+    };
+
     public static Route handleGetAllRestaurantsSorted = (Request request, Response response) -> {
         response.type("application/json");
         return gson.toJson(restaurantService.getAllRestaurantsSorted());
