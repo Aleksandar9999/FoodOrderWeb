@@ -53,7 +53,7 @@ Vue.component("registration", {
 	methods : {
 		registerUser : function () {
 			event.preventDefault();
-			axios.post('/rest/user/registration', this.user).
+			axios.post('/rest/users', this.user).
 			then(response => {
                 router.push(`/`); 
             }).catch(err=> {

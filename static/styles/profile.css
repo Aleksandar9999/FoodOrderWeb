@@ -1,0 +1,17 @@
+.personalInfo {
+    z-index: 999;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.hederInfo {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 15px;
+}
+table tr:hover{
+    background-color: transparent;
+}

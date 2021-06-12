@@ -28,14 +28,14 @@ Vue.component("login", {
 	methods : {
 		loginUser : function () {
 			event.preventDefault();
-			axios.post('/rest/user/login', this.user).
+			axios.post('/rest/users/login', this.user).
 			then(response => {
                 if(response.data['userRole']=="Administrator")
-                    router.push('/administrator');
+                    router.push('/users');
                 else if(response.data['userRole']=="Manager")
                     router.push('/restaurant/'+response.data['restaurantId']);
                 else router.push('/profile');
-                
+                document.cookie=this.user.username;
             })
             .catch(function(error){
                 alert(error.response.data,"Greska")
@@ -44,3 +44,4 @@ Vue.component("login", {
 		}
 	}
 });
+var globalUsername;

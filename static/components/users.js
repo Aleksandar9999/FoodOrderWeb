@@ -6,18 +6,27 @@ Vue.component("users", {
 			searchName: '',
 			searchUsername: '',
 			searchSurname: '',
-			currentSort:'name',
-			currentSortDir:"asc"
+			currentSort: 'name',
+			currentSortDir: "asc",
+			currentFilterRole:''
 		}
 	},
 	template: ` 
-	<div id="loginForm">
+	<div id="itemslist">
 		<h3 id="title">Korisnici</h3>
 		<table id="searchtabe" border="0" cellspacing=0>
 			<tr>
 				<td><div class="field"><input v-model="searchName" type="text" placeholder="Ime" name="name"></div></td>
 				<td><div class="field"><input v-model="searchSurname" type="text" placeholder="Prezime" name="surname"></div></td>
 				<td><div class="field"><input v-model="searchUsername" type="text" placeholder="Korisnicko ime" name="username"></div></td>
+				<td>
+					<select v-model="currentFilterRole" name="currentFilterRole">
+						<option value="Manager">Manager</option>
+						<option value="Buyer">Buyer</option>
+						<option value="Administrator">Administrator</option>
+						<option value="Deliverer">Deliverer</option>
+					</select>
+			    </td>
 			</tr>
 		</table>
 
@@ -26,18 +35,21 @@ Vue.component("users", {
 				<th @click="sort('name')">Ime</th>
 				<th @click="sort('surname')">Prezime</th>
 				<th @click="sort('username')">Korisnicko ime</th>
-				<th></th><th></th>
-				<th colspan="3">Uloga</th>
+				
+				<th>Uloga</th>
 			</tr>
 				
 			<tr v-for="(p, index) in sortedList" >
-				<td><div>
-						<p>{{p.name + p.surname}}</p> 
-						<p id="usernamep">@{{p.username}}</p>
-					</div>
+				<td>
+						<p>{{p.name}}</p>
 				</td>
-				<td></td><td></td>
-				<td><p id="userrolep" colspan="3">{{p.userRole}}</p></td>
+				<td>
+					<p>{{p.surname}}</p> 
+				</td>
+				<td>
+					<p id="usernamep">@{{p.username}}</p>
+				</td>
+				<td><p id="userrolep">{{p.userRole}}</p></td>
 			</tr>
 		</table>
 </div>
@@ -46,35 +58,37 @@ Vue.component("users", {
 	,
 	mounted() {
 		axios
-			.get('rest/user')
+			.get('/rest/users')
 			.then(response => (this.users = response.data))
 	},
 	computed: {
-		filteredList() {
-			if (this.users == null) return;
-			if (this.searchName == "" && this.searchSurname == "" && this.searchUsername == "")
-				return this.users
-			return this.users.filter(user => {
-				return user.name.toLowerCase().includes(this.searchName.toLowerCase()) 
-						&& user.surname.toLowerCase().includes(this.searchSurname.toLowerCase()) 
-						&& user.username.toLowerCase().includes(this.searchUsername.toLowerCase())
-					})
-		},
 		sortedList() {
-			if(this.filteredList==null) return;
-			return this.filteredList.sort((a,b)=>{
-				let modifier=1;
-				if(this.currentSortDir==='desc') modifier=-1;
-				if(a[this.currentSort]< b[this.currentSort]) return -1*modifier
-				if(a[this.currentSort]> b[this.currentSort]) return modifier
+			if (this.searchList == null) return;
+			return this.searchList.sort((a, b) => {
+				let modifier = 1;
+				if (this.currentSortDir === 'desc') modifier = -1;
+				if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier
+				if (a[this.currentSort] > b[this.currentSort]) return modifier
 				return 0
 			})
-		}, 
-		mainList(){
-			return this.mainList;
+			
+		},
+		searchList() {
+			if (this.filteredList == null) return;
+			return this.filteredList.filter(user => {
+				return (user.name.toLowerCase().includes(this.searchName.toLowerCase())
+					&& user.surname.toLowerCase().includes(this.searchSurname.toLowerCase())
+					&& user.username.toLowerCase().includes(this.searchUsername.toLowerCase()))
+			})
+			 
+		},
+		filteredList(){
+			if (this.users == null) return;
+			return this.users.filter(user => {
+				console.log("Ss"+this.currentFilterRole.toLowerCase())
+				return (user.userRole.toLowerCase().includes(this.currentFilterRole.toLowerCase()))
+			})
 		}
-
-
 	},
 
 	methods: {
@@ -83,6 +97,9 @@ Vue.component("users", {
 				this.currentSortDir = this.currentSortDir === 'asc' ? 'desc' : 'asc';
 			}
 			this.currentSort = s
+		},
+		filterRole:function(s){
+			this.currentFilterRole = s
 		}
 	}
 });

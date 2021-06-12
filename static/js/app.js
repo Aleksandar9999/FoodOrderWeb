@@ -1,13 +1,17 @@
 const Login = { template: '<login></login>' }
 const Registration = { template: '<registration></registration>' }
-const Administrator= { template: '<administrator></administrator>' }
+const Users= { template: '<users></users>' }
+const Restaurants= { template: '<restaurants></restaurants>' }
 
 const router = new VueRouter({
 	mode: 'hash',
 	  routes: [
 		{ path: '/', name: 'login', component: Login},
 		{ path: '/registration', name: 'registration', component: Registration},
-		{ path: '/administrator', name: 'administrator', component: Administrator},
+		{ path: '/users', name: 'users', component: Users},
+		{ path: '/restaurants', name: 'restautants', component: Restaurants},
+		{ path: '/profile', name: 'profile', component: { template: '<profile></profile>' }},
+
 	  ]
 });
 
