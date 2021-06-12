@@ -1,17 +1,13 @@
-const Login = { template: '<login></login>' }
-const Registration = { template: '<registration></registration>' }
-const Users= { template: '<users></users>' }
-const Restaurants= { template: '<restaurants></restaurants>' }
-
 const router = new VueRouter({
 	mode: 'hash',
 	  routes: [
-		{ path: '/', name: 'login', component: Login},
-		{ path: '/registration', name: 'registration', component: Registration},
-		{ path: '/users', name: 'users', component: Users},
-		{ path: '/restaurants', name: 'restautants', component: Restaurants},
+		{ path: '/', name: 'login', component: { template: '<login></login>' }},
+		{ path: '/registration', name: 'registration', component: { template: '<registration></registration>' }},
+		{ path: '/users', name: 'users', component: { template: '<users></users>' }},
+		{ path: '/restaurants', name: 'restautants', component: { template: '<restaurants></restaurants>' }},
 		{ path: '/profile', name: 'profile', component: { template: '<profile></profile>' }},
 		{ path: '/restaurants/:id', name: 'restaurants', component: { template: '<restaurant></restaurant>' }},
+		{ path: '/restaurants/:id/orders', name: 'restaurants', component: { template: '<restaurant-orders></restaurant-orders>' }},
 
 	  ]
 });

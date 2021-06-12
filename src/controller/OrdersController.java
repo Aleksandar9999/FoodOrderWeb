@@ -18,6 +18,9 @@ public class OrdersController {
         response.type("application/json");
         String id = request.params("id");
         List<Order> orders=ordersService.getAllByRestaurant(id);
+        for (Order order : orders) {
+            System.out.println(order.getId());
+        }
         return gson.toJson(orders);
     };
     public static Route handleGetBuyersByRestaurant = (Request request, Response response) -> {

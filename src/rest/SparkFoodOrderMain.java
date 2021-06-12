@@ -30,7 +30,7 @@ public class SparkFoodOrderMain {
         post("/rest/restaurants/:id/article",RestaurantController.handleAddNewArticle);
         put("/rest/restaurants/:id/article/:name",RestaurantController.handleUpdateArticle);
         
-        get("/rest/restaurant/:id/orders",OrdersController.handleGetOrdersByRestaurant);
+        get("/rest/restaurants/:id/orders",OrdersController.handleGetOrdersByRestaurant);
         get("/rest/restaurant/:id/buyers",OrdersController.handleGetBuyersByRestaurant);
         
     
