@@ -17,6 +17,7 @@ public class OrderDAO extends Entity{
 	private double price;
 	private String buyerUsername;
 	private OrderStatus orderStatus;
+
     public OrderDAO(Order order){
         this.setId(order.getId());
         this.articles=order.getArticles();
@@ -60,10 +61,10 @@ public class OrderDAO extends Entity{
     public void setPrice(double price) {
         this.price = price;
     }
-    public String getBuyerId() {
+    public String getBuyerUsername() {
         return buyerUsername;
     }
-    public void setBuyerId(String buyerId) {
+    public void setBuyerUsername(String buyerId) {
         this.buyerUsername = buyerId;
     }
     public OrderStatus getOrderStatus() {

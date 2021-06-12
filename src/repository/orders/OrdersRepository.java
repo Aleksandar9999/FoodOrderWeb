@@ -50,7 +50,7 @@ public class OrdersRepository extends GenericRepository<Order,OrderDAO> {
 		for (OrderDAO dao : data.values()) {
 			Order order=new Order(dao);
 			order.setRestaurant(restaurantRepository.getById(dao.getRestaurantId()));
-			order.setBuyer((Buyer)usersRepository.getByUsername(dao.getBuyerId()));
+			order.setBuyer((Buyer)usersRepository.getByUsername(dao.getBuyerUsername()));
 			retVal.put(dao.getId(), order);
 		}
 		return retVal;
@@ -67,27 +67,5 @@ public class OrdersRepository extends GenericRepository<Order,OrderDAO> {
 				users.add(order.getBuyer());
 		}
 		return users;
-	}
-	public List<Order> getAllByStatus(OrderStatus status){
-		List<Order> orders= getAll();
-		orders.removeIf(or->!or.getOrderStatus().equals(status));
-		return orders;
-	}	
-	public List<Order> getAllByPriceRange(double min, double max){
-		List<Order> orders= getAll();
-		orders.removeIf(or->!(or.getPrice()>=min && or.getPrice()<=max));
-		return orders;
-	}	
-	
-	public List<Order> getAllByDateRange(LocalDateTime min, LocalDateTime max){
-		List<Order> orders= getAll();
-		orders.removeIf(or->!(or.getTimestamp().isAfter(min) && or.getTimestamp().isBefore(max)));
-		return orders;
-	}	
-	
-	public List<Order> getAllByRestaurantType(RestaurantType type){
-		List<Order> orders= getAll();
-		orders.removeIf(or->!or.getRestaurant().getRestaurantType().equals(type));
-		return orders;
 	}	
 }

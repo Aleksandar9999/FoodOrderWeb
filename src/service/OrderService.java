@@ -28,8 +28,5 @@ public class OrderService extends GenericService<Order,OrderDAO>{
 		if(!order.getOrderStatus().equals(OrderStatus.Processing)){ throw new CanUpdateOrderException();}
 		this.update(newOrder);
 	}
-	public List<Order> getAllByStatus(OrderStatus status){
-		return ((OrdersRepository)this.repository).getAllByStatus(status);
-	}
 	
 }

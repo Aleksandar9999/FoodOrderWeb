@@ -12,9 +12,7 @@ Vue.component("restaurant-orders", {
 				<th >Status</th>
 				<th >Vrijeme kreiranja</th>
 				<th>Cena</th>
-				
 			</tr>
-				
 			<tr v-for="(p, index) in orders" >
 				<td>
 					<p>{{p.orderStatus}}</p>
