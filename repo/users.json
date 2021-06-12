@@ -8,19 +8,19 @@
     "userRole": "Manager"
   },
   {
-    "username": "daca",
-    "password": "admin",
-    "name": "Danijel",
-    "surname": "Dankic",
-    "userRole": "Administrator"
-  },
-  {
     "pointsCollected": 4.787999999999999,
     "orders": [],
     "username": "andrea",
     "password": "aca",
-    "name": "Aleksandra",
-    "surname": "Simic",
+    "name": "Andrea",
+    "surname": "Kojic",
     "userRole": "Buyer"
+  },
+  {
+    "username": "admin",
+    "password": "admin",
+    "name": "Aleksandar",
+    "surname": "Brkljac",
+    "userRole": "Administrator"
   }
 ]

@@ -77,5 +77,38 @@
     },
     "logoUrl": "logo",
     "id": "04345527-8079-4eae-aa98-29ece2f8354e"
+  },
+  "114345527-8079-4eae-aa98-29ece2f8354e": {
+    "name": "sssss",
+    "restaurantType": "Italian",
+    "status": true,
+    "location": {
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "address": {
+        "street": "BUlevar",
+        "number": "12",
+        "city": "Novi Sad",
+        "zipCode": "21000"
+      }
+    },
+    "logoUrl": "logo",
+    "id": "224345527-8079-4eae-aa98-29ece2f8354e"
+  },"134345527-8079-4eae-aa98-29ece2f8354e": {
+    "name": "sss",
+    "restaurantType": "Other",
+    "status": true,
+    "location": {
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "address": {
+        "street": "BUlevar",
+        "number": "12",
+        "city": "Novi Sad",
+        "zipCode": "21000"
+      }
+    },
+    "logoUrl": "logo",
+    "id": "022345527-8079-4eae-aa98-29ece2f8354e"
   }
 }

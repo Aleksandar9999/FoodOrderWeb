@@ -2,6 +2,7 @@ package rest;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
+import static spark.Spark.put;
 import static spark.Spark.port;
 import static spark.Spark.staticFiles;
 
@@ -15,10 +16,12 @@ public class SparkFoodOrderMain {
         port(8080);
         staticFiles.externalLocation(new File("./static").getCanonicalPath()); 
 		
-        post("/rest/user/login", UserController.handleLoginPost);
-        post("/rest/user/registration", UserController.handleRegisterPost);
-        get("/rest/user", UserController.handleGetAllUsers);
-        
+        post("/rest/users/login", UserController.handleLoginPost);
+        post("/rest/users", UserController.handleRegisterPost);
+        get("/rest/users", UserController.handleGetAllUsers);
+        get("/rest/users/:id", UserController.handleGetUser); 
+        put("/rest/users/:id", UserController.handleUpdateUser);
+
         get("/rest/restaurant",RestaurantController.handleGetAllRestaurantsSorted);
         get("/rest/restaurant/:id",RestaurantController.handleGetRestaurantById);
         post("/rest/restaurant",RestaurantController.handleAddNewRestaurant);
@@ -28,8 +31,6 @@ public class SparkFoodOrderMain {
         get("/rest/restaurant/:id/orders",OrdersController.handleGetOrdersByRestaurant);
         get("/rest/restaurant/:id/buyers",OrdersController.handleGetBuyersByRestaurant);
         
-        
-        
-        	
+    
     }
 }

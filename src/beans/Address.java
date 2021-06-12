@@ -37,5 +37,8 @@ public class Address {
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
-	
+	@Override
+	public String toString() {
+		return String.format("{0} {1} \n {2} {3}", street,number,city,zipCode);
+	}
 }

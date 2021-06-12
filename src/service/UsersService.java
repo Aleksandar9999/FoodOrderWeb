@@ -25,8 +25,8 @@ public class UsersService {
 		return this.repository.login(user);
 	}
 
-	public void update(User user) {
-		this.repository.update(user);
+	public void update(String username,User user) {
+		this.repository.update(username,user);
 	}
 
 	public User getByUsername(String id) {

@@ -48,6 +48,10 @@ public class UserSerializer implements JsonSerializer<HashMap<String, User>>{
 				JsonElement jsonElement = g.toJsonTree((Manager)us);
 				array.add(jsonElement);
 				continue;
+			}else{
+				JsonElement jsonElement = g.toJsonTree(us);
+				array.add(jsonElement);
+				continue;
 			}
 		}
 		return array;

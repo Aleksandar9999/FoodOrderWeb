@@ -9,7 +9,7 @@ public class Buyer extends User {
 	private double pointsCollected;
 	private List<Order> orders;
 	private Cart cart;
-
+	private BuyerType buyerType;
 	public Buyer() {
 		super(Role.Buyer);
 		pointsCollected=0;

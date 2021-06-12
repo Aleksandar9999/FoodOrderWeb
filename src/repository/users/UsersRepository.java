@@ -52,11 +52,11 @@ public class UsersRepository{
 		return user;
 	}
 
-	public void update(User user) {
+	public void update(String username,User user) {
 		HashMap<String, User> users = readAll();
 		if (users == null)
 			users = new HashMap<String, User>();
-		users.put(user.getUsername(), user);
+		users.put(username, user);
 		saveAll(users);
 	}
 
@@ -65,6 +65,7 @@ public class UsersRepository{
 		}.getType();
 		Gson gson = new GsonBuilder().registerTypeAdapter(type, new UserSerializer()).setPrettyPrinting().create();
 		String json = gson.toJson(users, type);
+		System.out.println(json);
 		BufferedWriter writer;
 		try {
 			writer = new BufferedWriter(new FileWriter(this.filePath));
