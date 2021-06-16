@@ -3,6 +3,7 @@ import exceptions.*;
 import javaxt.utils.string;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -36,13 +37,24 @@ public class UserController {
         	return ex.getErrorMessage();
         }
     };
-	
-    public static Route handleRegisterPost = (Request request, Response response) -> {
+    public static Route handleRegisterBuyer = (Request request, Response response) -> {
         response.type("application/json");
-        User user=g.fromJson(request.body(), User.class);
-        Buyer buyer=new Buyer(user);
+        Buyer user=g.fromJson(request.body(), Buyer.class);
         try {
-			user=usersService.addNew(buyer); 
+			user=(Buyer) usersService.addNew(user); 
+			response.status(201);
+			return g.toJson(user);
+		} catch (RegistrationException ex) {
+			response.body(ex.getMessage());
+			System.out.print(response.body());
+			return response;
+		}
+    };
+    public static Route handleRegisterManager = (Request request, Response response) -> {
+        response.type("application/json");
+        Manager user=g.fromJson(request.body(), Manager.class);
+        try {
+			user=(Manager) usersService.addNew(user); 
 			response.status(201);
 			return g.toJson(user);
 		} catch (RegistrationException ex) {
@@ -54,11 +66,31 @@ public class UserController {
     };
     public static Route handleGetAllUsers = (Request request, Response response) -> {
         response.type("application/json");
-        System.out.println("User"+request.cookie("user"));
+        try {
+            String role= request.queryParams("userRole");
+            String restaurantId=request.queryParams("restaurantId");
+            if(role.equals(Role.Manager.toString()) && restaurantId.equals("-1")){
+                return g.toJson(usersService.getFreeManagers());
+            }
+            return null;
+        } catch (Exception e) {
+            return g.toJson(usersService.getAll());
+        }
         //TODO: provjera da li je admin 
         //if(!request.cookie("user").equals("admin")) return g.toJson(new ArrayList<>());
-        ArrayList<User> users=usersService.getAll();
-        return g.toJson(users);
+    };
+    public static Route handleGetAllManagers = (Request request, Response response) -> {
+        response.type("application/json");
+        try {
+            String restaurantId=request.queryParams("restaurantId");
+            System.out.println("GETALL MANAGERS"+restaurantId);
+            if(restaurantId.equals("-1")){
+                return g.toJson(usersService.getFreeManagers());
+            }
+            return null;
+        } catch (Exception e) {
+            return g.toJson(usersService.getAll());
+        }
     };
     public static Route handleUpdateUser = (Request request, Response response) -> {
         response.type("application/json");
@@ -85,6 +117,16 @@ public class UserController {
         response.status(404);
         return null;
     };
+
+    public static Route handleUpdateManager = (Request request, Response response) -> {
+        response.type("application/json");
+        String username=request.params("username");
+        Manager user=(Manager) usersService.getByUsername(username);
+        user.setRestaurantId(request.params("id"));
+        usersService.update(username, user);
+        return g.toJson(user);
+    };
+
     public static Route handleGetUser = (Request request, Response response) -> {
         response.type("application/json");
         String username=request.params("id");
@@ -97,5 +139,8 @@ public class UserController {
         return user.getUsername();
     }
 
-    
+    public static Route handleGetFreeManagers = (Request request, Response response) -> {
+        System.out.println("FREE MANAGERS");
+        return g.toJson(usersService.getFreeManagers());
+    };
 }

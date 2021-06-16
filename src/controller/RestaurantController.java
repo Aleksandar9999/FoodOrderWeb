@@ -19,7 +19,11 @@ public class RestaurantController {
 	public static Route handleGetRestaurantById = (Request request, Response response) -> {
         response.type("application/json");
         String id = request.params("id");
-        System.out.println("ID RESTORANA"+id);
+        if(id.equals("-1")) {
+            Restaurant rs=new Restaurant();
+            System.out.println(rs);
+            return gson.toJson(new Restaurant());
+        }
         Restaurant restaurant=restaurantService.getById(id);
         System.out.println(restaurant.getName());
         return gson.toJson(restaurant);
