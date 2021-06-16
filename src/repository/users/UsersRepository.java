@@ -8,11 +8,15 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+
+import beans.Manager;
 import beans.User;
+import enumerations.Role;
 import exceptions.LoginException;
 import exceptions.RegistrationException;
 
@@ -101,4 +105,16 @@ public class UsersRepository{
 			return null;
 		}
 	}
+
+	public ArrayList<User> getAllByType(Role type){
+		ArrayList<User> users=getAll();
+		users.removeIf(us->!us.getUserRole().equals(type));
+		return users;
+	}
+	public List<User> getFreeManagers(){
+		ArrayList<User> managers=getAllByType(Role.Manager);
+		managers.removeIf(us->((Manager)us).getRestaurantId()!=null);
+		return managers;
+	}
+
 }

@@ -17,8 +17,8 @@
     "userRole": "Buyer"
   },
   {
-    "username": "admin",
-    "password": "admin",
+    "username": "aca",
+    "password": "123",
     "name": "Aleksandar",
     "surname": "Brkljac",
     "userRole": "Administrator"

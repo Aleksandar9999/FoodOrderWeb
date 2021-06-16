@@ -17,11 +17,15 @@ public class SparkFoodOrderMain {
         staticFiles.externalLocation(new File("./static").getCanonicalPath()); 
 		
         post("/rest/users/login", UserController.handleLoginPost);
-        post("/rest/users", UserController.handleRegisterPost);
+        post("/rest/users/buyers", UserController.handleRegisterBuyer);
+        post("/rest/users/managers", UserController.handleRegisterManager);
         get("/rest/users", UserController.handleGetAllUsers);
+        get("/rest/users/managers", UserController.handleGetAllManagers);
         get("/rest/users/:id", UserController.handleGetUser); 
         put("/rest/users/:id", UserController.handleUpdateUser);
-
+        
+        put("/rest/restaurants/:id/managers/:username",UserController.handleUpdateManager);
+        
         get("/rest/restaurants",RestaurantController.handleGetAllRestaurantsSorted);
         get("/rest/restaurants/:id",RestaurantController.handleGetRestaurantById);
         post("/rest/restaurants",RestaurantController.handleAddNewRestaurant);
