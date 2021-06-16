@@ -1,4 +1,4 @@
-Vue.component("registration", {
+Vue.component("manager-registration", {
 	data: function () {
 		    return {
 		      id : -1,
@@ -53,7 +53,7 @@ Vue.component("registration", {
 	methods : {
 		registerUser : function () {
 			event.preventDefault();
-			axios.post('/rest/users/buyers', this.user).
+			axios.post('/rest/users', this.user).
 			then(response => {
                 router.push(`/`); 
             }).catch(err=> {

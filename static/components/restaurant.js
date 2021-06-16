@@ -1,17 +1,26 @@
 Vue.component("restaurant", {
-	data: function () {
-		return {
-			restaurant: null,
-		}
-	},
-	template: ` 
+    data: function () {
+        return {
+            restaurant: null,
+            managers: null,
+            selectedManager: null
+        }
+    },
+    template: ` 
 	<div class="restaurantInfo">
             <div class="hederInfo">
                 <div style="display: inline-block;">
                     <h2>Osnovne informacije</h2>
                     <div style="margin-top: 18px; " >
                         <img width="90px" height="90px" style="overflow : visible;" src="../files/images/pizza.jpg">
-                        <input type="button" id="changelogo"  value="Izmeni logo">
+                        <input type="button" id="changelogo" value="Izmeni logo">
+                    </div>
+                    <div style="margin-top: 18px; " >
+                        <p>Menadzer</p>
+                        <select style="height: 30px;" v-model="selectedManager">
+                            <option v-for="manager in managers">{{manager.username}}</option>  
+                        </select>
+                        
                     </div>
                 </div>
             </div>
@@ -85,17 +94,33 @@ Vue.component("restaurant", {
             </div>
         </div>
 `
-	,
-	mounted() {
-        
-		axios
-			.get('rest/restaurants/'+this.$route.params.id)
-			.then(response => (this.restaurant = response.data))
-	},
-	methods: {
-		updateRestaurant:function(){
-            axios.put('/rest/restaurants/'+this.$route.params.id,this.restaurant).
-            then(response=>(alert("uspjesno")))
-        }
-	}
+    ,
+    mounted() {
+        axios
+            .get('rest/restaurants/' + this.$route.params.id)
+            .then(response => (this.restaurant = response.data))
+
+        axios.get('rest/users/managers?restaurantId=-1')
+            .then(response => (this.managers = response.data))
+        this.managers = null;
+    },
+    methods: {
+        updateRestaurant: function () {
+            if (this.$route.params.id === "-1") {
+                axios.post('/rest/restaurants', this.restaurant).
+                    then(response => {
+                        if (!this.selectedManager) {
+                            router.push('/restaurants/' + response.data.id + '/manager')
+                        }
+                        else {
+                            axios.put('/rest/restaurants/'+response.data.id+'/managers/'+this.selectedManager).then(response=>{router.push('/restaurants');})
+                        }
+                    })
+            } else {
+                axios.put('/rest/restaurants/' + this.$route.params.id, this.restaurant).
+                    then(response => (alert("uspjesno azuriran")))
+            }
+        },
+
+    }
 });

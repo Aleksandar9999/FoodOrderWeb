@@ -39,7 +39,7 @@ Vue.component("users", {
 				<th>Uloga</th>
 			</tr>
 				
-			<tr v-for="(p, index) in sortedList" >
+			<tr v-for="(p) in sortedList" >
 				<td>
 						<p>{{p.name}}</p>
 				</td>

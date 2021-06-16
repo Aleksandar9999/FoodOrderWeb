@@ -1,4 +1,4 @@
-Vue.component("registration", {
+Vue.component("registration-manager", {
 	data: function () {
 		    return {
 		      id : -1,
@@ -7,8 +7,9 @@ Vue.component("registration", {
                  password:'',
                  name:'',
                  surname:'',
+                 restaurantId: this.$route.params.id,
                  //dateOfBirth:null,
-                 userRole:''
+                 userRole:"Manager"
               }
 		    }
 	},
@@ -53,7 +54,7 @@ Vue.component("registration", {
 	methods : {
 		registerUser : function () {
 			event.preventDefault();
-			axios.post('/rest/users/buyers', this.user).
+			axios.post('/rest/users/managers', this.user).
 			then(response => {
                 router.push(`/`); 
             }).catch(err=> {
@@ -62,4 +63,3 @@ Vue.component("registration", {
 		}
 	}
 });
-// <input id="txtDateOfBirth" type="date" v-model = "user.dateOfBirth">

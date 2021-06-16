@@ -9,6 +9,7 @@ const router = new VueRouter({
 		{ path: '/restaurants/:id', name: 'restaurants', component: { template: '<restaurant></restaurant>' }},
 		{ path: '/restaurants/:id/orders', name: 'restaurants-orders', component: { template: '<restaurant-orders></restaurant-orders>' }},
 		{ path: '/restaurants/:id/buyers', name: 'restaurants-buyers', component: { template: '<restaurant-buyers></restaurant-buyers>' }},
+		{ path: '/restaurants/:id/manager', name: 'registration-manager', component: { template: '<registration-manager></registration-manager>' }},
 
 	  ]
 });
