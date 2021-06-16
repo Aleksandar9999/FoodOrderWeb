@@ -4,8 +4,7 @@ public class Location {
 	private double longitude;
 	private double latitude;
 	private Address address;
-	
-	
+
 	public Location(double longitude, double latitude, Address address) {
 		super();
 		this.longitude = longitude;
@@ -13,16 +12,13 @@ public class Location {
 		this.address = address;
 	}
 
-	
 	public double getLongitude() {
 		return longitude;
 	}
 
-
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
-
 
 	public double getLatitude() {
 		return latitude;
@@ -45,6 +41,6 @@ public class Location {
 
 
 	public Location() {
-		// TODO Auto-generated constructor stub
+		address=new Address();
 	}
 }

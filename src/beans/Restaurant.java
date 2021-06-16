@@ -14,7 +14,12 @@ public class Restaurant extends Entity{
 	private boolean status;
 	private Location location;
 	private String logoUrl;
-	
+	public Restaurant(){
+		name="";
+		restaurantType=RestaurantType.Other;
+		location=new Location();
+		
+	}
 	public Restaurant(String name, RestaurantType restaurantType, List<Article> articles, boolean status,
 			Location location, String logoUrl) {
 		super();

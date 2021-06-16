@@ -6,6 +6,12 @@ public class Address {
 	private String number;
 	private String city;
 	private String zipCode;
+	public Address(){
+		this.street = "";
+		this.number = "";
+		this.city = "";
+		this.zipCode = "";	
+	}
 	public Address(String street, String number, String city, String zipCode) {
 		super();
 		this.street = street;
