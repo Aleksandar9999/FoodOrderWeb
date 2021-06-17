@@ -13,6 +13,7 @@ public class Comment extends Entity {
 		super(dao.getId());
 		this.comment = dao.getComment();
 		this.mark = dao.getMark();
+		this.approved=dao.isApproved();
 	}
 
 	public boolean isApproved() {

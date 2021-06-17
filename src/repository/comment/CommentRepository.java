@@ -55,11 +55,8 @@ public class CommentRepository extends GenericRepository<Comment,CommentDAO>{
 
     public List<Comment> getApprovedCommentsForRestaurant(String id){
         HashMap<String, Comment> map=readAll();
-        List<Comment> list=new ArrayList<>();
-        for (Comment comment : map.values()) {
-            if(comment.isApproved() && comment.getRestaurant().getId().equals(id))
-                list.add(comment);
-        }
+        List<Comment> list=getAll();
+        list.removeIf(com-> !com.isApproved() || !com.getRestaurant().getId().equals(id));
         return list;
     }
 }
