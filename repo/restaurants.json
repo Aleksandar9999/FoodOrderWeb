@@ -4,20 +4,21 @@
     "restaurantType": "Italian",
     "articles": [
       {
-        "id": "418c28ad-89b9-4c3e-9713-4f7e1939261a",
-        "name": "Pizza",
-        "price": 120.0,
-        "articleType": "Food",
-        "amount": 500.0,
-        "comment": "TOP TOP PONUDA",
-        "imageUrl": "image"
-      },{
         "id": "412c28ad-89b9-4c3e-9713-4f7e1939261a",
         "name": "Madjarica",
         "price": 350.0,
         "articleType": "Food",
         "amount": 500.0,
         "comment": "Akcija",
+        "imageUrl": "image"
+      },
+      {
+        "id": "418c28ad-89b9-4c3e-9713-4f7e1939261a",
+        "name": "Pizza",
+        "price": 300.0,
+        "articleType": "Food",
+        "amount": 500.0,
+        "comment": "TOP TOP PONUDA",
         "imageUrl": "image"
       }
     ],

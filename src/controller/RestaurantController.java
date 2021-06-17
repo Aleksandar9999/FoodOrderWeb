@@ -10,7 +10,7 @@ import service.RestaurantService;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-
+import exceptions.*;
 public class RestaurantController {
 
 	private static RestaurantService restaurantService=new RestaurantService();
@@ -61,12 +61,18 @@ public class RestaurantController {
     };
     public static Route handleUpdateArticle = (Request request, Response response) -> {
         response.type("application/json");
-        Article article = gson.fromJson(request.body(), Article.class);
-        String idRestaurant = request.params("id");
-        String nameArticle=request.params("name");
-        Restaurant restaurant=restaurantService.getById(idRestaurant);
-        restaurant.updateArticle(nameArticle, article);
-        restaurantService.update(restaurant);
-        return gson.toJson(restaurant);
+        try {
+            Article article = gson.fromJson(request.body(), Article.class);
+            String idRestaurant = request.params("idRest");
+            String nameArticle=request.params("idArticle");
+            Restaurant restaurant=restaurantService.getById(idRestaurant);
+            restaurant.updateArticle(nameArticle, article);
+            restaurantService.update(restaurant);
+            return gson.toJson(restaurant);
+        } catch (ArticleExistException e) {
+            response.status(401);
+            return e.getMessage();
+        }
+       
     };
 }

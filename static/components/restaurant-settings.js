@@ -3,7 +3,19 @@ Vue.component("restaurant-settings", {
         return {
             restaurant: null,
             managers: null,
-            selectedManager: null
+            selectedManager: null,
+            myModel:false,
+            article:{
+                name:'',
+                price:'',
+                articleType:'',
+                amount:'',
+                comment:'',
+                imageUrl:'',
+            },
+            actionButton : "Dodaj",
+            dynamicTitle : "Dodavanje artikla",
+            articleOperation:'',
         }
     },
     template: ` 
@@ -92,7 +104,77 @@ Vue.component("restaurant-settings", {
                     </table>
                 </form>
             </div>
+            <div class="hederInfo" style="margin-top: 10px;">
+            <h2>Artikli</h2>
+            <div class=field>
+                <input type="button" value="Dodaj artikal" @click=openModel>
+            </div>
+            <table  border="0" CELLSPACING=0>
+                <tr v-for="(p) in restaurant.articles" @click=updateArticle(p) >
+                    <td>
+                        <img width="50px" height="50px" style="overflow : visible;" src="../files/images/pizza.jpg">
+                    </td>    
+                    <td>
+                        <p>{{p.name}}</p>
+                        <p style="color:gray;">{{p.comment}}</p>
+                    </td>
+                    <td>
+                        <p>{{p.price}} RSD</p>
+                    </td>
+                </tr>
+            </table>
         </div>
+        
+        <div v-if="myModel">
+		<transition name="model">
+		 <div class="modal-mask">
+		  <div class="modal-wrapper">
+		   <div class="modal-dialog" style="color: black;" >
+			<div class="modal-content" style="background-color: white; width: 80%; margin: 0 auto;">
+				<div class="modal-header">
+					<button type="button" class="close" @click="myModel=false"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Dodavanje artikla</h4>
+				</div>
+				
+				<div class="modal-body">
+					<div class="form-group">
+					 <label>Naziv</label> 
+					 <input type="text" class="form-control" v-model="article.name"/>
+					</div>
+					<div class="form-group">
+					 <label>Cena</label>
+					 <input type="text" class="form-control" v-model="article.price" />
+					</div>
+                    <div class="form-group">
+					 <label>Tip</label>
+					 <input type="text" class="form-control" v-model="article.articleType" />
+					</div>
+                    <div class="form-group">
+					 <label>Slika</label>
+					 <input type="text" class="form-control" v-model="article.imageUrl"/>
+					</div>
+                    <div class="form-group">
+					 <label>Opis</label>
+					 <input type="text" class="form-control" v-model="article.comment"/>
+					</div><div class="form-group">
+                    <label>Kolicina</label>
+                    <input type="text" class="form-control" v-model="article.amount"/>
+                   </div>
+					<br />
+					<div>
+					 <input type="hidden"  />
+					 <input type="button" class="btn btn-success btn-xs" v-model="actionButton" @click="submitData" />
+					</div>
+				   </div>
+			</div>
+		   </div>
+		  </div>
+		 </div>
+		</transition>
+	   </div>
+
+        </div>
+  </div>
 `
     ,
     mounted() {
@@ -100,12 +182,13 @@ Vue.component("restaurant-settings", {
             .get('rest/restaurants/' + this.$route.params.id)
             .then(response => (this.restaurant = response.data))
 
-        axios.get('rest/users/managers?restaurantId=-1')
-            .then(response => (this.managers = response.data))
-        this.managers = null;
+        if(this.$route.params.id==='-1')
+            axios.get('rest/users/managers?restaurantId=-1')
+                .then(response => (this.managers = response.data))
+        
     },
     methods: {
-        updateRestaurant: function () {
+        updateRestaurant() {
             if (this.$route.params.id === "-1") {
                 axios.post('/rest/restaurants', this.restaurant).
                     then(response => {
@@ -121,6 +204,41 @@ Vue.component("restaurant-settings", {
                     then(response => (alert("uspjesno azuriran")))
             }
         },
+        submitData(){
+            if(this.articleOperation==='Create')
+            {
+                axios
+                    .post('rest/restaurants/' + this.$route.params.id+'/articles',this.article)
+                    .then(response => (this.restaurant = response.data))
+                    .catch(function(error){
+                        alert(error.response.data,"Greska")
+                    })
+            }
+            else
+            {
+                axios
+                .put('rest/restaurants/' + this.$route.params.id+'/articles/'+this.article.id,this.article)
+                .then(response => (this.restaurant = response.data))
+                .catch(function(error){
+                    alert(error.response.data,"Greska")
+                })
+            }
+            
+
+        },
+        openModel(){
+            this.articleOperation='Create'
+            this.actionButton = "Dodaj"
+            this.dynamicTitle = "Dodavanje artikla"
+            this.myModel = true
+        },
+        updateArticle(p){
+            this.articleOperation='Update'
+            this.article=p
+            this.actionButton = "Izmijeni"
+            this.dynamicTitle = "Izmijena artikla"
+            this.myModel = true
+        }
 
     }
 });

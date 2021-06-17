@@ -98,12 +98,7 @@ public class Restaurant extends Entity{
 	}
 	public void updateArticle(String idArticle,Article newArticle){
 		ValidateNewName(newArticle);
-		for (Article article : articles) {
-			if(article.getId().equals(idArticle)){
-				articles.remove(article);
-				break;
-			}
-		}
+		articles.remove(newArticle);
 		articles.add(newArticle);
 	}
 
