@@ -3,7 +3,7 @@ package beans;
 import java.util.ArrayList;
 import java.util.List;
 
-import enumerations.Role;
+import enumerations.UserRole;
 
 public class Buyer extends User {
 	private double pointsCollected;
@@ -11,7 +11,7 @@ public class Buyer extends User {
 	private Cart cart;
 	private BuyerType buyerType;
 	public Buyer() {
-		super(Role.Buyer);
+		super(UserRole.Buyer);
 		pointsCollected=0;
 		orders=new ArrayList<Order>();
 	}
