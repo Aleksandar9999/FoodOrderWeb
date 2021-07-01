@@ -1,7 +1,7 @@
 package beans;
 
 import java.time.LocalDate;
-import enumerations.Role;
+import enumerations.UserRole;
 
 public class User {
 	private String username;
@@ -9,16 +9,16 @@ public class User {
 	private String name;
 	private String surname;
 	private LocalDate dateOfBirth;
-	private Role userRole;
+	private UserRole userRole;
 
 	public User() {
 	}
 	
-	public User(Role userRole) {
+	public User(UserRole userRole) {
 		this.userRole = userRole;
 	}
 
-	public User(String username, String password, String name, String surname,Role userRole) {
+	public User(String username, String password, String name, String surname,UserRole userRole) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -58,11 +58,11 @@ public class User {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public Role getUserRole() {
+	public UserRole getUserRole() {
 		return userRole;
 	}
 
-	public void setUserRole(Role userRole) {
+	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
 	}
 

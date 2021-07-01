@@ -53,7 +53,7 @@ public abstract class GenericRepository<T extends Entity,E extends Entity> {
 		saveAll(users);
 	}
 
-	private void saveAll(HashMap<String, T> data) {
+	public void saveAll(HashMap<String, T> data) {
 		String json = gson.toJson(transformData(data), type);
 		BufferedWriter writer;
 		try {

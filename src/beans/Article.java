@@ -1,8 +1,9 @@
 package beans;
+
+import DAO.ArticleDAO;
 import enumerations.ArticleType;
 
-public class Article {
-	private String id;
+public class Article extends Entity {
 	private String name;
 	private double price;
 	private ArticleType articleType;
@@ -14,12 +15,14 @@ public class Article {
 	public Article() {
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
+	public Article(ArticleDAO article) {
+		this.setId(article.getId());
+		this.name = article.getName();
+		this.price = article.getPrice();
+		this.articleType = article.getArticleType();
+		this.amount = article.getAmount();
+		this.comment = article.getComment();
+		this.imageUrl = article.getImageUrl();
 	}
 
 	public double getWeight() {
@@ -32,25 +35,12 @@ public class Article {
 
 	@Override
 	public boolean equals(Object obj) {
-		return ((Article) obj).getId().equals(id);
+		return ((Article) obj).getId().equals(this.getId());
 	}
 
 	@Override
 	public int hashCode() {
 		return super.hashCode();
-	}
-
-
-	public Article(String id,String name, double price, ArticleType articleType, Restaurant restaurant, double quantity,
-			String comment, String imageUrl) {
-		this.name = name;
-		this.id=id;
-		this.price = price;
-		this.articleType = articleType;
-		this.restaurant = restaurant;
-		this.amount = quantity;
-		this.comment = comment;
-		this.imageUrl = imageUrl;
 	}
 
 	public String getName() {

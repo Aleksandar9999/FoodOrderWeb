@@ -1,6 +1,6 @@
 package enumerations;
 
-public enum Role {
+public enum UserRole {
 	Administrator,
 	Manager,
 	Deliverer,
