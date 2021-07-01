@@ -16,7 +16,7 @@ import com.google.gson.reflect.TypeToken;
 
 import beans.Manager;
 import beans.User;
-import enumerations.UserRole;
+import enumerations.Role;
 import exceptions.LoginException;
 import exceptions.RegistrationException;
 
@@ -106,13 +106,13 @@ public class UsersRepository{
 		}
 	}
 
-	public ArrayList<User> getAllByType(UserRole type){
+	public ArrayList<User> getAllByType(Role type){
 		ArrayList<User> users=getAll();
 		users.removeIf(us->!us.getUserRole().equals(type));
 		return users;
 	}
 	public List<User> getFreeManagers(){
-		ArrayList<User> managers=getAllByType(UserRole.Manager);
+		ArrayList<User> managers=getAllByType(Role.Manager);
 		managers.removeIf(us->((Manager)us).getRestaurantId()!=null);
 		return managers;
 	}

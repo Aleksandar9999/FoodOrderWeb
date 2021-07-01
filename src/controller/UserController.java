@@ -13,7 +13,7 @@ import beans.Buyer;
 import beans.Deliverer;
 import beans.Manager;
 import beans.User;
-import enumerations.UserRole;
+import enumerations.Role;
 import service.UsersService;
 import spark.Request;
 import spark.Response;
@@ -69,7 +69,7 @@ public class UserController {
         try {
             String role= request.queryParams("userRole");
             String restaurantId=request.queryParams("restaurantId");
-            if(role.equals(UserRole.Manager.toString()) && restaurantId.equals("-1")){
+            if(role.equals(Role.Manager.toString()) && restaurantId.equals("-1")){
                 return g.toJson(usersService.getFreeManagers());
             }
             return null;
@@ -96,20 +96,20 @@ public class UserController {
         response.type("application/json");
         String username=request.params("id");
         User user=g.fromJson(request.body(), User.class);
-        if(user.getUserRole().equals(UserRole.Buyer)){
+        if(user.getUserRole().equals(Role.Buyer)){
            Buyer buyer=g.fromJson(request.body(),Buyer.class);
            usersService.update(username,buyer);
            return g.toJson(user);
-        }else if(user.getUserRole().equals(UserRole.Manager)){
+        }else if(user.getUserRole().equals(Role.Manager)){
             Manager buyer=g.fromJson(request.body(),Manager.class);
             usersService.update(username,buyer);
             return g.toJson(user);
-        }else if(user.getUserRole().equals(UserRole.Deliverer)){
+        }else if(user.getUserRole().equals(Role.Deliverer)){
             Deliverer buyer=g.fromJson(request.body(),Deliverer.class);
             usersService.update(username,buyer);
             return g.toJson(user);
         }
-        else if(user.getUserRole().equals(UserRole.Administrator)){
+        else if(user.getUserRole().equals(Role.Administrator)){
             Administrator buyer=g.fromJson(request.body(),Administrator.class);
             usersService.update(username,buyer);
             return g.toJson(user);

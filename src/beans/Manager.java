@@ -1,6 +1,6 @@
 package beans;
 
-import enumerations.UserRole;
+import enumerations.Role;
 
 public class Manager extends User {
 

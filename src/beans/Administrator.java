@@ -1,8 +1,8 @@
 package beans;
-import enumerations.UserRole;
+import enumerations.Role;
 
 public class Administrator extends User {
 	public Administrator(String username,String password, String name, String surname) {
-		super(username,password,name,surname, UserRole.Administrator);
+		super(username,password,name,surname, Role.Administrator);
 	}
 }

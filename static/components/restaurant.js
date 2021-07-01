@@ -37,7 +37,6 @@ Vue.component("restaurant", {
                         <td>
                             <p>{{p.price}} RSD</p>
                         </td>
-                        
                     </tr>
 		        </table>
             </div>
@@ -68,7 +67,6 @@ Vue.component("restaurant", {
         
     },
     methods: {
-        addToCart(){}
         
     }
 });
