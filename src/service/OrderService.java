@@ -1,17 +1,19 @@
 package service;
 import java.util.List;
 
-import DAO.OrderDAO;
-import beans.Buyer;
-import beans.Cart;
 import beans.Order;
 import beans.User;
 import enumerations.OrderStatus;
 import exceptions.CanUpdateOrderException;
-import generic.GenericService;
+import generic.GenericFileRepository;
+import generic.GenericFileService;
 import repository.orders.OrdersRepository;
 
-public class OrderService extends GenericService<Order,OrderDAO>{
+public class OrderService extends GenericFileService<Order>{
+
+	public OrderService(GenericFileRepository<Order> repository) {
+		super(repository);
+	}
 
 	public OrderService() {
 		super(new OrdersRepository());

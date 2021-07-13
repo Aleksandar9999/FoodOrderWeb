@@ -3,23 +3,21 @@ package service;
 import java.util.Collection;
 import java.util.List;
 
-import DAO.ArticleDAO;
 import beans.Article;
 import beans.ArticleInCart;
-import generic.GenericService;
-import repository.articles.ArticleRepository;
-
-public class ArticleService extends GenericService<Article,ArticleDAO>{
+import generic.GenericFileService;
+import repository.articles.ArticlesRepository;
+public class ArticleService extends GenericFileService<Article> {
 
     public ArticleService() {
-        super(new ArticleRepository());
+        super(new ArticlesRepository());
     }
 
     public List<ArticleInCart> getAllArticlesForCartByRestaurantId(String id){
-        return ((ArticleRepository)repository).getAllArticlesForCartByRestaurantId(id);
+        return ((ArticlesRepository)repository).getAllArticlesForCartByRestaurantId(id);
     }
     
     public Collection<Article> getAllArticlesByRestaurantId(String id) {
-        return ((ArticleRepository)repository).getAllArticlesByRestaurantId(id);
+        return ((ArticlesRepository)repository).getAllArticlesByRestaurantId(id);
     }
 }

@@ -1,14 +1,16 @@
 package service;
 import java.util.List;
 
-import DAO.RestaurantDAO;
-import beans.ArticleInCart;
 import beans.Restaurant;
-import enumerations.RestaurantType;
-import generic.GenericService;
+import generic.GenericFileRepository;
+import generic.GenericFileService;
 import repository.restaurants.RestaurantRepository;
 
-public class RestaurantService extends GenericService<Restaurant,RestaurantDAO> {
+public class RestaurantService extends GenericFileService<Restaurant> {
+
+	public RestaurantService(GenericFileRepository<Restaurant> repository) {
+		super(repository);
+	}
 	public RestaurantService() {
 		super(new RestaurantRepository());	
 	}
