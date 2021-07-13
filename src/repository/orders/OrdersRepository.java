@@ -8,17 +8,16 @@ import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
 
-import DAO.OrderDAO;
 import beans.Buyer;
 import beans.Order;
 import beans.User;
 import enumerations.OrderStatus;
 import enumerations.RestaurantType;
-import generic.GenericRepository;
+import generic.GenericFileRepository;
 import repository.restaurants.RestaurantRepository;
 import repository.users.UsersRepository;
 
-public class OrdersRepository extends GenericRepository<Order,OrderDAO> {
+public class OrdersRepository extends GenericFileRepository<Order> {
 
 	public OrdersRepository() {
 		super("./repo/orders.json");	
@@ -27,34 +26,24 @@ public class OrdersRepository extends GenericRepository<Order,OrderDAO> {
 	@Override
 	public HashMap<String, Order> readAll() {
 		String json = readFromFile();
-		Type type = new TypeToken<HashMap<String, OrderDAO>>() {
+		Type type = new TypeToken<HashMap<String, Order>>() {
 		}.getType();
-		HashMap<String, OrderDAO> data = gson.fromJson(json, type);
+		HashMap<String, Order> data = gson.fromJson(json, type);
 		if(data==null) data=new HashMap<>();
-		return transformDAO(data);
+		return mergeWithObjects(data);
+		
 	}
-	@Override
-	public HashMap<String, OrderDAO> transformData(HashMap<String, Order> data) {
-		HashMap<String, OrderDAO> retVal=new HashMap<>();
-		for (Order order : data.values()) {
-			retVal.put(order.getId(), new OrderDAO(order));
-		}
-		return retVal;
+	
+	private HashMap<String, Order> mergeWithObjects(HashMap<String, Order> data) {
+		UsersRepository repository=new UsersRepository();
+        RestaurantRepository restaurantRepository=new RestaurantRepository();
+        for (Order order : data.values()) {
+            order.setBuyer((Buyer)repository.getByUsername(order.getBuyerId()));
+            order.setRestaurant(restaurantRepository.getById(order.getRestaurantId()));
+        }
+        return data;
 	}
 
-	@Override
-	public HashMap<String, Order> transformDAO(HashMap<String, OrderDAO> data) {
-		HashMap<String, Order> retVal=new HashMap<>();
-		UsersRepository usersRepository=new UsersRepository();
-		RestaurantRepository restaurantRepository=new RestaurantRepository();
-		for (OrderDAO dao : data.values()) {
-			Order order=new Order(dao);
-			order.setRestaurant(restaurantRepository.getById(dao.getRestaurantId()));
-			order.setBuyer((Buyer)usersRepository.getByUsername(dao.getBuyerUsername()));
-			retVal.put(dao.getId(), order);
-		}
-		return retVal;
-	}
 	public List<Order> getAllByRestaurant(String id){
 		List<Order> orders= getAll();
 		orders.removeIf(or->!or.getRestaurant().getId().equals(id));

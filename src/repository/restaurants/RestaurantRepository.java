@@ -1,48 +1,43 @@
 package repository.restaurants;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
 
-import DAO.RestaurantDAO;
+import beans.Article;
 import beans.Restaurant;
-import enumerations.RestaurantType;
-import generic.GenericRepository;
+import generic.GenericFileRepository;
+import repository.articles.ArticlesRepository;
 
-public class RestaurantRepository extends GenericRepository<Restaurant, RestaurantDAO> {
+public class RestaurantRepository extends GenericFileRepository<Restaurant> {
 	public RestaurantRepository() {
 		super("./repo/restaurants.json");
 	}
 
 	@Override
-	public HashMap<String, RestaurantDAO> transformData(HashMap<String, Restaurant> data) {
-		HashMap<String, RestaurantDAO> retVal = new HashMap<>();
-		for (Restaurant order : data.values()) {
-			retVal.put(order.getId(), new RestaurantDAO(order));
-		}
-		return retVal;
-	}
-
-	@Override
-	public HashMap<String, Restaurant> transformDAO(HashMap<String, RestaurantDAO> data) {
-		HashMap<String, Restaurant> retVal = new HashMap<>();
-		for (RestaurantDAO order : data.values()) {
-			retVal.put(order.getId(), new Restaurant(order));
-		}
-		return retVal;
-	}
-
-	@Override
 	public HashMap<String, Restaurant> readAll() {
 		String json = readFromFile();
-		Type type = new TypeToken<HashMap<String, RestaurantDAO>>() {
+		Type type = new TypeToken<HashMap<String, Restaurant>>() {
 		}.getType();
-		HashMap<String, RestaurantDAO> data = gson.fromJson(json, type);
-		return transformDAO(data);
+		HashMap<String, Restaurant> data = gson.fromJson(json, type);
+		return data;
 	}
+
+	/*private HashMap<String, Restaurant> mergeWithArticles(HashMap<String, Restaurant> data) {
+		ArticlesRepository repository=new ArticlesRepository();
+		Collection<Restaurant> restaurants=data.values();
+		for (Restaurant restaurant : restaurants) {
+			System.out.println(restaurant.getName());
+			ArrayList<Article> articles=repository.getAllArticlesByRestaurantId(restaurant.getId());
+			restaurant.setArticles(articles);
+		}
+		return data;
+	}*/
 
 	public List<Restaurant> getAllRestaurantsSorted() {
 		List<Restaurant> restaurants = getAll();
@@ -58,4 +53,5 @@ public class RestaurantRepository extends GenericRepository<Restaurant, Restaura
 	public List<Restaurant> getAllByAvgRate(String name) {
 		throw new UnsupportedOperationException("Implementirj");
 	}
+
 }

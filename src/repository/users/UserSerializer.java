@@ -20,7 +20,6 @@ public class UserSerializer implements JsonSerializer<HashMap<String, User>>{
 	@Override
 	public JsonElement serialize(HashMap<String, User> map, Type arg1, JsonSerializationContext arg2) {
 		Gson g=new Gson();
-
 		JsonArray array=new JsonArray();
 		for (User us : map.values()) {
 			if(us instanceof Administrator)

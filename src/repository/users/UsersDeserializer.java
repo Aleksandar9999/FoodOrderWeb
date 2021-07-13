@@ -49,7 +49,6 @@ public class UsersDeserializer implements JsonDeserializer<HashMap<String, User>
 				continue;
 			}
 		}
-		
 		return map;
 	}
 }

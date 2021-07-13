@@ -69,7 +69,6 @@ public class UsersRepository{
 		}.getType();
 		Gson gson = new GsonBuilder().registerTypeAdapter(type, new UserSerializer()).setPrettyPrinting().create();
 		String json = gson.toJson(users, type);
-		System.out.println(json);
 		BufferedWriter writer;
 		try {
 			writer = new BufferedWriter(new FileWriter(this.filePath));

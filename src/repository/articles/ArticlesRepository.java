@@ -8,49 +8,35 @@ import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
 
-import DAO.ArticleDAO;
 import beans.Article;
 import beans.ArticleInCart;
 import exceptions.ArticleExistException;
-import generic.GenericRepository;
+import generic.GenericFileRepository;
 import repository.restaurants.RestaurantRepository;
 
-public class ArticleRepository extends GenericRepository<Article, ArticleDAO> {
+public class ArticlesRepository extends GenericFileRepository<Article> {
 
-    public ArticleRepository() {
+    public ArticlesRepository() {
         super("./repo/articles.json");
     }
 
     @Override
     public HashMap<String, Article> readAll() {
         String json = readFromFile();
-        Type type = new TypeToken<HashMap<String, ArticleDAO>>() {
+        Type type = new TypeToken<HashMap<String, Article>>() {
         }.getType();
-        HashMap<String, ArticleDAO> data = gson.fromJson(json, type);
+        HashMap<String, Article> data = gson.fromJson(json, type);
         if (data == null)
-            data = new HashMap<>();
-        return transformDAO(data);
+            data = new HashMap<String, Article>();
+        return mergeWithRestaurants(data);
     }
 
-    @Override
-    public HashMap<String, ArticleDAO> transformData(HashMap<String, Article> data) {
-        HashMap<String, ArticleDAO> ret = new HashMap<>();
-        for (Article article : data.values()) {
-            ret.put(article.getId(), new ArticleDAO(article));
+    private HashMap<String, Article> mergeWithRestaurants(HashMap<String, Article> data) {
+        RestaurantRepository repository=new RestaurantRepository();
+        for (Article item : data.values()) {
+            item.setRestaurant(repository.getById(item.getRestaurantId()));
         }
-        return ret;
-    }
-
-    @Override
-    public HashMap<String, Article> transformDAO(HashMap<String, ArticleDAO> data) {
-        HashMap<String, Article> ret = new HashMap<>();
-        RestaurantRepository restaurantRepository = new RestaurantRepository();
-        for (ArticleDAO articleDAO : data.values()) {
-            Article article = new Article(articleDAO);
-            article.setRestaurant(restaurantRepository.getById(articleDAO.getRestaurantId()));
-            ret.put(articleDAO.getId(), article);
-        }
-        return ret;
+        return data;
     }
 
     public List<ArticleInCart> getAllArticlesForCartByRestaurantId(String id) {
@@ -62,9 +48,12 @@ public class ArticleRepository extends GenericRepository<Article, ArticleDAO> {
         return retVal;
     }
 
-    public Collection<Article> getAllArticlesByRestaurantId(String id) {
-        Collection<Article> articles = readAll().values();
-        articles.removeIf(ar -> !ar.getRestaurant().getId().equals(id));
+    public ArrayList<Article> getAllArticlesByRestaurantId(String id) {
+        ArrayList<Article> articles = new ArrayList<>();
+        for (Article article : getAll()) {
+            if(article.getRestaurantId().equals(id))
+                articles.add(article);
+        }
         return articles;
     }
 
@@ -83,4 +72,5 @@ public class ArticleRepository extends GenericRepository<Article, ArticleDAO> {
             if (article.getName().equals(candidaArticle.getName()))
                 throw new ArticleExistException();
     }
+   
 }
