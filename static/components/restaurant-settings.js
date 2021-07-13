@@ -2,6 +2,7 @@ Vue.component("restaurant-settings", {
     data: function () {
         return {
             restaurant: null,
+            articles:null,
             managers: null,
             selectedManager: null,
             myModel:false,
@@ -110,16 +111,16 @@ Vue.component("restaurant-settings", {
                 <input type="button" value="Dodaj artikal" @click=openModel>
             </div>
             <table  border="0" CELLSPACING=0>
-                <tr v-for="(p) in restaurant.articles" @click=updateArticle(p) >
+                <tr v-for="(p) in articles" @click=updateArticle(p) >
                     <td>
                         <img width="50px" height="50px" style="overflow : visible;" src="../files/images/pizza.jpg">
                     </td>    
                     <td>
-                        <p>{{p.name}}</p>
+                        <p>{{p.article.name}}</p>
                         <p style="color:gray;">{{p.comment}}</p>
                     </td>
                     <td>
-                        <p>{{p.price}} RSD</p>
+                        <p>{{p.article.price}} RSD</p>
                     </td>
                 </tr>
             </table>
@@ -180,8 +181,14 @@ Vue.component("restaurant-settings", {
     mounted() {
         axios
             .get('rest/restaurants/' + this.$route.params.id)
-            .then(response => (this.restaurant = response.data))
-
+            .then(response => {this.restaurant = response.data;})
+        
+        axios
+            .get('rest/restaurants/' + this.$route.params.id+'/articles')
+            .then(response => {
+                this.articles = response.data
+            })
+        
         if(this.$route.params.id==='-1')
             axios.get('rest/users/managers?restaurantId=-1')
                 .then(response => (this.managers = response.data))

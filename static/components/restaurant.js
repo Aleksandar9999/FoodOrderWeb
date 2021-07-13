@@ -2,6 +2,7 @@ Vue.component("restaurant", {
     data: function () {
         return {
             restaurant: null,
+            articles:null,
             comments:null
         }
     },
@@ -26,18 +27,23 @@ Vue.component("restaurant", {
 
             <div class="hederInfo" style="margin-top: 10px;">
                 <table id="userList" border="0" CELLSPACING=0>
-                    <tr v-for="(p) in restaurant.articles" >
+                    <tr v-for="(p) in articles" >
                         <td>
                             <img width="50px" height="50px" style="overflow : visible;" src="../files/images/pizza.jpg">
                         </td>    
                         <td>
-                            <p>{{p.name}}</p>
-                            <p style="color:gray;">{{p.comment}}</p>
+                            <p>{{p.article.name}}</p>
+                            <p style="color:gray;">{{p.article.comment}}</p>
                         </td>
                         <td>
-                            <p>{{p.price}} RSD</p>
+                            <p>{{p.article.price}} RSD</p>
                         </td>
-                        
+                        <td>
+                            <input v-model="p.quantity" type="number"/>
+                        </td>
+                        <td>
+                            <input type="button" @click="addToCart(p)" value="DODAJ"/>
+                        </td>
                     </tr>
 		        </table>
             </div>
@@ -49,7 +55,7 @@ Vue.component("restaurant", {
                             <p>{{p.mark}}</p>
                         </td>
                         <td>
-                            <p>{{p.buyer.username}}</p>
+                            <p>{{p.buyerUsername}}</p>
                         </td>
                     </tr>
 		        </table>
@@ -63,12 +69,23 @@ Vue.component("restaurant", {
             .then(response => (this.restaurant = response.data))
         
         axios
-            .get('rest/restaurants/' + this.$route.params.id+'/comments')
-            .then(response => (this.comments = response.data))
+            .get('rest/restaurants/' + this.$route.params.id+'/articles')
+            .then(response => {
+                console.log(response.data)
+                this.articles = response.data
+            })
+        
+        axios
+            .get('/rest/restaurants/' + this.$route.params.id+'/comments')
+            .then(response => {this.comments = response.data;
+            console.log("KOMENTARIO",this.comments)})
         
     },
     methods: {
-        addToCart(){}
+        addToCart(p){
+            axios.post('/rest/cart/articles',{article:p.article,quantity:p.quantity}).
+                then(response=> (console.log("DODAO u Korpu")));
+        }
         
     }
 });

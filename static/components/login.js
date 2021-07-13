@@ -34,7 +34,7 @@ Vue.component("login", {
                     router.push('/users');
                 else if(response.data['userRole']=="Manager")
                     router.push('/restaurant/'+response.data['restaurantId']);
-                else router.push('/profile');
+                else router.push('/profile/'+this.user.username);
                 document.cookie=this.user.username;
             })
             .catch(function(error){

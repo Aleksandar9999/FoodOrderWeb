@@ -69,14 +69,13 @@ Vue.component("profile", {
 `
 	,
 	mounted() {
-        console.log(document.cookie)
 		axios
-			.get('rest/users/'+document.cookie)
+			.get('rest/users/'+this.$route.params.id)
 			.then(response => (this.user = response.data))
 	},
 	methods: {
 		updateUser:function(){
-            axios.put('/rest/users/'+document.cookie,this.user).
+            axios.put('/rest/users/'+this.$route.params.id,this.user).
             then(response=>(alert("uspjesno")))
         }
 	}

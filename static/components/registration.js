@@ -15,7 +15,7 @@ Vue.component("registration", {
 	template: ` 
 	<div id="loginForm">
     <p id="title">Registracija</p>
-    <form>
+    <form onsubmit="registerUser">
             <div class="field">
                 <input id="txtName" placeholder="Ime" type="text" v-model = "user.name">
             </div>
@@ -43,7 +43,7 @@ Vue.component("registration", {
             <input class="txtPassword" placeholder="Ponovo lozinka" type="text">
             </div>
             <div class="field">
-                <input type="submit" value="Potvrdi" @click='registerUser'>
+                <input type="submit" value="Potvrdi">
             </div>
             </form>
         </div>
@@ -51,7 +51,7 @@ Vue.component("registration", {
 `
 	, 
 	methods : {
-		registerUser : function () {
+		registerUser : function (event) {
 			event.preventDefault();
 			axios.post('/rest/users/buyers', this.user).
 			then(response => {
