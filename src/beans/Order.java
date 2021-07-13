@@ -3,31 +3,27 @@ package beans;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import DAO.OrderDAO;
 import enumerations.OrderStatus;
 
 public class Order extends Entity {
 	private List<ArticleInCart> articles;
-	private Restaurant restaurant;
+	private transient Restaurant restaurant;
+	private String buyerId;
+	private String restaurantId;
 	private LocalDateTime timestamp;
 	private double price;
-	private Buyer buyer;
+	private transient Buyer buyer;
 	private OrderStatus orderStatus;
 
-	public Order(OrderDAO dAo) {
-		this.articles=dAo.getArticles();
-		this.timestamp=dAo.getTimestamp();
-		this.price=dAo.getPrice();
-		this.orderStatus=dAo.getOrderStatus();
-		this.setId(dAo.getId());
+	public Order(Cart cart) {
+		this.articles = cart.getArticles();
+		this.buyer = cart.getBuyer();
+		this.timestamp = LocalDateTime.now();
+		this.price = cart.getPrice();
+		this.orderStatus = OrderStatus.Processing;
+		this.restaurant = cart.getArticles().get(0).getArticle().getRestaurant();
 	}
-	public Order(Cart cart){
-		this.articles=cart.getArticles();
-		this.buyer=cart.getBuyer();
-		this.timestamp=LocalDateTime.now();
-		this.price=cart.getPrice();
-		this.orderStatus=OrderStatus.Processing;
-	}
+
 	public Order(List<ArticleInCart> articles, Restaurant restaurant, LocalDateTime timestamp, double price,
 			Buyer buyer, OrderStatus orderStatus) {
 		super();
@@ -38,7 +34,26 @@ public class Order extends Entity {
 		this.buyer = buyer;
 		this.orderStatus = orderStatus;
 	}
-public Order(){}
+
+	public String getBuyerId() {
+		return buyerId;
+	}
+
+	public void setBuyerId(String buyerId) {
+		this.buyerId = buyerId;
+	}
+
+	public String getRestaurantId() {
+		return restaurantId;
+	}
+
+	public void setRestaurantId(String restaurantId) {
+		this.restaurantId = restaurantId;
+	}
+
+	public Order() {
+	}
+
 	public List<ArticleInCart> getArticles() {
 		return articles;
 	}
@@ -86,12 +101,13 @@ public Order(){}
 	public void setOrderStatus(OrderStatus orderStatus) {
 		this.orderStatus = orderStatus;
 	}
-	public double getPointsCollected(){
-		return this.price/1000*133;
+
+	public double getPointsCollected() {
+		return this.price / 1000 * 133;
 	}
-	public double getPointsForCanceledOrder(){
-		return this.price/1000*133*4;
+
+	public double getPointsForCanceledOrder() {
+		return this.price / 1000 * 133 * 4;
 	}
-	
-	
+
 }

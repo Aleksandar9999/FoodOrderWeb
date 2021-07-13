@@ -2,7 +2,7 @@ package beans;
 
 public class ArticleInCart {
 	private Article article;
-	private int qauantity;
+	private int quantity;
 
 	public Article getArticle() {
 		return article;
@@ -13,17 +13,17 @@ public class ArticleInCart {
 	}
 
 	public int getQauantity() {
-		return qauantity;
+		return quantity;
 	}
 
 	public void setQauantity(int qauantity) {
-		this.qauantity = qauantity;
+		this.quantity = qauantity;
 	}
 
 	public ArticleInCart(Article article, int qauantity) {
 		super();
 		this.article = article;
-		this.qauantity = qauantity;
+		this.quantity = qauantity;
 	}
 
 	@Override

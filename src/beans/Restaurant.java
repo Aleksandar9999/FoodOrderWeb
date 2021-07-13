@@ -3,14 +3,13 @@ package beans;
 import java.util.ArrayList;
 import java.util.List;
 
-import DAO.RestaurantDAO;
 import enumerations.RestaurantType;
 import exceptions.ArticleExistException;
 
 public class Restaurant extends Entity{
 	private String name;
 	private RestaurantType restaurantType;
-	private List<Article> articles;
+	private transient ArrayList<Article> articles;
 	private boolean status;
 	private Location location;
 	private String logoUrl;
@@ -20,7 +19,7 @@ public class Restaurant extends Entity{
 		location=new Location();
 		
 	}
-	public Restaurant(String name, RestaurantType restaurantType, List<Article> articles, boolean status,
+	public Restaurant(String name, RestaurantType restaurantType, ArrayList<Article> articles, boolean status,
 			Location location, String logoUrl) {
 		super();
 		this.name = name;
@@ -30,17 +29,6 @@ public class Restaurant extends Entity{
 		this.location = location;
 		this.logoUrl = logoUrl;
 	}
-
-	public Restaurant(RestaurantDAO restaurantDAO) {
-		super(restaurantDAO.getId());
-        this.name=restaurantDAO.getName();
-        this.restaurantType=restaurantDAO.getRestaurantType();
-        this.articles=restaurantDAO.getArticles();
-        this.status=restaurantDAO.isStatus();
-        this.location=restaurantDAO.getLocation();
-        this.logoUrl=restaurantDAO.getLogoUrl();
-	}
-	
 	public String getName() {
 		return name;
 	}
@@ -61,7 +49,7 @@ public class Restaurant extends Entity{
 		return articles;
 	}
 
-	public void setArticles(List<Article> articles) {
+	public void setArticles(ArrayList<Article> articles) {
 		this.articles = articles;
 	}
 

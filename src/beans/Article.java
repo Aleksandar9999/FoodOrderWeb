@@ -1,28 +1,19 @@
 package beans;
 
-import DAO.ArticleDAO;
 import enumerations.ArticleType;
 
 public class Article extends Entity {
+
 	private String name;
 	private double price;
 	private ArticleType articleType;
-	private Restaurant restaurant;
+	private transient Restaurant restaurant;
 	private double amount;
 	private String comment;
 	private String imageUrl;
+	private String restaurantId;
 
 	public Article() {
-	}
-
-	public Article(ArticleDAO article) {
-		this.setId(article.getId());
-		this.name = article.getName();
-		this.price = article.getPrice();
-		this.articleType = article.getArticleType();
-		this.amount = article.getAmount();
-		this.comment = article.getComment();
-		this.imageUrl = article.getImageUrl();
 	}
 
 	public double getWeight() {
@@ -72,6 +63,7 @@ public class Article extends Entity {
 	}
 
 	public void setRestaurant(Restaurant restaurant) {
+		this.restaurantId = restaurant.getId();
 		this.restaurant = restaurant;
 	}
 
@@ -97,5 +89,9 @@ public class Article extends Entity {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+
+	public String getRestaurantId() {
+		return this.restaurantId;
 	}
 }

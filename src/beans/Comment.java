@@ -1,20 +1,13 @@
 package beans;
 
-import DAO.CommentDAO;
-
 public class Comment extends Entity {
-	private Buyer buyer;
-	private Restaurant restaurant;
+	private transient Buyer buyer;
+	private String buyerUsername;
+	private transient Restaurant restaurant;
+	private String restaurantId;
 	private String comment;
 	private int mark;
 	private boolean approved;
-
-	public Comment(CommentDAO dao) {
-		super(dao.getId());
-		this.comment = dao.getComment();
-		this.mark = dao.getMark();
-		this.approved=dao.isApproved();
-	}
 
 	public boolean isApproved() {
 		return approved;
@@ -29,6 +22,8 @@ public class Comment extends Entity {
 		this.approved=approved;
 		this.buyer = buyer;
 		this.restaurant = restaurant;
+		this.restaurantId=restaurant.getId();
+		this.buyerUsername=buyer.getUsername();
 		this.comment = comment;
 		this.mark = mark;
 	}
@@ -61,9 +56,15 @@ public class Comment extends Entity {
 		return mark;
 	}
 
+	public String getBuyerId() {
+		return buyerUsername;
+	}
+
+	public String getRestaurantId() {
+		return restaurantId;
+	}
 	public void setMark(int mark) {
 		this.mark = mark;
 	}
-	
 
 }

@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import DAO.CartDAO;
-
 public class Cart extends Entity{
 
-	public List<ArticleInCart> articles;
-	public Buyer buyer;
-	public double price;
+	private List<ArticleInCart> articles;
+	private Buyer buyer;
+	private double price;
 	public Cart(Buyer buyer) {
 		price=0;
 		articles=new ArrayList<ArticleInCart>();
@@ -24,12 +22,6 @@ public class Cart extends Entity{
 		this.buyer = buyer;
 		this.price = price;
 	}
-	public Cart(CartDAO dao) {
-		super(dao.getId());
-		this.articles = dao.getArticles();
-		this.price = dao.getPrice();
-	}
-
 	public Buyer getBuyer() {
 		return buyer;
 	}

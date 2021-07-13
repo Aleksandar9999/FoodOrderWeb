@@ -15,6 +15,7 @@ public class Buyer extends User {
 		pointsCollected=0;
 		orders=new ArrayList<Order>();
 	}
+
 	public double getPointsCollected() {
 		return pointsCollected;
 	}
