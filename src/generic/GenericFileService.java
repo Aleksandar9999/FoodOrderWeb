@@ -5,11 +5,11 @@ import java.util.UUID;
 
 import beans.Entity;
 
-public abstract class GenericService<T extends Entity,E extends Entity> {
+public abstract class GenericFileService<T extends Entity> {
 
-	protected GenericRepository<T,E> repository;
+	protected GenericFileRepository<T> repository;
 
-	public GenericService(GenericRepository<T,E> repository) {
+	public GenericFileService(GenericFileRepository<T> repository) {
 		this.repository=repository;
 	}
 

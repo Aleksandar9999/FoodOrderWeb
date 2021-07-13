@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.UUID;
-
 import com.google.gson.Gson;
 
 import beans.Article;
@@ -19,6 +17,7 @@ public class ArticleController {
     public static Route handleGetArticlesInCartByRestaurant = (Request request, Response response) -> {
         response.type("application/json");
         String idRestaurant = request.params("id");
+        System.out.println(gson.toJson(articleService.getAllArticlesForCartByRestaurantId(idRestaurant)));
         return gson.toJson(articleService.getAllArticlesForCartByRestaurantId(idRestaurant));
     };
 

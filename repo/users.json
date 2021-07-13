@@ -1,5 +1,14 @@
 [
   {
+    "pointsCollected": 0.0,
+    "orders": [],
+    "username": "Novi",
+    "password": "123",
+    "name": "NoviKorisnik",
+    "surname": "Korisnik",
+    "userRole": "Buyer"
+  },
+  {
     "restaurantId": "1",
     "username": "manager",
     "password": "manager",
@@ -14,6 +23,15 @@
     "password": "aca",
     "name": "Andrea",
     "surname": "Kojic",
+    "userRole": "Buyer"
+  },
+  {
+    "pointsCollected": 0.0,
+    "orders": [],
+    "username": "test",
+    "password": "test",
+    "name": "test",
+    "surname": "teste",
     "userRole": "Buyer"
   },
   {

@@ -1,39 +1,36 @@
 package generic;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import java.lang.reflect.Type;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import beans.Entity;
 
-public abstract class GenericRepository<T extends Entity,E extends Entity> {
-
-	private String filePath;
+public abstract class GenericFileRepository<T extends Entity> {
+    private String filePath;
 	protected Gson gson;
-	private Type type = new TypeToken<HashMap<String, E>>() {}.getType();
-	public GenericRepository(String filepath) {
+	private Type type = new TypeToken<HashMap<String, T>>() {}.getType();
+	public GenericFileRepository(String filepath) {
 		this.filePath = filepath;
 		this.gson= new GsonBuilder().setPrettyPrinting().create();
 	}
 	
 	public abstract HashMap<String, T> readAll();
-	public abstract HashMap<String, E> transformData(HashMap<String, T> data);
-	public abstract HashMap<String, T> transformDAO(HashMap<String, E> data);
 
 	public ArrayList<T> getAll() {
 		return new ArrayList<T>(readAll().values());
 	}
 	public T getById(String id) {
 		HashMap<String, T> restaurants = readAll();
-
 		return restaurants.get(id);
 	}
 	public T addNew(T restaurant) {
@@ -54,7 +51,7 @@ public abstract class GenericRepository<T extends Entity,E extends Entity> {
 	}
 
 	public void saveAll(HashMap<String, T> data) {
-		String json = gson.toJson(transformData(data), type);
+		String json = gson.toJson(data, type);
 		BufferedWriter writer;
 		try {
 			writer = new BufferedWriter(new FileWriter(this.filePath));
@@ -80,5 +77,4 @@ public abstract class GenericRepository<T extends Entity,E extends Entity> {
 			return null;
 		}
 	}
-	
 }

@@ -3,30 +3,40 @@
     "name": "Madjarica",
     "price": 350.0,
     "articleType": "Food",
-    "restaurantId": "1",
     "amount": 500.0,
     "comment": "Akcija",
     "imageUrl": "image",
+    "restaurantId": "1",
     "id": "412c28ad-89b9-4c3e-9713-4f7e1939261a"
+  },
+  "asda": {
+    "name": "Madjarica",
+    "price": 350.0,
+    "articleType": "Food",
+    "amount": 500.0,
+    "comment": "Akcija",
+    "imageUrl": "image",
+    "restaurantId": "1",
+    "id": "asda"
   },
   "61da6b8b-225a-4252-a561-a664cf6ab44f": {
     "name": "NovaPizzaaaaa",
     "price": 150.0,
     "articleType": "Food",
-    "restaurantId": "1",
     "amount": 500.0,
     "comment": "Akcija",
     "imageUrl": "image",
+    "restaurantId": "1",
     "id": "61da6b8b-225a-4252-a561-a664cf6ab44f"
   },
   "418c28ad-89b9-4c3e-9713-4f7e1939261a": {
     "name": "Pizza",
     "price": 300.0,
     "articleType": "Food",
-    "restaurantId": "1",
     "amount": 500.0,
     "comment": "TOP TOP PONUDA",
     "imageUrl": "image",
+    "restaurantId": "1",
     "id": "418c28ad-89b9-4c3e-9713-4f7e1939261a"
   }
 }
