@@ -43,7 +43,7 @@ Vue.component("registration", {
             <input class="txtPassword" placeholder="Ponovo lozinka" type="text">
             </div>
             <div class="field">
-                <input type="submit" value="Potvrdi">
+                <input type="submit" value="Potvrdi" @click="registerUser">
             </div>
             </form>
         </div>

@@ -1,22 +1,22 @@
 Vue.component("restaurant-settings", {
     data: function () {
         return {
-            restaurant: null,
-            articles:null,
+            restaurant: {},
+            articles: null,
             managers: null,
             selectedManager: null,
-            myModel:false,
-            article:{
-                name:'',
-                price:'',
-                articleType:'',
-                amount:'',
-                comment:'',
-                imageUrl:'',
+            myModel: false,
+            article: {
+                name: '',
+                price: '',
+                articleType: '',
+                amount: '',
+                comment: '',
+                imageUrl: '',
             },
-            actionButton : "Dodaj",
-            dynamicTitle : "Dodavanje artikla",
-            articleOperation:'',
+            actionButton: "Dodaj",
+            dynamicTitle: "Dodavanje artikla",
+            articleOperation: '',
         }
     },
     template: ` 
@@ -98,7 +98,7 @@ Vue.component("restaurant-settings", {
                             </td>
                             <td>
                                 <div class="field">
-                                    <input type="submit" value="Potvrdi" @click=updateRestaurant>
+                                    <input type="submit" value="Potvrdi" @click="updateRestaurant">
                                 </div>
                             </td>
                         </tr>
@@ -181,18 +181,18 @@ Vue.component("restaurant-settings", {
     mounted() {
         axios
             .get('rest/restaurants/' + this.$route.params.id)
-            .then(response => {this.restaurant = response.data;})
-        
+            .then(response => { this.restaurant = response.data; console.log(this.restaurant) })
+
         axios
-            .get('rest/restaurants/' + this.$route.params.id+'/articles')
+            .get('rest/restaurants/' + this.$route.params.id + '/articles')
             .then(response => {
                 this.articles = response.data
             })
-        
-        if(this.$route.params.id==='-1')
+
+        if (this.$route.params.id === '-1')
             axios.get('rest/users/managers?restaurantId=-1')
                 .then(response => (this.managers = response.data))
-        
+
     },
     methods: {
         updateRestaurant() {
@@ -200,10 +200,10 @@ Vue.component("restaurant-settings", {
                 axios.post('/rest/restaurants', this.restaurant).
                     then(response => {
                         if (!this.selectedManager) {
-                            router.push('/restaurants/' + response.data.id + '/manager')
+                            this.$router.push('/restaurants/' + response.data.id + '/manager');
                         }
                         else {
-                            axios.put('/rest/restaurants/'+response.data.id+'/managers/'+this.selectedManager).then(response=>{router.push('/restaurants');})
+                            axios.put('/rest/restaurants/' + response.data.id + '/managers/' + this.selectedManager).then(response => { router.push('/restaurants'); })
                         }
                     })
             } else {
@@ -211,37 +211,54 @@ Vue.component("restaurant-settings", {
                     then(response => (alert("uspjesno azuriran")))
             }
         },
-        submitData(){
-            if(this.articleOperation==='Create')
-            {
+        submitData() {
+            if (this.articleOperation === 'Create') {
                 axios
-                    .post('rest/restaurants/' + this.$route.params.id+'/articles',this.article)
-                    .then(response => (this.restaurant = response.data))
-                    .catch(function(error){
-                        alert(error.response.data,"Greska")
+                    .post('rest/restaurants/' + this.$route.params.id + '/articles', this.article)
+                    .then(response => {
+                        this.restaurant = response.data;
+                        axios
+                            .get('rest/restaurants/' + this.$route.params.id + '/articles')
+                            .then(response => {
+                                this.articles = response.data;
+                                console.log("getovvao")
+                            })
+                        alert("Uspijesno ste dodali artikal");
+                        this.myModel=false;
+
+                    })
+                    .catch(function (error) {
+                        alert(error.response.data, "Greska")
                     })
             }
-            else
-            {
+            else {
                 axios
-                .put('rest/restaurants/' + this.$route.params.id+'/articles/'+this.article.id,this.article)
-                .then(response => (this.restaurant = response.data))
-                .catch(function(error){
-                    alert(error.response.data,"Greska")
-                })
+                    .put('rest/restaurants/' + this.$route.params.id + '/articles/' + this.article.id, this.article)
+                    .then(response => (this.restaurant = response.data))
+                    .catch(function (error) {
+                        alert(error.response.data, "Greska")
+                    })
             }
-            
+
 
         },
-        openModel(){
-            this.articleOperation='Create'
+        openModel() {
+            this.article={
+                name: '',
+                price: '',
+                articleType: '',
+                amount: '',
+                comment: '',
+                imageUrl: '',
+            },
+            this.articleOperation = 'Create'
             this.actionButton = "Dodaj"
             this.dynamicTitle = "Dodavanje artikla"
             this.myModel = true
         },
-        updateArticle(p){
-            this.articleOperation='Update'
-            this.article=p
+        updateArticle(p) {
+            this.articleOperation = 'Update'
+            this.article = p.article
             this.actionButton = "Izmijeni"
             this.dynamicTitle = "Izmijena artikla"
             this.myModel = true

@@ -1,7 +1,7 @@
 Vue.component("restaurant-buyers", {
 	data: function () {
 		return {
-            buyers:null
+            buyers:[]
 		}
 	},
 	template: ` 
@@ -36,7 +36,9 @@ Vue.component("restaurant-buyers", {
 	mounted() {
 		axios
 			.get('/rest/restaurants/'+this.$route.params.id+'/buyers')
-			.then(response => (this.buyers = response.data))
+			.then(response => {this.buyers = response.data;
+				console.log(response.data);
+			})
 	},
 	methods: {
 	
