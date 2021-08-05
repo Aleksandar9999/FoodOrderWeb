@@ -28,6 +28,7 @@ public class UserController {
         try {
             user = usersService.login(user);
             setLoggedinUser(request, user);
+
             return g.toJson(user);
         } catch (LoginException ex) {
             response.status(401);
@@ -63,18 +64,19 @@ public class UserController {
     public static Route handleGetAllUsers = (Request request, Response response) -> {
         response.type("application/json");
         try {
+            validateAdminUser(request);
             String role = request.queryParams("userRole");
             String restaurantId = request.queryParams("restaurantId");
             if (role.equals(UserRole.Manager.toString()) && restaurantId.equals("-1")) {
                 return g.toJson(usersService.getFreeManagers());
             }
             return null;
-        } catch (Exception e) {
+        }catch (UserRoleException er){
+            return g.toJson(er.getMessage());
+        } 
+        catch (Exception e) {
             return g.toJson(usersService.getAll());
         }
-        // TODO: provjera da li je admin
-        // if(!request.cookie("user").equals("admin")) return g.toJson(new
-        // ArrayList<>());
     };
     public static Route handleGetAllManagers = (Request request, Response response) -> {
         response.type("application/json");
@@ -130,22 +132,30 @@ public class UserController {
     public static Route handleGetUser = (Request request, Response response) -> {
         response.type("application/json");
         String username = request.params("id");
-        System.out.println(username);
-        User user = usersService.getByUsername(username);
-        System.out.println("username" + user);
-        return g.toJson(user);
+        if (username.equals("me")) {
+            return g.toJson(usersService.getByUsername(getLoggedingUser(request)));
+        } else {
+            User user = usersService.getByUsername(username);
+            return g.toJson(user);
+        }
     };
 
     public static Route handleGetFreeManagers = (Request request, Response response) -> {
         return g.toJson(usersService.getFreeManagers());
     };
 
-    private static void setLoggedinUser(Request request, User user){
+    private static void setLoggedinUser(Request request, User user) {
         Session ss = request.session(true);
-		ss.attribute("user",user.getUsername());
+        ss.attribute("user", user.getUsername());
     }
-    public static String getLoggedingUser(Request request){
+
+    private static void validateAdminUser(Request request) {
+        User loggedinUser=usersService.getByUsername(getLoggedingUser(request));
+        if(!loggedinUser.getUserRole().equals(UserRole.Administrator)) throw new UserRoleException("Prijavljeni korisnik nije administrator.");
+    }
+
+    public static String getLoggedingUser(Request request) {
         Session ss = request.session(true);
-		return ss.attribute("user");         
-	 }
+        return ss.attribute("user");
+    }
 }
