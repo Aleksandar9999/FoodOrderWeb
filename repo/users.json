@@ -35,10 +35,35 @@
     "userRole": "Buyer"
   },
   {
+    "restaurantId": "dd7a393b-9dbf-4089-a01c-0c4089fe510d",
+    "username": "aman",
+    "password": "aman",
+    "name": "Novi Menadzer",
+    "surname": "Manager",
+    "userRole": "Manager"
+  },
+  {
+    "pointsCollected": 0.0,
+    "orders": [],
+    "username": "aca11",
+    "password": "123",
+    "name": "Aleksandar",
+    "surname": "Brkljacc",
+    "userRole": "Buyer"
+  },
+  {
     "username": "aca",
     "password": "123",
     "name": "Aleksandar",
     "surname": "Brkljac",
     "userRole": "Administrator"
+  },
+  {
+    "restaurantId": "dd7a393b-9dbf-4089-a01c-0c4089fe510d",
+    "username": "aman",
+    "password": "aman",
+    "name": "ManagerNovi",
+    "surname": "Manager",
+    "userRole": "Manager"
   }
 ]

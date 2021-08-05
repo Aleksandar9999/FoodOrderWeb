@@ -1,17 +1,7 @@
 {
   "1": {
-    "name": "Aca pizza",
+    "name": "RomaPizza",
     "restaurantType": "Italian",
-    "articles": [
-      {
-        "name": "noviUpdate",
-        "price": 2.0,
-        "amount": 5.0,
-        "comment": "",
-        "imageUrl": "asd",
-        "id": "5298dfe4-13f8-4ee4-8b18-ddc02f6116e6"
-      }
-    ],
     "status": true,
     "location": {
       "longitude": 0.0,
@@ -109,5 +99,37 @@
     },
     "logoUrl": "logo",
     "id": "04345527-8079-4eae-aa98-29ece2f8354e"
+  },
+  "bf006b2e-33c0-4f66-90d4-dbb4e1092754": {
+    "name": "NoviRestoranTest",
+    "restaurantType": "Italian",
+    "status": false,
+    "location": {
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "address": {
+        "street": "Neka ulica",
+        "number": "55",
+        "city": "Prijedor",
+        "zipCode": "21000"
+      }
+    },
+    "id": "bf006b2e-33c0-4f66-90d4-dbb4e1092754"
+  },
+  "dd7a393b-9dbf-4089-a01c-0c4089fe510d": {
+    "name": "asdasda",
+    "restaurantType": "Grill",
+    "status": false,
+    "location": {
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "address": {
+        "street": "sadasdas",
+        "number": "222",
+        "city": "asdasd",
+        "zipCode": "22"
+      }
+    },
+    "id": "dd7a393b-9dbf-4089-a01c-0c4089fe510d"
   }
 }
