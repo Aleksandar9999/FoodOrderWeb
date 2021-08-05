@@ -9,7 +9,6 @@ import service.OrderService;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-import service.UsersService;
 public class OrdersController {
 	private static OrderService ordersService=new OrderService();
 	private static Gson gson=new Gson();
@@ -30,8 +29,6 @@ public class OrdersController {
     public static Route handleCreateOrder = (Request request, Response response) -> {
         response.type("application/json");
         Cart cart=gson.fromJson(request.body(), Cart.class);
-        Order order=new Order(cart);
-        order.setBuyerId(cart.getBuyer().getUsername());
         ordersService.addNew(new Order(cart));
         return ("OK");
     };

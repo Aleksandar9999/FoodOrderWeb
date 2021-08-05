@@ -38,7 +38,7 @@ public class OrdersRepository extends GenericFileRepository<Order> {
 		UsersRepository repository=new UsersRepository();
         RestaurantRepository restaurantRepository=new RestaurantRepository();
         for (Order order : data.values()) {
-            order.setBuyer((Buyer)repository.getByUsername(order.getBuyerId()));
+            order.setBuyer((Buyer)repository.getByUsername(order.getBuyerUsername()));
             order.setRestaurant(restaurantRepository.getById(order.getRestaurantId()));
         }
         return data;
@@ -56,5 +56,5 @@ public class OrdersRepository extends GenericFileRepository<Order> {
 				users.add(order.getBuyer());
 		}
 		return users;
-	}	
-}
+	}
+	}

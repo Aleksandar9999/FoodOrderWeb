@@ -8,7 +8,7 @@ import enumerations.OrderStatus;
 public class Order extends Entity {
 	private List<ArticleInCart> articles;
 	private transient Restaurant restaurant;
-	private String buyerId;
+	private String buyerUsername;
 	private String restaurantId;
 	private LocalDateTime timestamp;
 	private double price;
@@ -17,30 +17,14 @@ public class Order extends Entity {
 
 	public Order(Cart cart) {
 		this.articles = cart.getArticles();
-		this.buyer = cart.getBuyer();
+		this.setBuyer(cart.getBuyer());
 		this.timestamp = LocalDateTime.now();
 		this.price = cart.getPrice();
 		this.orderStatus = OrderStatus.Processing;
-		this.restaurant = cart.getArticles().get(0).getArticle().getRestaurant();
+		this.restaurantId=cart.getArticles().get(0).getArticle().getRestaurantId();
 	}
-
-	public Order(List<ArticleInCart> articles, Restaurant restaurant, LocalDateTime timestamp, double price,
-			Buyer buyer, OrderStatus orderStatus) {
-		super();
-		this.articles = articles;
-		this.restaurant = restaurant;
-		this.timestamp = timestamp;
-		this.price = price;
-		this.buyer = buyer;
-		this.orderStatus = orderStatus;
-	}
-
-	public String getBuyerId() {
-		return buyerId;
-	}
-
-	public void setBuyerId(String buyerId) {
-		this.buyerId = buyerId;
+	public String getBuyerUsername() {
+		return buyerUsername;
 	}
 
 	public String getRestaurantId() {
@@ -92,6 +76,7 @@ public class Order extends Entity {
 
 	public void setBuyer(Buyer buyer) {
 		this.buyer = buyer;
+		this.buyerUsername=buyer.getUsername();
 	}
 
 	public OrderStatus getOrderStatus() {
