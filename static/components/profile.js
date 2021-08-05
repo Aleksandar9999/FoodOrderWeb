@@ -1,10 +1,10 @@
 Vue.component("profile", {
-	data: function () {
-		return {
-			user: null,
-		}
-	},
-	template: ` 
+    data: function () {
+        return {
+            user: null,
+        }
+    },
+    template: ` 
 	<div class="personalInfo">
             <div class="hederInfo">
                 <div style="display: inline-block;">
@@ -67,16 +67,22 @@ Vue.component("profile", {
             </div>
         </div>
 `
-	,
-	mounted() {
-		axios
-			.get('rest/users/'+this.$route.params.id)
-			.then(response => (this.user = response.data))
-	},
-	methods: {
-		updateUser:function(){
-            axios.put('/rest/users/'+this.$route.params.id,this.user).
-            then(response=>(alert("uspjesno")))
+    ,
+    mounted() {
+        if (this.$route.params.id) {
+            axios
+                .get('rest/users/' + this.$route.params.id)
+                .then(response => (this.user = response.data))
+        } else
+            axios
+                .get('rest/users/me')
+                .then(response => {this.user = response.data;
+                console.log(response.data)})
+    },
+    methods: {
+        updateUser: function () {
+            axios.put('/rest/users/' + this.$route.params.id, this.user).
+                then(response => (alert("uspjesno")))
         }
-	}
+    }
 });
