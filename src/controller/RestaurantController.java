@@ -42,10 +42,15 @@ public class RestaurantController {
     };
     public static Route handleAddNewRestaurant = (Request request, Response response) -> {
         response.type("application/json");
-        String body = request.body();
-        Restaurant restaurant = gson.fromJson(body, Restaurant.class);
-        restaurantService.addNew(restaurant);
-        return gson.toJson(restaurant);
+        try {
+            Restaurant restaurant = gson.fromJson(request.body(), Restaurant.class);
+            validateAdministrator(request);
+            restaurantService.addNew(restaurant);
+            return gson.toJson(restaurant);
+        } catch (UnauthorizedUserException er) {
+            response.status(401);
+            return (er.getMessage());
+        }
     };
 
     public static Route handleUpdateRestaurant = (Request request, Response response) -> {
