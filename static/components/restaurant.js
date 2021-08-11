@@ -77,8 +77,9 @@ Vue.component("restaurant", {
         
         axios
             .get('/rest/restaurants/' + this.$route.params.id+'/comments')
-            .then(response => {this.comments = response.data;
-            console.log("KOMENTARIO",this.comments)})
+            .then(response => {
+                this.comments = response.data;
+            })
         
     },
     methods: {

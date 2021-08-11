@@ -206,7 +206,8 @@ Vue.component("restaurant-settings", {
                             this.$router.push('/restaurants/' + response.data.id + '/manager');
                         }
                         else {
-                            axios.put('/rest/restaurants/' + response.data.id + '/managers/' + this.selectedManager).then(response => { router.push('/restaurants'); })
+                            axios.put('/rest/restaurants/' + response.data.id + '/managers/' + this.selectedManager)
+                            .then(response => { this.$router.push('/restaurants'); })
                         }
                     })
             } else {

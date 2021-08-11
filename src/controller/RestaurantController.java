@@ -42,8 +42,10 @@ public class RestaurantController {
     };
     public static Route handleAddNewRestaurant = (Request request, Response response) -> {
         response.type("application/json");
+        System.out.println(request.body());
         try {
             Restaurant restaurant = gson.fromJson(request.body(), Restaurant.class);
+            System.out.println(restaurant.getName());
             validateAdministrator(request);
             restaurantService.addNew(restaurant);
             return gson.toJson(restaurant);

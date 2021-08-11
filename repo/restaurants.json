@@ -116,6 +116,22 @@
     },
     "id": "bf006b2e-33c0-4f66-90d4-dbb4e1092754"
   },
+  "5a9a5837-6243-4dcd-8c26-1a5b640b15fc": {
+    "name": "bez managera",
+    "restaurantType": "Chinese",
+    "status": false,
+    "location": {
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "address": {
+        "street": "ss",
+        "number": "2",
+        "city": "asd",
+        "zipCode": "22"
+      }
+    },
+    "id": "5a9a5837-6243-4dcd-8c26-1a5b640b15fc"
+  },
   "dd7a393b-9dbf-4089-a01c-0c4089fe510d": {
     "name": "asdasda",
     "restaurantType": "Grill",
@@ -131,5 +147,37 @@
       }
     },
     "id": "dd7a393b-9dbf-4089-a01c-0c4089fe510d"
+  },
+  "97d9b429-af37-4f0e-9f69-7f5f6172869e": {
+    "name": "novi sa menagerom",
+    "restaurantType": "Chinese",
+    "status": false,
+    "location": {
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "address": {
+        "street": "ss",
+        "number": "2",
+        "city": "ss",
+        "zipCode": "2"
+      }
+    },
+    "id": "97d9b429-af37-4f0e-9f69-7f5f6172869e"
+  },
+  "ee1c2637-e98c-4fa6-80c4-6d3bc9b83628": {
+    "name": "AmanREst",
+    "restaurantType": "Other",
+    "status": false,
+    "location": {
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "address": {
+        "street": "ulicamana",
+        "number": "55",
+        "city": "sadas",
+        "zipCode": "211"
+      }
+    },
+    "id": "ee1c2637-e98c-4fa6-80c4-6d3bc9b83628"
   }
 }

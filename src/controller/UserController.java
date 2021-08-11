@@ -77,13 +77,13 @@ public class UserController {
         response.type("application/json");
         try {
             String restaurantId = request.queryParams("restaurantId");
-            System.out.println("GETALL MANAGERS" + restaurantId);
             if (restaurantId.equals("-1")) {
                 return g.toJson(usersService.getFreeManagers());
             }
             return null;
         } catch (Exception e) {
-            return g.toJson(usersService.getAll());
+            response.status(401);
+            return (e.getMessage());
         }
     };
     public static Route handleUpdateUser = (Request request, Response response) -> {

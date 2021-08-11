@@ -35,10 +35,11 @@ public class UsersDeserializer implements JsonDeserializer<HashMap<String, User>
 				continue;
 			}
 			if(rola.equals(UserRole.Manager.toString())) {
-				Manager buyer=g.fromJson(memr, Manager.class);
+				Manager manager=g.fromJson(memr, Manager.class);
 				RestaurantRepository restaurantRepository=new RestaurantRepository();
-				buyer.setRestaurant(restaurantRepository.getById(buyer.getRestaurantId()));
-				map.put(buyer.getUsername(), buyer);
+				if(manager.getRestaurantId()!=null)
+					manager.setRestaurant(restaurantRepository.getById(manager.getRestaurantId()));
+				map.put(manager.getUsername(), manager);
 				continue;
 			}
 			if(rola.equals(UserRole.Administrator.toString())) {

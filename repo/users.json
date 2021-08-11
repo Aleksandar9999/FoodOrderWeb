@@ -35,11 +35,19 @@
     "userRole": "Buyer"
   },
   {
-    "restaurantId": "dd7a393b-9dbf-4089-a01c-0c4089fe510d",
+    "restaurantId": "ee1c2637-e98c-4fa6-80c4-6d3bc9b83628",
     "username": "aman",
     "password": "aman",
-    "name": "Novi Menadzer",
+    "name": "ManagerNovi",
     "surname": "Manager",
+    "userRole": "Manager"
+  },
+  {
+    "restaurantId": "5a9a5837-6243-4dcd-8c26-1a5b640b15fc",
+    "username": "ssskk",
+    "password": "sadas",
+    "name": "NobiiManager",
+    "surname": "prezimenovog",
     "userRole": "Manager"
   },
   {
@@ -57,13 +65,5 @@
     "name": "Aleksandar",
     "surname": "Brkljac",
     "userRole": "Administrator"
-  },
-  {
-    "restaurantId": "dd7a393b-9dbf-4089-a01c-0c4089fe510d",
-    "username": "aman",
-    "password": "aman",
-    "name": "ManagerNovi",
-    "surname": "Manager",
-    "userRole": "Manager"
   }
 ]
