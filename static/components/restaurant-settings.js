@@ -180,8 +180,11 @@ Vue.component("restaurant-settings", {
     ,
     mounted() {
         axios
-            .get('rest/restaurants/' + this.$route.params.id)
+            .get('rest/restaurants/' + this.$route.params.id+'/settings')
             .then(response => { this.restaurant = response.data; console.log(this.restaurant) })
+            .catch(function (error) {
+                alert(error.response.data, "Greska")
+            })
 
         axios
             .get('rest/restaurants/' + this.$route.params.id + '/articles')

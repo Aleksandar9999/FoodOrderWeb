@@ -31,7 +31,7 @@ public class CartController {
 		Cart cart = ss.attribute("cart"); 
 		if (cart == null) {
             UsersService usersService =new UsersService();
-            cart = new Cart((Buyer)usersService.getByUsername(UserController.getLoggedingUser(request)));
+            cart = new Cart((Buyer)usersService.getByUsername(UserController.getLoggedingUsername(request)));
 			ss.attribute("cart", cart);
 		}
 		return cart;

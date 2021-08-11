@@ -16,6 +16,7 @@ import beans.Deliverer;
 import beans.Manager;
 import beans.User;
 import enumerations.UserRole;
+import repository.restaurants.RestaurantRepository;
 
 public class UsersDeserializer implements JsonDeserializer<HashMap<String, User>> {
 
@@ -35,6 +36,8 @@ public class UsersDeserializer implements JsonDeserializer<HashMap<String, User>
 			}
 			if(rola.equals(UserRole.Manager.toString())) {
 				Manager buyer=g.fromJson(memr, Manager.class);
+				RestaurantRepository restaurantRepository=new RestaurantRepository();
+				buyer.setRestaurant(restaurantRepository.getById(buyer.getRestaurantId()));
 				map.put(buyer.getUsername(), buyer);
 				continue;
 			}

@@ -33,7 +33,9 @@ Vue.component("restaurant-orders", {
 	mounted() {
 		axios
 			.get('/rest/restaurants/'+this.$route.params.id+'/orders')
-			.then(response => (this.orders = response.data))
+			.then(response => (this.orders = response.data)).catch(function (error) {
+			  alert(error.response.data, "Greska")
+		  })
 	},
 	methods: {
 	

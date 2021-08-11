@@ -9,8 +9,10 @@ import beans.Administrator;
 import beans.Buyer;
 import beans.Deliverer;
 import beans.Manager;
+import beans.Restaurant;
 import beans.User;
 import enumerations.UserRole;
+import service.RestaurantService;
 import service.UsersService;
 import spark.Request;
 import spark.Response;
@@ -72,11 +74,9 @@ public class UserController {
             }
             return null;
         }catch (UserRoleException er){
-            return g.toJson(er.getMessage());
+            response.status(401);
+            return (er.getMessage());
         } 
-        catch (Exception e) {
-            return g.toJson(usersService.getAll());
-        }
     };
     public static Route handleGetAllManagers = (Request request, Response response) -> {
         response.type("application/json");
@@ -124,7 +124,8 @@ public class UserController {
         response.type("application/json");
         String username = request.params("username");
         Manager user = (Manager) usersService.getByUsername(username);
-        user.setRestaurantId(request.params("id"));
+        RestaurantService restaurantService=new RestaurantService();
+        user.setRestaurant(restaurantService.getById(request.params("id")));
         usersService.update(username, user);
         return g.toJson(user);
     };
@@ -133,7 +134,7 @@ public class UserController {
         response.type("application/json");
         String username = request.params("id");
         if (username.equals("me")) {
-            return g.toJson(usersService.getByUsername(getLoggedingUser(request)));
+            return g.toJson(usersService.getByUsername(getLoggedingUsername(request)));
         } else {
             User user = usersService.getByUsername(username);
             return g.toJson(user);
@@ -150,12 +151,15 @@ public class UserController {
     }
 
     private static void validateAdminUser(Request request) {
-        User loggedinUser=usersService.getByUsername(getLoggedingUser(request));
+        User loggedinUser=usersService.getByUsername(getLoggedingUsername(request));
         if(!loggedinUser.getUserRole().equals(UserRole.Administrator)) throw new UserRoleException("Prijavljeni korisnik nije administrator.");
     }
 
-    public static String getLoggedingUser(Request request) {
+    public static String getLoggedingUsername(Request request) {
         Session ss = request.session(true);
         return ss.attribute("user");
+    }
+    public static User getLoggedingUser(Request request) {
+        return usersService.getByUsername(getLoggedingUsername(request));
     }
 }

@@ -112,7 +112,7 @@ public class UsersRepository{
 	}
 	public List<User> getFreeManagers(){
 		ArrayList<User> managers=getAllByType(UserRole.Manager);
-		managers.removeIf(us->((Manager)us).getRestaurantId()!=null);
+		managers.removeIf(us->((Manager)us).getRestaurant()!=null);
 		return managers;
 	}
 

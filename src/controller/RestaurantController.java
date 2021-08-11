@@ -1,8 +1,10 @@
 package controller;
 import com.google.gson.Gson;
 
+import beans.Manager;
 import beans.Restaurant;
 import service.RestaurantService;
+import service.UsersService;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -23,7 +25,20 @@ public class RestaurantController {
         System.out.println(restaurant.getName());
         return gson.toJson(restaurant);
     };
-
+    public static Route handleGetRestaurantByIdSettings = (Request request, Response response) -> {
+        response.type("application/json");
+        String id = request.params("id");
+        UsersService usersService=new UsersService();
+        Manager manager=(Manager) usersService.getByUsername(UserController.getLoggedingUsername(request));
+        if(manager.getRestaurant().getId().equals(id)){
+            Restaurant restaurant=restaurantService.getById(id);
+            return gson.toJson(restaurant);
+        }else{
+            response.status(401);
+            return ("Unauthorized");
+        } 
+        
+    };
     public static Route handleAddNewRestaurant = (Request request, Response response) -> {
         response.type("application/json");
         String body=request.body();

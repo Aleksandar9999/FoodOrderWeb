@@ -39,6 +39,9 @@ Vue.component("restaurant-buyers", {
 			.then(response => {this.buyers = response.data;
 				console.log(response.data);
 			})
+			.catch(function (error) {
+				alert(error.response.data, "Greska")
+			})
 	},
 	methods: {
 	

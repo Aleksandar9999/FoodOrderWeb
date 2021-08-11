@@ -31,6 +31,10 @@ Vue.component("orders", {
           .then(response => {
         	  this.orders = response.data;
               console.log(this.orders)
-          });
+          })
+		  .catch(function (error) {
+			  console.log("greska")
+			alert(error.response.data, "Greska")
+		})
     }
 });

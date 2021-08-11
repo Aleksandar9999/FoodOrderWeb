@@ -59,7 +59,7 @@ Vue.component("users", {
 	mounted() {
 		axios
 			.get('/rest/users')
-			.then(response => (this.users = response.data))
+			.then(response => (this.users = response.data)).catch((error)=>{alert(error.response.data,"greska")})
 	},
 	computed: {
 		sortedList() {

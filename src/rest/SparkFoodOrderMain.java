@@ -29,6 +29,9 @@ public class SparkFoodOrderMain {
         
         get("/rest/restaurants",RestaurantController.handleGetAllRestaurantsSorted);
         get("/rest/restaurants/:id",RestaurantController.handleGetRestaurantById);
+
+        get("/rest/restaurants/:id/settings",RestaurantController.handleGetRestaurantByIdSettings);
+        
         post("/rest/restaurants",RestaurantController.handleAddNewRestaurant);
         put("/rest/restaurants/:id",RestaurantController.handleUpdateRestaurant);
         

@@ -20,7 +20,7 @@ import repository.users.UsersRepository;
 public class OrdersRepository extends GenericFileRepository<Order> {
 
 	public OrdersRepository() {
-		super("./repo/orders.json");	
+		super("./repo/orders.json");
 	}
 
 	@Override
@@ -29,32 +29,37 @@ public class OrdersRepository extends GenericFileRepository<Order> {
 		Type type = new TypeToken<HashMap<String, Order>>() {
 		}.getType();
 		HashMap<String, Order> data = gson.fromJson(json, type);
-		if(data==null) data=new HashMap<>();
+		if (data == null)
+			data = new HashMap<>();
 		return mergeWithObjects(data);
-		
-	}
-	
-	private HashMap<String, Order> mergeWithObjects(HashMap<String, Order> data) {
-		UsersRepository repository=new UsersRepository();
-        RestaurantRepository restaurantRepository=new RestaurantRepository();
-        for (Order order : data.values()) {
-            order.setBuyer((Buyer)repository.getByUsername(order.getBuyerUsername()));
-            order.setRestaurant(restaurantRepository.getById(order.getRestaurantId()));
-        }
-        return data;
+
 	}
 
-	public List<Order> getAllByRestaurant(String id){
-		List<Order> orders= getAll();
-		orders.removeIf(or->!or.getRestaurant().getId().equals(id));
+	private HashMap<String, Order> mergeWithObjects(HashMap<String, Order> data) {
+		UsersRepository repository = new UsersRepository();
+		RestaurantRepository restaurantRepository = new RestaurantRepository();
+		for (Order order : data.values()) {
+			order.setBuyer((Buyer) repository.getByUsername(order.getBuyerUsername()));
+			order.setRestaurant(restaurantRepository.getById(order.getRestaurantId()));
+		}
+		return data;
+	}
+
+	public List<Order> getAllByRestaurant(String id) {
+		List<Order> orders = getAll();
+		for (Order order : orders) {
+			if (!order.getRestaurantId().equals(id))
+				orders.remove(order);
+		}
 		return orders;
 	}
-	public List<User> getAllBuyersByRestaruantId(String id){
-		List<User> users=new ArrayList<User>();
+
+	public List<User> getAllBuyersByRestaruantId(String id) {
+		List<User> users = new ArrayList<User>();
 		for (Order order : readAll().values()) {
-			if(order.getRestaurant().getId().equals(id))
+			if (order.getRestaurant().getId().equals(id))
 				users.add(order.getBuyer());
 		}
 		return users;
 	}
-	}
+}
