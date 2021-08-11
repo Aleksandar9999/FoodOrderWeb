@@ -67,12 +67,7 @@ public class UserController {
         response.type("application/json");
         try {
             validateAdminUser(request);
-            String role = request.queryParams("userRole");
-            String restaurantId = request.queryParams("restaurantId");
-            if (role.equals(UserRole.Manager.toString()) && restaurantId.equals("-1")) {
-                return g.toJson(usersService.getFreeManagers());
-            }
-            return null;
+            return g.toJson(usersService.getAll());
         }catch (UserRoleException er){
             response.status(401);
             return (er.getMessage());
