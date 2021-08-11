@@ -1,17 +1,18 @@
 package beans;
 
-import enumerations.UserRole;
-
 public class Manager extends User {
-
 	private String restaurantId;
-
+	private transient Restaurant restaurant;
 	public Manager(){}
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+		this.restaurantId=restaurant.getId();
+	}
 	public String getRestaurantId() {
 		return restaurantId;
 	}
-
-	public void setRestaurantId(String restaurantId) {
-		this.restaurantId = restaurantId;
-	}
+	
 }
