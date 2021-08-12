@@ -13,6 +13,7 @@ public class Restaurant extends Entity{
 	private boolean status;
 	private Location location;
 	private String logoUrl;
+	private double avgRate;
 	public Restaurant(){
 		name="";
 		restaurantType=RestaurantType.Other;
@@ -94,5 +95,11 @@ public class Restaurant extends Entity{
 		for (Article article : articles) {
 			if(article.getName().equals(newArticle.getName()) && !article.getId().equals(newArticle.getId())) throw new ArticleExistException();
 		}
+	}
+	public double getAvgRate() {
+		return avgRate;
+	}
+	public void setAvgRate(double avgRate) {
+		this.avgRate = avgRate;
 	}
 }
