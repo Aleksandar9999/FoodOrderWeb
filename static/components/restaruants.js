@@ -6,9 +6,9 @@ Vue.component("restaurants", {
 			searchName: '',
 			searchLocation: '',
 			searchAvgRate: '',
-			currentSort:'name',
-			currentSortDir:"asc",
-			currentFilterType:''
+			currentSort: 'name',
+			currentSortDir: "asc",
+			currentFilterType: ''
 		}
 	},
 	template: ` 
@@ -40,7 +40,7 @@ Vue.component("restaurants", {
 				<th @click="sort('avgRate')">Prosecna ocjena</th>
 			</tr>
 				
-			<tr v-for="(p, index) in sortedList" @click=showRestaurant(p.id) >
+			<tr v-for="(p, index) in sortedList" @click=showRestaurant(p.id)  :class="p.status ? 'open-restaurant' : 'closed-restaruant'">
 				<td>
 					<img width="90px" height="90px"  src="../files/images/pizza.jpg">
 					<p>{{p.name}}</p>
@@ -49,11 +49,11 @@ Vue.component("restaurants", {
 					<p>{{p.location.address.street}} {{p.location.address.number}}</p> 
 				
 					<p>{{p.location.address.city}} {{p.location.address.zipCode}}</p>
-					</td>
+				</td>
 				<td>
 					<p id="usernamep">@{{p.restaurantType}}</p>
 				</td>
-				<td></td>
+				<td><p>{{p.avgRate}}</p></td>
 			</tr>
 		</table>
 </div>
@@ -67,26 +67,28 @@ Vue.component("restaurants", {
 	},
 	computed: {
 		sortedList() {
-			if(this.searchList==null) return;
-			return this.searchList.sort((a,b)=>{
-				let modifier=1;
-				if(this.currentSortDir==='desc') modifier=-1;
-				if(a[this.currentSort]< b[this.currentSort]) return -1*modifier
-				if(a[this.currentSort]> b[this.currentSort]) return modifier
+			if (this.searchList == null) return;
+			return this.searchList.sort((a, b) => {
+				console.log(a.status);
+				let modifier = 1;
+				if (this.currentSortDir === 'desc') modifier = -1;
+				if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier * a.status
+				if (a[this.currentSort] > b[this.currentSort]) return modifier * a.status
 				return 0
 			})
 		},
 		searchList() {
 			if (this.filteredList == null) return;
 			return this.filteredList.filter(restaurant => {
-				return restaurant.name.toLowerCase().includes(this.searchName.toLowerCase()) 
-						&& restaurant.location.address.street.toLowerCase().includes(this.searchLocation.toLowerCase()) 
-					})
+				return restaurant.name.toLowerCase().includes(this.searchName.toLowerCase())
+					&& restaurant.location.address.street.toLowerCase().includes(this.searchLocation.toLowerCase())
+					&& restaurant.avgRate >= this.searchAvgRate
+			})
 		},
-		filteredList(){
+		filteredList() {
 			if (this.restaurants == null) return;
 			return this.restaurants.filter(restaurant => {
-					return restaurant.restaurantType.toLowerCase().includes(this.currentFilterType.toLowerCase())
+				return restaurant.restaurantType.toLowerCase().includes(this.currentFilterType.toLowerCase())
 			})
 		}
 	},
@@ -98,8 +100,8 @@ Vue.component("restaurants", {
 			}
 			this.currentSort = s
 		},
-		showRestaurant:function(s){
-			router.push('restaurants/'+s)
+		showRestaurant: function (s) {
+			router.push('restaurants/' + s)
 		}
 	}
 });

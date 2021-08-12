@@ -17,9 +17,7 @@ table th{
 #headertable:hover{
     background-color: transparent;
 }
-table tr:hover{
-    background-color: rgba(255, 255, 255, 0.3);
-}
+
 #searchtabe tr:hover{
     background-color: transparent;
 }
