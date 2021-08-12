@@ -8,7 +8,8 @@ Vue.component("restaurants", {
 			searchAvgRate: '',
 			currentSort: 'name',
 			currentSortDir: "asc",
-			currentFilterType: ''
+			currentFilterType: '',
+			currentFilterTypeStatus:'',
 		}
 	},
 	template: ` 
@@ -22,10 +23,18 @@ Vue.component("restaurants", {
 				<td>
 				<div class="field">
 					<select v-model="currentFilterType"  style="height: 30px;" name="currentFilterType">
+						<option value="">All</option>
 						<option value="Italian">Italian</option>
 						<option value="Chinese">Chinese</option>
 						<option value="Grill">Grill</option>
 						<option value="Other">Other</option>
+					</select>
+				</div>
+				<div class="field">
+					<select v-model="currentFilterTypeStatus"  style="height: 30px;" name="currentFilterTypeStatus">
+						<option value="">All</option>
+						<option value="true">Open</option>
+						<option value="false">Closed</option>
 					</select>
 				</div>
 			    </td>
@@ -51,7 +60,7 @@ Vue.component("restaurants", {
 					<p>{{p.location.address.city}} {{p.location.address.zipCode}}</p>
 				</td>
 				<td>
-					<p id="usernamep">@{{p.restaurantType}}</p>
+					<p id="usernamep">{{p.restaurantType}}</p>
 				</td>
 				<td><p>{{p.avgRate}}</p></td>
 			</tr>
@@ -69,7 +78,6 @@ Vue.component("restaurants", {
 		sortedList() {
 			if (this.searchList == null) return;
 			return this.searchList.sort((a, b) => {
-				console.log(a.status);
 				let modifier = 1;
 				if (this.currentSortDir === 'desc') modifier = -1;
 				if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier * a.status
@@ -89,6 +97,7 @@ Vue.component("restaurants", {
 			if (this.restaurants == null) return;
 			return this.restaurants.filter(restaurant => {
 				return restaurant.restaurantType.toLowerCase().includes(this.currentFilterType.toLowerCase())
+					&& restaurant.status.toString().includes(this.currentFilterTypeStatus)
 			})
 		}
 	},
