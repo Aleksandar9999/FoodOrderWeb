@@ -116,11 +116,11 @@ Vue.component("restaurant-settings", {
                         <img width="50px" height="50px" style="overflow : visible;" src="../files/images/pizza.jpg">
                     </td>    
                     <td>
-                        <p>{{p.article.name}}</p>
+                        <p>{{p.name}}</p>
                         <p style="color:gray;">{{p.comment}}</p>
                     </td>
                     <td>
-                        <p>{{p.article.price}} RSD</p>
+                        <p>{{p.price}} RSD</p>
                     </td>
                 </tr>
             </table>
@@ -134,7 +134,7 @@ Vue.component("restaurant-settings", {
 			<div class="modal-content" style="background-color: white; width: 80%; margin: 0 auto;">
 				<div class="modal-header">
 					<button type="button" class="close" @click="myModel=false"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Dodavanje artikla</h4>
+					<h4 class="modal-title" >{{dynamicTitle}}</h4>
 				</div>
 				
 				<div class="modal-body">
@@ -148,7 +148,11 @@ Vue.component("restaurant-settings", {
 					</div>
                     <div class="form-group">
 					 <label>Tip</label>
-					 <input type="text" class="form-control" v-model="article.articleType" />
+                        <select v-model="article.articleType"  style="height: 30px;">
+                            <option value=""></option>
+                            <option value="Food">Hrana</option>
+                            <option value="Drink">Piće</option>
+                        </select>
 					</div>
                     <div class="form-group">
 					 <label>Slika</label>
@@ -189,6 +193,7 @@ Vue.component("restaurant-settings", {
         axios
             .get('rest/restaurants/' + this.$route.params.id + '/articles')
             .then(response => {
+                console.log(response)
                 this.articles = response.data
             })
 
@@ -228,8 +233,6 @@ Vue.component("restaurant-settings", {
                                 console.log("getovvao")
                             })
                         alert("Uspijesno ste dodali artikal");
-                        this.myModel=false;
-
                     })
                     .catch(function (error) {
                         alert(error.response.data, "Greska")
@@ -238,12 +241,15 @@ Vue.component("restaurant-settings", {
             else {
                 axios
                     .put('rest/restaurants/' + this.$route.params.id + '/articles/' + this.article.id, this.article)
-                    .then(response => (this.restaurant = response.data))
+                    .then(response => {
+                        this.restaurant = response.data;
+                        alert("Success.")
+                    })
                     .catch(function (error) {
                         alert(error.response.data, "Greska")
                     })
             }
-
+            
 
         },
         openModel() {
@@ -262,7 +268,8 @@ Vue.component("restaurant-settings", {
         },
         updateArticle(p) {
             this.articleOperation = 'Update'
-            this.article = p.article
+            this.article = JSON.parse(JSON.stringify(p));
+            console.log(JSON.parse(JSON.stringify(p)))
             this.actionButton = "Izmijeni"
             this.dynamicTitle = "Izmijena artikla"
             this.myModel = true
