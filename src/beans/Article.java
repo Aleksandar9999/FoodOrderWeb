@@ -26,12 +26,12 @@ public class Article extends Entity {
 
 	@Override
 	public boolean equals(Object obj) {
-		return ((Article) obj).getId().equals(this.getId());
+		return ((Article) obj).getName().equals(this.getName());
 	}
 
 	@Override
 	public int hashCode() {
-		return super.hashCode();
+		return this.getName().hashCode();
 	}
 
 	public String getName() {

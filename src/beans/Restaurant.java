@@ -102,4 +102,5 @@ public class Restaurant extends Entity{
 	public void setAvgRate(double avgRate) {
 		this.avgRate = avgRate;
 	}
+	
 }
