@@ -12,7 +12,6 @@ import beans.Article;
 import beans.ArticleInCart;
 import exceptions.ArticleExistException;
 import generic.GenericFileRepository;
-import repository.restaurants.RestaurantRepository;
 
 public class ArticlesRepository extends GenericFileRepository<Article> {
 
@@ -28,17 +27,9 @@ public class ArticlesRepository extends GenericFileRepository<Article> {
         HashMap<String, Article> data = gson.fromJson(json, type);
         if (data == null)
             data = new HashMap<String, Article>();
-        return mergeWithRestaurants(data);
-    }
-
-    private HashMap<String, Article> mergeWithRestaurants(HashMap<String, Article> data) {
-        RestaurantRepository repository=new RestaurantRepository();
-        for (Article item : data.values()) {
-            item.setRestaurant(repository.getById(item.getRestaurantId()));
-        }
         return data;
     }
-
+    
     public List<ArticleInCart> getAllArticlesForCartByRestaurantId(String id) {
         // REFACTOR
         List<ArticleInCart> retVal = new ArrayList<ArticleInCart>();
@@ -58,6 +49,12 @@ public class ArticlesRepository extends GenericFileRepository<Article> {
     }
 
     @Override
+    public Article addNew(Article article) {
+
+        return super.addNew(article);
+    }
+
+    @Override
     public void update(Article article) {
         HashMap<String, Article> articlesMap = readAll();
         if (articlesMap == null)
@@ -68,9 +65,9 @@ public class ArticlesRepository extends GenericFileRepository<Article> {
     }
 
     private void ValidateNameOfArticle(Article candidaArticle) {
-        for (Article article : readAll().values())
-            if (article.getName().equals(candidaArticle.getName()))
-                throw new ArticleExistException();
+        for (Article article : getAllArticlesByRestaurantId(candidaArticle.getRestaurant().getId())) {
+			if(article.getName().equals(candidaArticle.getName()) && !article.getId().equals(candidaArticle.getId())) throw new ArticleExistException();
+		}
     }
    
 }
