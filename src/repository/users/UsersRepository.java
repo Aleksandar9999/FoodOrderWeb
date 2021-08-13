@@ -17,8 +17,8 @@ import com.google.gson.reflect.TypeToken;
 import beans.Manager;
 import beans.User;
 import enumerations.UserRole;
-import exceptions.LoginException;
 import exceptions.RegistrationException;
+import exceptions.UserDataException;
 
 public class UsersRepository{
 
@@ -37,9 +37,9 @@ public class UsersRepository{
 		if (users.containsKey(user.getUsername())) {
 			if (users.get(user.getUsername()).getPassword().equals(user.getPassword()))
 				return users.get(user.getUsername());
-			throw new LoginException("Neispravna lozinka");
+			throw new UserDataException("Wrong password.");
 		} else
-			throw new LoginException("Neispravno korisnicko ime");
+			throw new UserDataException("Wrong username.");
 	}
 	public User getByUsername(String id){
 		return readAll().get(id);
@@ -49,7 +49,7 @@ public class UsersRepository{
 		if (users == null)
 			users = new HashMap<String, User>();
 		if (users.containsKey(user.getUsername())) {
-			throw new RegistrationException("Korisnicko ime je zauzeto.");
+			throw new RegistrationException("Username is already in use.");
 		}
 		users.put(user.getUsername(), user);
 		saveAll(users);
