@@ -17,7 +17,6 @@ public class ArticleController {
     public static Route handleGetArticlesInCartByRestaurant = (Request request, Response response) -> {
         response.type("application/json");
         String idRestaurant = request.params("id");
-        System.out.println(gson.toJson(articleService.getAllArticlesForCartByRestaurantId(idRestaurant)));
         return gson.toJson(articleService.getAllArticlesForCartByRestaurantId(idRestaurant));
     };
 
@@ -25,26 +24,39 @@ public class ArticleController {
         response.type("application/json");
 
         Article article = gson.fromJson(request.body(), Article.class);
+        System.out.println(request.body());
+        System.out.println(article.getArticleType());
         String idRestaurant = request.params("id");
+        try {
+            RestaurantService restaurantService = new RestaurantService();
+            restaurantService.getById(idRestaurant).addArticle(article);
+            article.setRestaurant(restaurantService.getById(idRestaurant));
+            articleService.addNew(article);
+            return gson.toJson(article);
+        } catch (ArticleExistException ex) {
+            response.status(400);
+            return (ex.getMessage());
+        }
+    };
 
-        RestaurantService restaurantService = new RestaurantService();
-        article.setRestaurant(restaurantService.getById(idRestaurant));
-
-        articleService.addNew(article);
-        return gson.toJson(article);
+    public static Route handleGetArticlesByRestaurantId = (Request request, Response response) -> {
+        response.type("application/json");
+        String idRes=request.params("id");
+        return gson.toJson(articleService.getAllArticlesByRestaurantId(idRes));
     };
 
     public static Route handleUpdateArticle = (Request request, Response response) -> {
         response.type("application/json");
         try {
             Article article = gson.fromJson(request.body(), Article.class);
+            RestaurantService restaurantService = new RestaurantService();
+            article.setRestaurant(restaurantService.getById(request.params("idRest")));
             articleService.update(article);
             return gson.toJson(article);
         } catch (ArticleExistException e) {
             response.status(401);
             return e.getMessage();
         }
-
     };
 
 }

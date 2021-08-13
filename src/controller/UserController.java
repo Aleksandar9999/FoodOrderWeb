@@ -30,11 +30,10 @@ public class UserController {
         try {
             user = usersService.login(user);
             setLoggedinUser(request, user);
-
             return g.toJson(user);
-        } catch (LoginException ex) {
+        } catch (UserDataException ex) {
             response.status(401);
-            return ex.getErrorMessage();
+            return ex.getMessage();
         }
     };
     public static Route handleRegisterBuyer = (Request request, Response response) -> {
@@ -66,9 +65,9 @@ public class UserController {
     public static Route handleGetAllUsers = (Request request, Response response) -> {
         response.type("application/json");
         try {
-            validateAdminUser(request);
+            validateAdministrator(request);
             return g.toJson(usersService.getAll());
-        }catch (UserRoleException er){
+        }catch (AccessException er){
             response.status(401);
             return (er.getMessage());
         } 
@@ -145,9 +144,8 @@ public class UserController {
         ss.attribute("user", user.getUsername());
     }
 
-    private static void validateAdminUser(Request request) {
-        User loggedinUser=usersService.getByUsername(getLoggedingUsername(request));
-        if(!loggedinUser.getUserRole().equals(UserRole.Administrator)) throw new UserRoleException("Prijavljeni korisnik nije administrator.");
+    private static void validateAdministrator(Request request) {
+        if(!getLoggedingUser(request).getUserRole().equals(UserRole.Administrator)) throw new AccessException("Loggedin user is not administrator");
     }
 
     public static String getLoggedingUsername(Request request) {

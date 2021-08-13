@@ -19,6 +19,26 @@
     "restaurantId": "1",
     "id": "asda"
   },
+  "de9aa31e-7853-4508-bc14-74610d3da8f8": {
+    "name": "prvi",
+    "price": 1.0,
+    "articleType": "Drink",
+    "amount": 1.0,
+    "comment": "1",
+    "imageUrl": "1",
+    "restaurantId": "ee1c2637-e98c-4fa6-80c4-6d3bc9b83628",
+    "id": "de9aa31e-7853-4508-bc14-74610d3da8f8"
+  },
+  "6bd683eb-e822-401d-9340-88c3007acbf9": {
+    "name": "treciIzmijena",
+    "price": 5.0,
+    "articleType": "Food",
+    "amount": 5.0,
+    "comment": "s",
+    "imageUrl": "s",
+    "restaurantId": "ee1c2637-e98c-4fa6-80c4-6d3bc9b83628",
+    "id": "6bd683eb-e822-401d-9340-88c3007acbf9"
+  },
   "3c24c9a5-53ca-4a60-aa97-d6e1a81f0c58": {
     "name": "kk",
     "price": 777.0,
@@ -55,6 +75,25 @@
     "imageUrl": "image",
     "restaurantId": "1",
     "id": "61da6b8b-225a-4252-a561-a664cf6ab44f"
+  },
+  "4348c3aa-d494-4ff7-aea8-500095a74792": {
+    "name": "drugi",
+    "price": 1.0,
+    "amount": 1.0,
+    "comment": "11",
+    "imageUrl": "1",
+    "restaurantId": "ee1c2637-e98c-4fa6-80c4-6d3bc9b83628",
+    "id": "4348c3aa-d494-4ff7-aea8-500095a74792"
+  },
+  "c881e8f6-ad82-4ff8-9806-bdb6bef1546f": {
+    "name": "NivSatipom",
+    "price": 5.0,
+    "articleType": "Food",
+    "amount": 5.0,
+    "comment": "s",
+    "imageUrl": "s",
+    "restaurantId": "ee1c2637-e98c-4fa6-80c4-6d3bc9b83628",
+    "id": "c881e8f6-ad82-4ff8-9806-bdb6bef1546f"
   },
   "23f43744-1455-45a5-a083-de89fab4d75b": {
     "name": "kjl",
