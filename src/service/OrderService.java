@@ -30,5 +30,7 @@ public class OrderService extends GenericFileService<Order>{
 		if(!order.getOrderStatus().equals(OrderStatus.Processing)){ throw new CanUpdateOrderException();}
 		this.update(newOrder);
 	}
-	
+	public List<Order> getAllByBuyerUsername(String username){
+		return ((OrdersRepository)this.repository).getAllByBuyerUsername(username);
+	}
 }

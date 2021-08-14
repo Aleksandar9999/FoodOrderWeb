@@ -1,7 +1,6 @@
 package repository.orders;
 
 import java.lang.reflect.Type;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,8 +10,6 @@ import com.google.gson.reflect.TypeToken;
 import beans.Buyer;
 import beans.Order;
 import beans.User;
-import enumerations.OrderStatus;
-import enumerations.RestaurantType;
 import generic.GenericFileRepository;
 import repository.restaurants.RestaurantRepository;
 import repository.users.UsersRepository;
@@ -47,10 +44,7 @@ public class OrdersRepository extends GenericFileRepository<Order> {
 
 	public List<Order> getAllByRestaurant(String id) {
 		List<Order> orders = getAll();
-		for (Order order : orders) {
-			if (!order.getRestaurantId().equals(id))
-				orders.remove(order);
-		}
+		orders.removeIf(order -> !order.getRestaurantId().equals(id));
 		return orders;
 	}
 
@@ -61,5 +55,13 @@ public class OrdersRepository extends GenericFileRepository<Order> {
 				users.add(order.getBuyer());
 		}
 		return users;
+	}
+	
+	public List<Order> getAllByBuyerUsername(String username){
+		List<Order> buyerOrders=new ArrayList<Order>();
+		for (Order order : readAll().values()) {
+			if(order.getBuyerUsername().equals(username)) buyerOrders.add(order);
+		}
+		return buyerOrders;
 	}
 }

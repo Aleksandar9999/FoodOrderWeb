@@ -44,7 +44,9 @@ public class SparkFoodOrderMain {
         get("/rest/restaurants/:id/buyers",OrdersController.handleGetBuyersByRestaurant);
         
         post("rest/orders",OrdersController.handleCreateOrder);
-        
+        get("/rest/orders/:id",OrdersController.handleGetOrdersByBuyer);
+        put("/rest/orders/:id",OrdersController.handleUpdateOrder);
+
         get("/rest/restaurants/:id/comments",CommentController.handleGetCommentsByRestaurant);
       
     }
