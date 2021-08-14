@@ -2,18 +2,32 @@ Vue.component("orders", {
 	data: function () {
 		    return {
                 orders:null,
+				currentFilterStatus:''
             }
 	},
 	template: ` 
 <div>
 	<table border="1">
 		<tr bgcolor="lightgrey">
-			<th>Status</th><th>Vrijeme kreiranja</th><th>Ukupna cena</th></tr>
-			<tr v-for="i in sc.articles">
-			<td> {{i.article.name}}</td>
-			<td> {{i.article.price}}</td>
-			<td> <input v-model="i.quantity" type="number"/> </td>
-			<td> {{i.quantity * i.article.price}} </td>
+			<th><p>Status</p>
+				<select v-model="currentFilterStatus"  style="height: 30px;" name="currentFilterStatus">
+					<option value="">All</option>
+					<option value="Delivered">Not Delivered</option>
+				</select>
+			</th>
+			<th>Vrijeme kreiranja</th>
+			<th>Ukupna cena</th></tr>
+			<tr v-for="(p, index) in filteredList" >
+				<td>
+					<p>{{p.orderStatus}}</p>
+				</td>
+				<td>
+					<p>{{p.timestamp.date.day}}.{{p.timestamp.date.month}}.{{p.timestamp.date.year}}
+					{{p.timestamp.time.hour}}:{{p.timestamp.time.minute}}</p> 
+				</td>
+				<td>
+					<p>{{p.price}}</p>
+				</td>
 			</tr>
 		</table>
 		<br /> 
@@ -25,16 +39,23 @@ Vue.component("orders", {
 			this.orders = {};
 		}
 	},
+	computed:{
+		filteredList() {
+			if (this.orders == null) return;
+			return this.orders.filter(order => {
+				if(this.currentFilterStatus == ''){
+					return true;
+				}else{
+					return order.orderStatus != this.currentFilterStatus
+				}
+			})
+		}
+	},
 	mounted () {
         axios
-          .get('/rest/restaurants/'+this.$route.params.id+'/orders')
+          .get('/rest/orders/me')
           .then(response => {
         	  this.orders = response.data;
-              console.log(this.orders)
           })
-		  .catch(function (error) {
-			  console.log("greska")
-			alert(error.response.data, "Greska")
-		})
     }
 });
