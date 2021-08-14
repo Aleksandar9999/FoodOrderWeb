@@ -32,7 +32,7 @@ public class RestaurantController {
                 validateAdministrator(request);
                 return gson.toJson(new Restaurant());
             } else {
-                validateManager(request, id);
+                UserController.validateLoggedinManager(request, id);
                 Restaurant restaurant = restaurantService.getById(id);
                 return gson.toJson(restaurant);
             }
@@ -49,7 +49,6 @@ public class RestaurantController {
         System.out.println(request.body());
         try {
             Restaurant restaurant = gson.fromJson(request.body(), Restaurant.class);
-            System.out.println(restaurant.getName());
             validateAdministrator(request);
             restaurantService.addNew(restaurant);
             return gson.toJson(restaurant);
@@ -80,15 +79,6 @@ public class RestaurantController {
             throw new UnauthorizedUserException("Please login.");
         if (!UserController.getLoggedingUser(request).getUserRole().equals(UserRole.Administrator))
             throw new AccessException("Loggedin user is not administrator.");
-    }
-
-    private static void validateManager(Request request, String restaurantId) {
-        if (UserController.getLoggedingUsername(request) == null)
-            throw new UnauthorizedUserException("Please login.");
-        if (!UserController.getLoggedingUser(request).getUserRole().equals(UserRole.Manager))
-            throw new AccessException("Loggedin user is not manager");
-        if (!((Manager) UserController.getLoggedingUser(request)).getRestaurant().getId().equals(restaurantId))
-            throw new AccessException("Loggedin user is not manager of restaurant.");
     }
 
 }
