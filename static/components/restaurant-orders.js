@@ -1,7 +1,9 @@
 Vue.component("restaurant-orders", {
 	data: function () {
 		return {
-            orders:null
+            orders:{},
+			buttonDisplay:true
+			
 		}
 	},
 	template: ` 
@@ -15,7 +17,14 @@ Vue.component("restaurant-orders", {
 			</tr>
 			<tr v-for="(p, index) in orders" >
 				<td>
-					<p>{{p.orderStatus}}</p>
+					<select v-model="p.orderStatus"  style="height: 30px;" name="porderStatus" @change="buttonDisplay=true">
+						<option value="Processing">Processing</option>
+						<option value="InPreparation">In Preparation</option>
+						<option value="WaitingDeliverer">Waiting Deliverer</option>
+						<option value="Transport">Transport</option>
+						<option value="Delivered">Delivered</option>
+						<option value="Canceled">Canceled</option>
+					</select>
 				</td>
 				<td>
 					<p>{{p.timestamp.date.day}}.{{p.timestamp.date.month}}.{{p.timestamp.date.year}}
@@ -24,8 +33,10 @@ Vue.component("restaurant-orders", {
 				<td>
 					<p>{{p.price}}</p>
 				</td>
+				<td> <button v-if='buttonDisplay' :name='index' @click='submitData(p)'>Potvrdi</button> </td>
 			</tr>
 		</table>
+		
 </div>
   
 `
@@ -38,6 +49,14 @@ Vue.component("restaurant-orders", {
 		  })
 	},
 	methods: {
-	
+		ss(s){
+			console.log(s.target.name)
+		},
+		submitData(order){
+			axios.put('/rest/orders/'+order.id,order).then(response=>{
+				alert("Uspijesno");
+			})
+
+		}
 	}
 });
