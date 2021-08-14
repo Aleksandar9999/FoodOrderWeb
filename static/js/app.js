@@ -12,6 +12,7 @@ const router = new VueRouter({
 		{ path: '/restaurants/:id/buyers', name: 'restaurants-buyers', component: { template: '<restaurant-buyers></restaurant-buyers>' }},
 		{ path: '/restaurants/:id/manager', name: 'registration-manager', component: { template: '<registration-manager></registration-manager>' }},
 		{ path: '/restaurants/:id', name: 'restaurant', component: { template: '<restaurant></restaurant>' }},
+		{ path: '/orders', name: 'restaurant', component: { template: '<orders></orders>' }},
 		
 		{ path: '/cart', name: 'cart', component: { template: '<cart></cart>' }},
 	

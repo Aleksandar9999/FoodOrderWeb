@@ -33,4 +33,5 @@ table tr:hover{
 }
 #userList{
     text-align: center;
+    visibility: visible;
 }
