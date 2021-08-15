@@ -2,6 +2,7 @@ Vue.component("orders", {
 	data: function () {
 		    return {
                 orders:null,
+				userRole:'',
 				currentFilterStatus:''
             }
 	},
@@ -28,6 +29,7 @@ Vue.component("orders", {
 				<td>
 					<p>{{p.price}}</p>
 				</td>
+				<td v-if="userRole == 'Deliverer' && p.orderStatus == 'WaitingDeliverer'"><button @click='sendRequest(p)'>Preuzmi</button></td>
 			</tr>
 		</table>
 		<br /> 
@@ -37,6 +39,11 @@ Vue.component("orders", {
 	methods : {
 		init : function() {
 			this.orders = {};
+		},
+		sendRequest(order){
+			axios.post('/rest/deliver-request',order).then(response=>{
+				alert("Success.")
+			})
 		}
 	},
 	computed:{
@@ -52,10 +59,14 @@ Vue.component("orders", {
 		}
 	},
 	mounted () {
-        axios
-          .get('/rest/orders/me')
-          .then(response => {
-        	  this.orders = response.data;
-          })
+		axios.get('/rest/users/me').then(response => {
+			this.userRole=response.data.userRole; 
+			console.log(response.data.userRole)
+			axios.get('/rest/orders/'+this.userRole.toLowerCase()+'/me').then(response => {
+				this.orders = response.data;
+			})
+		})
+
+        
     }
 });
