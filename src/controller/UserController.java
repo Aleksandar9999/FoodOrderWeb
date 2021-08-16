@@ -156,19 +156,25 @@ public class UserController {
         return usersService.getByUsername(getLoggedingUsername(request));
     }
 
-    public static void validateLoggedinManager(Request request, String restaurantId) {
+    private static void validateLoggedinUser(Request request, UserRole role){
         if (getLoggedingUsername(request) == null)
             throw new UnauthorizedUserException("Please login.");
-        if (!getLoggedingUser(request).getUserRole().equals(UserRole.Manager))
-            throw new AccessException("Loggedin user is not manager");
+        if (!getLoggedingUser(request).getUserRole().equals(role))
+            throw new AccessException("Loggedin user is not"+ role.toString().toLowerCase());
+    }
+
+    public static void validateLoggedinManager(Request request, String restaurantId) {
+        validateLoggedinUser(request,UserRole.Manager);
         if (!((Manager) getLoggedingUser(request)).getRestaurant().getId().equals(restaurantId))
             throw new AccessException("Loggedin user is not manager of restaurant.");
     }
     public static void validateLoggedinBuyer(Request request) {
-        if (getLoggedingUsername(request) == null)
-            throw new UnauthorizedUserException("Please login.");
-        if (!getLoggedingUser(request).getUserRole().equals(UserRole.Buyer))
-            throw new AccessException("Loggedin user is not buyer.");
-        
+        validateLoggedinUser(request,UserRole.Buyer); 
     }
+    public static void validateLoggedinDeliverer(Request request) {
+        validateLoggedinUser(request,UserRole.Deliverer); 
+    }
+    
+
+
 }
