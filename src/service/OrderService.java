@@ -1,4 +1,5 @@
 package service;
+import java.util.Collection;
 import java.util.List;
 
 import beans.Order;
@@ -32,5 +33,8 @@ public class OrderService extends GenericFileService<Order>{
 	}
 	public List<Order> getAllByBuyerUsername(String username){
 		return ((OrdersRepository)this.repository).getAllByBuyerUsername(username);
+	}
+	public Collection<Order> getAllForDeliverer(String username){
+		return ((OrdersRepository)this.repository).getAllForDeliverer(username);
 	}
 }

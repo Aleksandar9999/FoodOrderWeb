@@ -31,7 +31,7 @@
       }
     },
     "price": 350.0,
-    "orderStatus": "InPreparation",
+    "orderStatus": "Transport",
     "id": "0e7b0cd9-1ce0-4a24-b1bf-894094956dc9"
   },
   "9bda5070-972e-4dcd-be30-a673676cb0ca": {
@@ -79,7 +79,7 @@
       }
     },
     "price": 700.0,
-    "orderStatus": "Processing",
+    "orderStatus": "Transport",
     "id": "9bda5070-972e-4dcd-be30-a673676cb0ca"
   },
   "dd7a393b-9dbf-4089-a01c-0c4089fe510d": {

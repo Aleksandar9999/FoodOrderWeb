@@ -1,0 +1,233 @@
+{
+  "2315e82d-2e3a-4070-9e26-2627673a395a": {
+    "orderId": "0e7b0cd9-1ce0-4a24-b1bf-894094956dc9",
+    "delivererId": "test",
+    "order": {
+      "articles": [
+        {
+          "article": {
+            "name": "Madjarica",
+            "price": 350.0,
+            "articleType": "Food",
+            "amount": 500.0,
+            "comment": "Akcija",
+            "imageUrl": "image",
+            "restaurantId": "1",
+            "id": "412c28ad-89b9-4c3e-9713-4f7e1939261a"
+          },
+          "quantity": 1
+        }
+      ],
+      "buyerUsername": "Novi",
+      "restaurantId": "1",
+      "timestamp": {
+        "date": {
+          "year": 2021,
+          "month": 7,
+          "day": 22
+        },
+        "time": {
+          "hour": 18,
+          "minute": 5,
+          "second": 55,
+          "nano": 646720700
+        }
+      },
+      "price": 350.0,
+      "orderStatus": "Transport",
+      "id": "0e7b0cd9-1ce0-4a24-b1bf-894094956dc9"
+    },
+    "deliverer": {
+      "orders": [
+        {
+          "articles": [
+            {
+              "article": {
+                "name": "Madjarica",
+                "price": 350.0,
+                "articleType": "Food",
+                "amount": 500.0,
+                "comment": "Akcija",
+                "imageUrl": "image",
+                "restaurantId": "1",
+                "id": "412c28ad-89b9-4c3e-9713-4f7e1939261a"
+              },
+              "quantity": 1
+            }
+          ],
+          "buyerUsername": "Novi",
+          "restaurantId": "1",
+          "timestamp": {
+            "date": {
+              "year": 2021,
+              "month": 7,
+              "day": 22
+            },
+            "time": {
+              "hour": 18,
+              "minute": 5,
+              "second": 55,
+              "nano": 646720700
+            }
+          },
+          "price": 350.0,
+          "orderStatus": "Transport",
+          "id": "0e7b0cd9-1ce0-4a24-b1bf-894094956dc9"
+        },
+        {
+          "articles": [
+            {
+              "article": {
+                "name": "Madjarica",
+                "price": 350.0,
+                "articleType": "Food",
+                "amount": 500.0,
+                "comment": "Akcija",
+                "imageUrl": "image",
+                "restaurantId": "1",
+                "id": "412c28ad-89b9-4c3e-9713-4f7e1939261a"
+              },
+              "quantity": 1
+            },
+            {
+              "article": {
+                "name": "Madjarica",
+                "price": 350.0,
+                "articleType": "Food",
+                "amount": 500.0,
+                "comment": "Akcija",
+                "imageUrl": "image",
+                "restaurantId": "1",
+                "id": "asda"
+              },
+              "quantity": 1
+            }
+          ],
+          "buyerUsername": "aca11",
+          "restaurantId": "1",
+          "timestamp": {
+            "date": {
+              "year": 2021,
+              "month": 8,
+              "day": 13
+            },
+            "time": {
+              "hour": 14,
+              "minute": 4,
+              "second": 32,
+              "nano": 185714600
+            }
+          },
+          "price": 700.0,
+          "orderStatus": "Transport",
+          "id": "9bda5070-972e-4dcd-be30-a673676cb0ca"
+        }
+      ],
+      "username": "test",
+      "password": "test",
+      "name": "test",
+      "surname": "teste",
+      "userRole": "Deliverer"
+    },
+    "status": "Confirmed",
+    "id": "2315e82d-2e3a-4070-9e26-2627673a395a"
+  },
+  "f018b706-d71d-4e22-9e25-32463115c0e1": {
+    "orderId": "9bda5070-972e-4dcd-be30-a673676cb0ca",
+    "delivererId": "test",
+    "order": {
+      "articles": [
+        {
+          "article": {
+            "name": "Madjarica",
+            "price": 350.0,
+            "articleType": "Food",
+            "amount": 500.0,
+            "comment": "Akcija",
+            "imageUrl": "image",
+            "restaurantId": "1",
+            "id": "412c28ad-89b9-4c3e-9713-4f7e1939261a"
+          },
+          "quantity": 1
+        },
+        {
+          "article": {
+            "name": "Madjarica",
+            "price": 350.0,
+            "articleType": "Food",
+            "amount": 500.0,
+            "comment": "Akcija",
+            "imageUrl": "image",
+            "restaurantId": "1",
+            "id": "asda"
+          },
+          "quantity": 1
+        }
+      ],
+      "buyerUsername": "aca11",
+      "restaurantId": "1",
+      "timestamp": {
+        "date": {
+          "year": 2021,
+          "month": 8,
+          "day": 13
+        },
+        "time": {
+          "hour": 14,
+          "minute": 4,
+          "second": 32,
+          "nano": 185714600
+        }
+      },
+      "price": 700.0,
+      "orderStatus": "WaitingDeliverer",
+      "id": "9bda5070-972e-4dcd-be30-a673676cb0ca"
+    },
+    "deliverer": {
+      "orders": [
+        {
+          "articles": [
+            {
+              "article": {
+                "name": "Madjarica",
+                "price": 350.0,
+                "articleType": "Food",
+                "amount": 500.0,
+                "comment": "Akcija",
+                "imageUrl": "image",
+                "restaurantId": "1",
+                "id": "412c28ad-89b9-4c3e-9713-4f7e1939261a"
+              },
+              "quantity": 1
+            }
+          ],
+          "buyerUsername": "Novi",
+          "restaurantId": "1",
+          "timestamp": {
+            "date": {
+              "year": 2021,
+              "month": 7,
+              "day": 22
+            },
+            "time": {
+              "hour": 18,
+              "minute": 5,
+              "second": 55,
+              "nano": 646720700
+            }
+          },
+          "price": 350.0,
+          "orderStatus": "Transport",
+          "id": "0e7b0cd9-1ce0-4a24-b1bf-894094956dc9"
+        }
+      ],
+      "username": "test",
+      "password": "test",
+      "name": "test",
+      "surname": "teste",
+      "userRole": "Deliverer"
+    },
+    "status": "Confirmed",
+    "id": "f018b706-d71d-4e22-9e25-32463115c0e1"
+  }
+}

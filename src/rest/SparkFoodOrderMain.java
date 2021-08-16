@@ -40,14 +40,19 @@ public class SparkFoodOrderMain {
         post("/rest/restaurants/:id/articles",ArticleController.handleAddNewArticle);
         put("/rest/restaurants/:idRest/articles/:idArticle",ArticleController.handleUpdateArticle);
         
-        get("/rest/restaurants/:id/orders",OrdersController.handleGetOrdersByRestaurant);
+        get("/rest/restaurants/:id/orders",DeliverRequestController.handleGetRequestsByRestaurant);
         get("/rest/restaurants/:id/buyers",OrdersController.handleGetBuyersByRestaurant);
         
         post("rest/orders",OrdersController.handleCreateOrder);
-        get("/rest/orders/:id",OrdersController.handleGetOrdersByBuyer);
         put("/rest/orders/:id",OrdersController.handleUpdateOrder);
+        
+        get("/rest/orders/deliverer/:id",OrdersController.handleGetDelivererOrders);
+        get("/rest/orders/buyer/:id",OrdersController.handleGetOrdersByBuyer);
 
         get("/rest/restaurants/:id/comments",CommentController.handleGetCommentsByRestaurant);
-      
+        
+        post("/rest/deliver-request",DeliverRequestController.handleAddRequest);
+        put("/rest/deliver-request/:id",DeliverRequestController.handleUpdateRequest);
+        
     }
 }
