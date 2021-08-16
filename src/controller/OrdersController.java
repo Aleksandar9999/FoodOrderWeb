@@ -59,22 +59,25 @@ public class OrdersController {
         String username = request.params("id");
         try {
             if (username.equals("me")) {
-                User user = UserController.getLoggedingUser(request);
-                switch (user.getUserRole()) {
-                    case Buyer: {
-                        UserController.validateLoggedinBuyer(request);
-                        return gson.toJson(
-                                ordersService.getAllByBuyerUsername(UserController.getLoggedingUsername(request)));
-                    }
-                    case Deliverer:{
-
-                    }
-                    default:
-                        break;
-                }
-
+                UserController.validateLoggedinBuyer(request);
+                return gson.toJson(ordersService.getAllByBuyerUsername(UserController.getLoggedingUsername(request)));
             }
             return gson.toJson(ordersService.getAllByBuyerUsername(username));
+        } catch (RuntimeException e) {
+            response.status(401);
+            return e.getMessage();
+        }
+    };
+    public static Route handleGetDelivererOrders = (Request request, Response response) -> {
+        response.type("application/json");
+        String username = request.params("id");
+        try {
+            UserController.validateLoggedinDeliverer(request);
+            if (username.equals("me")) {
+                return gson.toJson(ordersService.getAllForDeliverer(UserController.getLoggedingUsername(request)));
+            }
+            return gson.toJson(ordersService.getAllForDeliverer(username));
+            
         } catch (RuntimeException e) {
             response.status(401);
             return e.getMessage();
@@ -85,7 +88,7 @@ public class OrdersController {
         Order order = gson.fromJson(request.body(), Order.class);
         try {
             UserController.validateLoggedinManager(request, order.getRestaurantId());
-            ordersService.update(order); 
+            ordersService.update(order);
             return ("OK");
         } catch (RuntimeException e) {
             response.status(401);
