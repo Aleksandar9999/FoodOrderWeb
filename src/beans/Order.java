@@ -94,5 +94,13 @@ public class Order extends Entity {
 	public double getPointsForCanceledOrder() {
 		return this.price / 1000 * 133 * 4;
 	}
+	@Override
+	public int hashCode() {
+		return this.getId().hashCode();
+	}
+	@Override
+	public boolean equals(Object obj) {
+		return ((Order)obj).getId().equals(this.getId());
+	}
 
 }
