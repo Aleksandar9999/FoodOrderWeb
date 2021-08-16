@@ -2,17 +2,22 @@ package repository.orders;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
 
 import beans.Buyer;
+import beans.Deliverer;
 import beans.Order;
 import beans.User;
+import enumerations.OrderStatus;
 import generic.GenericFileRepository;
+import repository.deliverRequest.DeliverRequestRepository;
 import repository.restaurants.RestaurantRepository;
 import repository.users.UsersRepository;
+import service.UsersService;
 
 public class OrdersRepository extends GenericFileRepository<Order> {
 
@@ -63,5 +68,18 @@ public class OrdersRepository extends GenericFileRepository<Order> {
 			if(order.getBuyerUsername().equals(username)) buyerOrders.add(order);
 		}
 		return buyerOrders;
+	}
+
+	public ArrayList<Order> getAllForDeliverer(String username){
+		//getAllWaitingForDevliver
+		ArrayList<Order> orders= new ArrayList<>(readAll().values());
+		orders.removeIf(order -> !order.getOrderStatus().equals(OrderStatus.WaitingDeliverer));
+		//getAllFor transport
+		UsersService usersService=new UsersService();
+		Deliverer deliverer=(Deliverer) usersService.getByUsername(username);
+		for (Order ord : deliverer.getOrders()) {
+			orders.add(ord);
+		}
+		return orders;
 	}
 }
