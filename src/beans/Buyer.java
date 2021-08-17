@@ -10,10 +10,11 @@ public class Buyer extends User {
 	private List<Order> orders;
 	private Cart cart;
 	private BuyerType buyerType;
+
 	public Buyer() {
 		super(UserRole.Buyer);
-		pointsCollected=0;
-		orders=new ArrayList<Order>();
+		pointsCollected = 0;
+		orders = new ArrayList<Order>();
 	}
 
 	public double getPointsCollected() {
@@ -36,12 +37,15 @@ public class Buyer extends User {
 		this.cart = cart;
 	}
 
-	public void addNewOrder(Order order){
-		if(this.orders==null)
-			this.orders=new ArrayList<Order>();
+	public void addNewOrder(Order order) {
+		if (this.orders == null)
+			this.orders = new ArrayList<Order>();
 		this.orders.add(order);
 	}
-	public void addCollectedPoints(double points){
-		this.pointsCollected+=points;
+
+	public void addCollectedPoints(double points) {
+		this.pointsCollected += points;
 	}
+
+	
 }

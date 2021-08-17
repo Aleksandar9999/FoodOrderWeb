@@ -11,8 +11,7 @@ public class User {
 	private LocalDate dateOfBirth;
 	private UserRole userRole;
 
-	public User() {
-	}
+	public User() {}
 	
 	public User(UserRole userRole) {
 		this.userRole = userRole;
@@ -87,6 +86,13 @@ public class User {
 	public boolean equals(Object obj) {
 		return ((User)obj).getUsername().equals(username);
 	}
-	
+	public void updateUserInfo(User newUserInfo) {
+		setUsername(newUserInfo.getUsername());
+		setName(newUserInfo.getName());
+		setSurname(newUserInfo.getSurname());
+		if(!newUserInfo.getPassword().isEmpty() && !newUserInfo.getPassword().equals(getPassword())){
+			setPassword(newUserInfo.getPassword());
+		}
+	}
 
 }
