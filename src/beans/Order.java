@@ -12,16 +12,28 @@ public class Order extends Entity {
 	private String restaurantId;
 	private LocalDateTime timestamp;
 	private double price;
-	private transient Buyer buyer;
 	private OrderStatus orderStatus;
-
+	private String buyerNameSurname; 
 	public Order(Cart cart) {
 		this.articles = cart.getArticles();
-		this.setBuyer(cart.getBuyer());
 		this.timestamp = LocalDateTime.now();
 		this.price = cart.getPrice();
 		this.orderStatus = OrderStatus.Processing;
 		this.restaurantId=cart.getArticles().get(0).getArticle().getRestaurantId();
+		this.setBuyer(cart.getBuyer());
+	}
+	public void setBuyer(Buyer buyer) {
+		this.buyerUsername=buyer.getUsername();
+		this.buyerNameSurname=buyer.getName()+" "+ buyer.getSurname();
+	}
+	public void setBuyerUsername(String buyerUsername) {
+		this.buyerUsername = buyerUsername;
+	}
+	public String getBuyerNameSurname() {
+		return buyerNameSurname;
+	}
+	public void setBuyerNameSurname(String buyerNameSurname) {
+		this.buyerNameSurname = buyerNameSurname;
 	}
 	public String getBuyerUsername() {
 		return buyerUsername;
@@ -70,15 +82,6 @@ public class Order extends Entity {
 		this.price = price;
 	}
 
-	public Buyer getBuyer() {
-		return buyer;
-	}
-
-	public void setBuyer(Buyer buyer) {
-		this.buyer = buyer;
-		this.buyerUsername=buyer.getUsername();
-	}
-
 	public OrderStatus getOrderStatus() {
 		return orderStatus;
 	}
@@ -92,7 +95,7 @@ public class Order extends Entity {
 	}
 
 	public double getPointsForCanceledOrder() {
-		return this.price / 1000 * 133 * 4;
+		return -(this.price / 1000 * 133 * 4);
 	}
 	@Override
 	public int hashCode() {
