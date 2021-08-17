@@ -2,6 +2,7 @@ Vue.component("profile", {
     data: function () {
         return {
             user: null,
+            username:'',
         }
     },
     template: ` 
@@ -72,16 +73,20 @@ Vue.component("profile", {
         if (this.$route.params.id) {
             axios
                 .get('rest/users/' + this.$route.params.id)
-                .then(response => (this.user = response.data))
+                .then(response => {
+                    this.user = response.data;
+                })
         } else
             axios
                 .get('rest/users/me')
-                .then(response => {this.user = response.data;
-                console.log(response.data)})
+                .then(response => {
+                    this.user = response.data;
+                    this.username=response.data.username;
+                })
     },
     methods: {
         updateUser: function () {
-            axios.put('/rest/users/' + this.$route.params.id, this.user).
+            axios.put('/rest/users/' + this.username, this.user).
                 then(response => (alert("uspjesno")))
         }
     }
