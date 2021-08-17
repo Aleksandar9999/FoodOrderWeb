@@ -2,6 +2,7 @@ package service;
 import java.util.Collection;
 import java.util.List;
 
+import beans.Buyer;
 import beans.Order;
 import beans.User;
 import enumerations.OrderStatus;
@@ -36,5 +37,26 @@ public class OrderService extends GenericFileService<Order>{
 	}
 	public Collection<Order> getAllForDeliverer(String username){
 		return ((OrdersRepository)this.repository).getAllForDeliverer(username);
+	}
+
+	@Override
+	public Order addNew(Order order) {
+		updateBuyerCollectedPoints(order.getBuyerUsername(),order.getPointsCollected());
+		return super.addNew(order);
+	}
+
+	@Override
+	public void update(Order order) {
+		if(order.getOrderStatus().equals(OrderStatus.Canceled)){
+			updateBuyerCollectedPoints(order.getBuyerUsername(), order.getPointsForCanceledOrder());
+		}
+		super.update(order);
+	}
+	
+	private void updateBuyerCollectedPoints(String buyerUsername,double collectedPoints){
+		UsersService usersService = new UsersService();
+		Buyer buyer=(Buyer) usersService.getByUsername(buyerUsername);
+		buyer.addCollectedPoints(collectedPoints);
+		usersService.update(buyer.getUsername(), buyer);
 	}
 }
