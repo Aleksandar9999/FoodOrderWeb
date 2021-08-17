@@ -34,8 +34,7 @@ Vue.component("login", {
                     router.push('/users');
                 else if(response.data['userRole']=="Manager")
                     router.push('/restaurants/'+response.data['restaurantId']+'/settings');
-                else router.push('/profile/'+this.user.username);
-                document.cookie=this.user.username;
+                else router.push('/profile');
             })
             .catch(function(error){
                 alert(error.response.data,"Greska")
