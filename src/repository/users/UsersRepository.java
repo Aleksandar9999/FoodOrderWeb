@@ -14,11 +14,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import beans.Deliverer;
 import beans.Manager;
 import beans.User;
 import enumerations.UserRole;
 import exceptions.RegistrationException;
 import exceptions.UserDataException;
+import repository.orders.OrdersRepository;
 
 public class UsersRepository{
 
@@ -85,7 +87,23 @@ public class UsersRepository{
 		}.getType();
 		Gson gson = new GsonBuilder().registerTypeAdapter(type, new UsersDeserializer()).create();
 		HashMap<String, User> users = gson.fromJson(json, type);
+		mergeWithObjects(users);
 		return users;
+	}
+
+	private void mergeWithObjects(HashMap<String, User> users){
+		for (User user : users.values()) {
+			if(user.getUserRole().equals(UserRole.Deliverer)){
+				mergeWithOrders((Deliverer)user);
+			}
+		}
+	}
+	private void mergeWithOrders(Deliverer user) {
+		OrdersRepository ordersRepository=new OrdersRepository();
+		List<String> orderIds=user.getOrderIds();
+		for (String id : orderIds) {
+			user.addOrder(ordersRepository.getById(id));
+		}
 	}
 
 	private String readFromFile() {

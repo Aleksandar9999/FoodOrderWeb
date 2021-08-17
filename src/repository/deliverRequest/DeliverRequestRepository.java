@@ -45,11 +45,11 @@ public class DeliverRequestRepository extends GenericFileRepository<DeliverReque
     public Collection<DeliverRequest> getAllByRestaurantId(String id){
         List<DeliverRequest> requests= new ArrayList<>(readAll().values());
         requests.removeIf(req->!req.getOrder().getRestaurant().getId().equals(id));
-        mergeWithOrdersAnotherOrders(requests,id);
+        mergeWithAnotherOrders(requests,id);
         return requests;
     }
 
-    private void mergeWithOrdersAnotherOrders(List<DeliverRequest> requests,String id){
+    private void mergeWithAnotherOrders(List<DeliverRequest> requests,String id){
         OrdersRepository ordersRepository=new OrdersRepository();
         for (Order order : ordersRepository.getAllByRestaurant(id)) {
             if(!orderInRequests(order,requests)) requests.add(new DeliverRequest(order));

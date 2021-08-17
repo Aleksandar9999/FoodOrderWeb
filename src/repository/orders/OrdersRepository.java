@@ -38,10 +38,10 @@ public class OrdersRepository extends GenericFileRepository<Order> {
 	}
 
 	private HashMap<String, Order> mergeWithObjects(HashMap<String, Order> data) {
-		UsersRepository repository = new UsersRepository();
+		//UsersRepository repository = new UsersRepository();
 		RestaurantRepository restaurantRepository = new RestaurantRepository();
 		for (Order order : data.values()) {
-			order.setBuyer((Buyer) repository.getByUsername(order.getBuyerUsername()));
+			//order.setBuyer((Buyer) repository.getByUsername(order.getBuyerUsername()));
 			order.setRestaurant(restaurantRepository.getById(order.getRestaurantId()));
 		}
 		return data;
@@ -55,9 +55,10 @@ public class OrdersRepository extends GenericFileRepository<Order> {
 
 	public List<User> getAllBuyersByRestaruantId(String id) {
 		List<User> users = new ArrayList<User>();
+		UsersRepository usersRepository=new UsersRepository();
 		for (Order order : readAll().values()) {
 			if (order.getRestaurant().getId().equals(id))
-				users.add(order.getBuyer());
+				users.add(usersRepository.getByUsername(order.getBuyerUsername()));
 		}
 		return users;
 	}
@@ -74,6 +75,7 @@ public class OrdersRepository extends GenericFileRepository<Order> {
 		//getAllWaitingForDevliver
 		ArrayList<Order> orders= new ArrayList<>(readAll().values());
 		orders.removeIf(order -> !order.getOrderStatus().equals(OrderStatus.WaitingDeliverer));
+		//TODO: remove if request exist
 		//getAllFor transport
 		UsersService usersService=new UsersService();
 		Deliverer deliverer=(Deliverer) usersService.getByUsername(username);
