@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 
 import beans.*;
 import exceptions.UnauthorizedUserException;
+import enumerations.OrderStatus;
 import enumerations.UserRole;
 import exceptions.AccessException;
 import service.OrderService;
@@ -77,7 +78,7 @@ public class OrdersController {
                 return gson.toJson(ordersService.getAllForDeliverer(UserController.getLoggedingUsername(request)));
             }
             return gson.toJson(ordersService.getAllForDeliverer(username));
-            
+
         } catch (RuntimeException e) {
             response.status(401);
             return e.getMessage();
@@ -87,7 +88,7 @@ public class OrdersController {
         response.type("application/json");
         Order order = gson.fromJson(request.body(), Order.class);
         try {
-            UserController.validateLoggedinManager(request, order.getRestaurantId());
+            validateUserByOrder(request, order);
             ordersService.update(order);
             return ("OK");
         } catch (RuntimeException e) {
@@ -95,5 +96,21 @@ public class OrdersController {
             return (e.getMessage());
         }
     };
+
+    private static void validateUserByOrder(Request request, Order order) {
+        try {
+            UserController.validateLoggedinManager(request, order.getRestaurantId());
+        } catch (RuntimeException e) {
+            try {
+                UserController.validateLoggedinDeliverer(request);
+            } catch (RuntimeException e1) {
+                if (order.getOrderStatus().equals(OrderStatus.Canceled)
+                        && !order.getBuyerUsername().equals(UserController.getLoggedingUsername(request))) {
+                    throw new UnauthorizedUserException("Loggedin user is not authorized to change state of order.");
+                }
+            }
+
+        }
+    }
 
 }
