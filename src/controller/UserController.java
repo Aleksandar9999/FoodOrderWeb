@@ -2,6 +2,8 @@ package controller;
 
 import exceptions.*;
 
+import java.util.List;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -9,8 +11,9 @@ import beans.Administrator;
 import beans.Buyer;
 import beans.Deliverer;
 import beans.Manager;
-import beans.Restaurant;
+import beans.Order;
 import beans.User;
+import enumerations.OrderStatus;
 import enumerations.UserRole;
 import service.RestaurantService;
 import service.UsersService;
@@ -21,16 +24,17 @@ import spark.Session;
 
 public class UserController {
 
-    static Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+    static Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
     private static UsersService usersService = new UsersService();
 
     public static Route handleLoginPost = (Request request, Response response) -> {
         response.type("application/json");
-        User user = g.fromJson(request.body(), User.class);
+        User user = gson.fromJson(request.body(), User.class);
         try {
             user = usersService.login(user);
-            setLoggedinUser(request, user);
-            return g.toJson(user);
+            setLoggedinUsername(request, user);
+            
+            return gson.toJson(user);
         } catch (UserDataException ex) {
             response.status(401);
             return ex.getMessage();
@@ -38,11 +42,11 @@ public class UserController {
     };
     public static Route handleRegisterBuyer = (Request request, Response response) -> {
         response.type("application/json");
-        Buyer user = g.fromJson(request.body(), Buyer.class);
+        Buyer user = gson.fromJson(request.body(), Buyer.class);
         try {
             user.setUserRole(UserRole.Buyer);
             user = (Buyer) usersService.addNew(user);
-            return g.toJson(user);
+            return gson.toJson(user);
         } catch (RegistrationException ex) {
             response.body(ex.getMessage());
             return response;
@@ -50,15 +54,15 @@ public class UserController {
     };
     public static Route handleRegisterManager = (Request request, Response response) -> {
         response.type("application/json");
-        Manager user = g.fromJson(request.body(), Manager.class);
+        Manager user = gson.fromJson(request.body(), Manager.class);
         try {
             user = (Manager) usersService.addNew(user);
             response.status(201);
-            return g.toJson(user);
+           
+            return gson.toJson(user);
         } catch (RegistrationException ex) {
 
             response.body(ex.getMessage());
-            System.out.print(response.body());
             return response;
         }
     };
@@ -66,18 +70,20 @@ public class UserController {
         response.type("application/json");
         try {
             validateAdministrator(request);
-            return g.toJson(usersService.getAll());
-        }catch (AccessException er){
+            List<User> users = usersService.getAll();
+            
+            return gson.toJson(users);
+        } catch (AccessException er) {
             response.status(401);
             return (er.getMessage());
-        } 
+        }
     };
     public static Route handleGetAllManagers = (Request request, Response response) -> {
         response.type("application/json");
         try {
             String restaurantId = request.queryParams("restaurantId");
             if (restaurantId.equals("-1")) {
-                return g.toJson(usersService.getFreeManagers());
+                return gson.toJson(usersService.getFreeManagers());
             }
             return null;
         } catch (Exception e) {
@@ -85,96 +91,85 @@ public class UserController {
             return (e.getMessage());
         }
     };
-    public static Route handleUpdateUser = (Request request, Response response) -> {
+    public static Route handleUpdateUserInfo = (Request request, Response response) -> {
         response.type("application/json");
-        String username = request.params("id");
-        User user = g.fromJson(request.body(), User.class);
-        if (user.getUserRole().equals(UserRole.Buyer)) {
-            Buyer buyer = g.fromJson(request.body(), Buyer.class);
-            usersService.update(username, buyer);
-            response.cookie("user", user.getUsername());
-            return g.toJson(user);
-        } else if (user.getUserRole().equals(UserRole.Manager)) {
-            Manager buyer = g.fromJson(request.body(), Manager.class);
-            usersService.update(username, buyer);
-            response.cookie("user", user.getUsername());
-            return g.toJson(user);
-        } else if (user.getUserRole().equals(UserRole.Deliverer)) {
-            Deliverer buyer = g.fromJson(request.body(), Deliverer.class);
-            usersService.update(username, buyer);
-            response.cookie("user", user.getUsername());
-            return g.toJson(user);
-        } else if (user.getUserRole().equals(UserRole.Administrator)) {
-            Administrator buyer = g.fromJson(request.body(), Administrator.class);
-            usersService.update(username, buyer);
-            response.cookie("user", user.getUsername());
-            return g.toJson(user);
-        }
-        response.status(404);
-        return null;
+        String existUsername = request.params("id");
+        User newUserInfo = gson.fromJson(request.body(), User.class);
+        User existUser = usersService.getByUsername(existUsername);
+        existUser.updateUserInfo(newUserInfo);
+        usersService.update(existUsername, existUser);
+        if (existUsername.equals(getLoggedingUsername(request)))
+            setLoggedinUsername(request, newUserInfo);
+        
+        return gson.toJson(existUser);
     };
 
     public static Route handleUpdateManager = (Request request, Response response) -> {
         response.type("application/json");
         String username = request.params("username");
         Manager user = (Manager) usersService.getByUsername(username);
-        RestaurantService restaurantService=new RestaurantService();
+        RestaurantService restaurantService = new RestaurantService();
         user.setRestaurant(restaurantService.getById(request.params("id")));
         usersService.update(username, user);
-        return g.toJson(user);
+        return gson.toJson(user);
     };
 
     public static Route handleGetUser = (Request request, Response response) -> {
         response.type("application/json");
         String username = request.params("id");
-        if (username.equals("me")) {
-            return g.toJson(usersService.getByUsername(getLoggedingUsername(request)));
-        } else {
-            User user = usersService.getByUsername(username);
-            return g.toJson(user);
-        }
+        User user;
+        if (username.equals("me"))
+            user = usersService.getByUsername(getLoggedingUsername(request));
+        else
+            user = usersService.getByUsername(username);
+        
+        return gson.toJson(user);
     };
 
     public static Route handleGetFreeManagers = (Request request, Response response) -> {
-        return g.toJson(usersService.getFreeManagers());
+        return gson.toJson(usersService.getFreeManagers());
     };
 
-    private static void setLoggedinUser(Request request, User user) {
+    private static void setLoggedinUsername(Request request, User user) {
         Session ss = request.session(true);
         ss.attribute("user", user.getUsername());
     }
 
     private static void validateAdministrator(Request request) {
-        if(!getLoggedingUser(request).getUserRole().equals(UserRole.Administrator)) throw new AccessException("Loggedin user is not administrator");
+        if (!getLoggedingUser(request).getUserRole().equals(UserRole.Administrator))
+            throw new AccessException("Loggedin user is not administrator");
     }
 
     public static String getLoggedingUsername(Request request) {
         Session ss = request.session(true);
         return ss.attribute("user");
     }
+
     public static User getLoggedingUser(Request request) {
         return usersService.getByUsername(getLoggedingUsername(request));
     }
 
-    private static void validateLoggedinUser(Request request, UserRole role){
+    private static void validateLoggedinUserExist(Request request) {
         if (getLoggedingUsername(request) == null)
             throw new UnauthorizedUserException("Please login.");
+    }
+    private static void validateLoggedinUserByRole(Request request, UserRole role) {
+        validateLoggedinUserExist(request);
         if (!getLoggedingUser(request).getUserRole().equals(role))
-            throw new AccessException("Loggedin user is not"+ role.toString().toLowerCase());
+            throw new AccessException("Loggedin user is not" + role.toString().toLowerCase());
     }
 
     public static void validateLoggedinManager(Request request, String restaurantId) {
-        validateLoggedinUser(request,UserRole.Manager);
+        validateLoggedinUserByRole(request, UserRole.Manager);
         if (!((Manager) getLoggedingUser(request)).getRestaurant().getId().equals(restaurantId))
             throw new AccessException("Loggedin user is not manager of restaurant.");
     }
+
     public static void validateLoggedinBuyer(Request request) {
-        validateLoggedinUser(request,UserRole.Buyer); 
+        validateLoggedinUserByRole(request, UserRole.Buyer);
     }
+
     public static void validateLoggedinDeliverer(Request request) {
-        validateLoggedinUser(request,UserRole.Deliverer); 
+        validateLoggedinUserByRole(request, UserRole.Deliverer);
     }
-    
-
-
 }
