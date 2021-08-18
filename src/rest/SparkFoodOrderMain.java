@@ -50,7 +50,12 @@ public class SparkFoodOrderMain {
         get("/rest/orders/buyer/:id",OrdersController.handleGetOrdersByBuyer);
 
         get("/rest/restaurants/:id/comments",CommentController.handleGetCommentsByRestaurant);
+        get("/rest/restaurants/:id/comments/settings",CommentController.handleGetCommentsByRestaurantSettings);
+        post("/rest/comments",CommentController.handleCreateComment);
+        get("/rest/user/:username/comments",CommentController.handleGetCommentsByUser);
+        put("/rest/comments/:id",CommentController.handleUpdateComment);
         
+
         post("/rest/deliver-request",DeliverRequestController.handleAddRequest);
         put("/rest/deliver-request/:id",DeliverRequestController.handleUpdateRequest);
         

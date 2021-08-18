@@ -16,7 +16,13 @@ public class CommentService extends GenericFileService<Comment> {
     public CommentService() {
         super(new CommentRepository());
     }
-    public List<Comment> getApprovedCommentsForRestaurant(String id){
-        return ((CommentRepository) repository).getApprovedCommentsForRestaurant(id);
+    public List<Comment> getAllCommentsByRestaurant(String id){
+        return ((CommentRepository) repository).getAllCommentsByRestaurant(id);
+    }
+    public List<Comment> getApprovedCommentsByRestaurant(String id){
+        return ((CommentRepository) repository).getApprovedCommentsByRestaurant(id);
+    }
+    public List<Comment> getCommentsByUser(String username){
+        return ((CommentRepository) repository).getCommentsByUser(username);     
     }
 }

@@ -4,7 +4,15 @@
     "restaurantId": "1",
     "comment": "comment",
     "mark": 3,
-    "approved": true,
+    "status": "Rejected",
     "id": "1"
+  },
+  "83d0d559-90dc-4887-881a-a0b100430764": {
+    "buyerUsername": "aca11",
+    "restaurantId": "1",
+    "comment": "Top Usluga",
+    "mark": 5,
+    "status": "Confirmed",
+    "id": "83d0d559-90dc-4887-881a-a0b100430764"
   }
 }

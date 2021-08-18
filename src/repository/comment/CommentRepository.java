@@ -1,6 +1,7 @@
 package repository.comment;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import com.google.gson.reflect.TypeToken;
 
 import beans.Buyer;
 import beans.Comment;
+import enumerations.RequestStatus;
 import generic.GenericFileRepository;
 import repository.restaurants.RestaurantRepository;
 import repository.users.UsersRepository;
@@ -39,9 +41,15 @@ public class CommentRepository extends GenericFileRepository<Comment> {
         return data;
     }
 
-    public List<Comment> getApprovedCommentsForRestaurant(String id) {
+    public List<Comment> getAllCommentsByRestaurant(String id) {
         List<Comment> list = getAll();
-        list.removeIf(com -> !com.isApproved() || !com.getRestaurant().getId().equals(id));
+        list.removeIf(com -> !com.getRestaurant().getId().equals(id));
+        return list;
+    }
+
+    public List<Comment> getApprovedCommentsByRestaurant(String id) {
+        List<Comment> list = getAllCommentsByRestaurant(id);
+        list.removeIf(com -> !com.getStatus().equals(RequestStatus.Confirmed));
         return list;
     }
 
@@ -65,5 +73,11 @@ public class CommentRepository extends GenericFileRepository<Comment> {
             }
         }
         return i != 0 ? rate / i : 0;
+    }
+
+    public List<Comment> getCommentsByUser(String username) {
+        List<Comment> comments = new ArrayList<>(readAll().values());
+        comments.removeIf(comment -> !comment.getBuyer().getUsername().equals(username));
+        return comments;
     }
 }

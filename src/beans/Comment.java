@@ -1,5 +1,7 @@
 package beans;
 
+import enumerations.RequestStatus;
+
 public class Comment extends Entity {
 	private transient Buyer buyer;
 	private String buyerUsername;
@@ -7,25 +9,14 @@ public class Comment extends Entity {
 	private String restaurantId;
 	private String comment;
 	private int mark;
-	private boolean approved;
+	private RequestStatus status;
 
-	public boolean isApproved() {
-		return approved;
+	public RequestStatus getStatus() {
+		return status;
 	}
 
-	public void setApproved(boolean approved) {
-		this.approved = approved;
-	}
-
-	public Comment(String id,Buyer buyer, Restaurant restaurant, String comment, int mark,boolean approved) {
-		super(id);
-		this.approved=approved;
-		this.buyer = buyer;
-		this.restaurant = restaurant;
-		this.restaurantId=restaurant.getId();
-		this.buyerUsername=buyer.getUsername();
-		this.comment = comment;
-		this.mark = mark;
+	public void setStatus(RequestStatus status) {
+		this.status = status;
 	}
 
 	public Buyer getBuyer() {
@@ -34,6 +25,7 @@ public class Comment extends Entity {
 
 	public void setBuyer(Buyer buyer) {
 		this.buyer = buyer;
+		this.buyerUsername = buyer.getUsername();
 	}
 
 	public Restaurant getRestaurant() {
@@ -42,6 +34,7 @@ public class Comment extends Entity {
 
 	public void setRestaurant(Restaurant restaurant) {
 		this.restaurant = restaurant;
+		this.restaurantId = restaurant.getId();
 	}
 
 	public String getComment() {
@@ -63,6 +56,7 @@ public class Comment extends Entity {
 	public String getRestaurantId() {
 		return restaurantId;
 	}
+
 	public void setMark(int mark) {
 		this.mark = mark;
 	}
