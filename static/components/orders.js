@@ -3,7 +3,11 @@ Vue.component("orders", {
 		    return {
                 orders:null,
 				userRole:'',
-				currentFilterStatus:''
+				currentFilterStatus:'',
+				comment:'',
+				mark:0,
+				myModel:false,
+				orderForComment:null,
             }
 	},
 	template: ` 
@@ -32,9 +36,43 @@ Vue.component("orders", {
 				<td v-if="userRole == 'Deliverer' && p.orderStatus == 'WaitingDeliverer'"><button @click='sendRequest(p)'>Preuzmi</button></td>
 				<td v-if="userRole == 'Deliverer' && p.orderStatus == 'Transport'"><button @click='finishOrder(p)'>Dostavljeno</button></td>
 				<td v-if="userRole == 'Buyer' && p.orderStatus == 'Processing'"><button @click='cancelOrder(p)'>Otkazi</button></td>
+				<td v-if="userRole == 'Buyer' && p.orderStatus == 'Delivered'"><button @click='openDialog(p)'>Dodaj komentar</button></td>
 			</tr>
 		</table>
 		<br /> 
+
+		<div v-if="myModel">
+		<transition name="model">
+		 <div class="modal-mask">
+		  <div class="modal-wrapper">
+		   <div class="modal-dialog" style="color: black;" >
+			<div class="modal-content" style="background-color: white; width: 80%; margin: 0 auto;">
+				<div class="modal-header">
+					<button type="button" class="close" @click="myModel=false"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Dodaj komentar</h4>
+				</div>
+				
+				<div class="modal-body">
+					<div class="form-group">
+					 <label>Komentar</label> 
+					 <input type="text" class="form-control" v-model="comment"/>
+					</div>
+					<div class="form-group">
+					 <label>Ocena</label>
+					 <input type="number" class="form-control" v-model="mark" />
+					</div>
+                    
+                    <div>
+					 <input type="button" @click="sendComment()" value='Potvrdi'/>
+					</div>
+				   
+					</div>
+			</div>
+		   </div>
+		  </div>
+		 </div>
+		</transition>
+	   </div>
 </div>		  
 `
 	, 
@@ -54,6 +92,15 @@ Vue.component("orders", {
 		cancelOrder(order){
 			order.orderStatus='Canceled';
 			axios.put('/rest/orders/'+order.id,order).then(response=>{alert("Order canceled")})
+		},
+		openDialog(order){
+			this.orderForComment=order;
+			this.myModel=true;
+		},
+		sendComment(){
+			axios.post('/rest/comments',{mark:this.mark, comment:this.comment, restaurantId:this.orderForComment.restaurantId}).then(
+				response => (alert("Success."))
+			)
 		}
 	},
 	computed:{
