@@ -47,19 +47,7 @@ Vue.component("restaurant", {
                     </tr>
 		        </table>
             </div>
-            <div class="hederInfo" style="margin-top: 10px;">
-                <table id="userList" border="0" CELLSPACING=0>
-                    <tr v-for="(p) in comments" >
-                        <td>
-                            <p>{{p.comment}}</p>
-                            <p>{{p.mark}}</p>
-                        </td>
-                        <td>
-                            <p>{{p.buyerUsername}}</p>
-                        </td>
-                    </tr>
-		        </table>
-            </div>
+            <restaurant-comments></restaurant-comments>
         </div>
 `
     ,

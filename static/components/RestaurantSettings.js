@@ -33,7 +33,6 @@ Vue.component("restaurant-settings", {
                         <select style="height: 30px;" v-model="selectedManager">
                             <option v-for="manager in managers">{{manager.username}}</option>  
                         </select>
-                        
                     </div>
                 </div>
             </div>
@@ -125,7 +124,7 @@ Vue.component("restaurant-settings", {
                 </tr>
             </table>
         </div>
-        
+        <restaurant-comments type='settings'></restaurant-comments>
         <div v-if="myModel">
 		<transition name="model">
 		 <div class="modal-mask">

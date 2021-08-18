@@ -21,6 +21,7 @@ Vue.component("users", {
 				<td><div class="field"><input v-model="searchUsername" type="text" placeholder="Korisnicko ime" name="username"></div></td>
 				<td>
 					<select v-model="currentFilterRole" name="currentFilterRole">
+						<option value=""></option>
 						<option value="Manager">Manager</option>
 						<option value="Buyer">Buyer</option>
 						<option value="Administrator">Administrator</option>
