@@ -14,8 +14,14 @@ public class CartController {
     public static Route addArticleInCart =(request,response)->{
         response.type("application/json");
         ArticleInCart articleInCart=gson.fromJson(request.body(), ArticleInCart.class);
-        getCart(request).addArticle(articleInCart);
-        return ("OK");
+        try{
+            UserController.validateLoggedinBuyer(request);
+            getCart(request).addArticle(articleInCart);
+            return ("OK");
+        }catch(RuntimeException e){
+            response.status(401);
+            return (e.getMessage());
+        }
     };
 
     public static Route getCart=(request,respons)->{    
