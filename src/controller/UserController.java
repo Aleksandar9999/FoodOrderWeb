@@ -2,6 +2,8 @@ package controller;
 
 import exceptions.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -33,7 +35,6 @@ public class UserController {
         try {
             user = usersService.login(user);
             setLoggedinUsername(request, user);
-            
             return gson.toJson(user);
         } catch (UserDataException ex) {
             response.status(401);
@@ -42,9 +43,13 @@ public class UserController {
     };
     public static Route handleRegisterBuyer = (Request request, Response response) -> {
         response.type("application/json");
+        System.out.println(request.body());
         Buyer user = gson.fromJson(request.body(), Buyer.class);
         try {
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            user.setDateOfBirth(LocalDateTime.parse(user.getDateOfBirthString(), inputFormatter));
             user.setUserRole(UserRole.Buyer);
+            user.setValid(true);
             user = (Buyer) usersService.addNew(user);
             return gson.toJson(user);
         } catch (RegistrationException ex) {
@@ -57,13 +62,13 @@ public class UserController {
         Manager user = gson.fromJson(request.body(), Manager.class);
         try {
             user = (Manager) usersService.addNew(user);
+            user.setValid(true);
             response.status(201);
-           
             return gson.toJson(user);
         } catch (RegistrationException ex) {
-
-            response.body(ex.getMessage());
-            return response;
+            response.status(401);
+            return ex.getMessage();
+            
         }
     };
     public static Route handleGetAllUsers = (Request request, Response response) -> {
@@ -172,4 +177,8 @@ public class UserController {
     public static void validateLoggedinDeliverer(Request request) {
         validateLoggedinUserByRole(request, UserRole.Deliverer);
     }
+    public static void validateLoggedinAdministrator(Request request) {
+        validateLoggedinUserByRole(request, UserRole.Administrator);
+    }
+    
 }

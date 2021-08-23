@@ -37,12 +37,19 @@ public class UsersRepository{
 	public User login(User user) {
 		HashMap<String, User> users = readAll();
 		if (users.containsKey(user.getUsername())) {
+			isValidUser(user);
 			if (users.get(user.getUsername()).getPassword().equals(user.getPassword()))
 				return users.get(user.getUsername());
 			throw new UserDataException("Wrong password.");
 		} else
 			throw new UserDataException("Wrong username.");
 	}
+	private void isValidUser(User user) {
+		if(!this.getByUsername(user.getUsername()).isValid()){
+			throw new UserDataException("User is blocked.");
+		}
+	}
+
 	public User getByUsername(String id){
 		return readAll().get(id);
 	}
