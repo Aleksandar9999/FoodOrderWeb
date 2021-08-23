@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+
 import com.google.gson.Gson;
 
 import beans.Comment;
@@ -23,6 +25,7 @@ public class CommentController {
     public static Route handleGetCommentsByRestaurantSettings = (Request request, Response response) -> {
         response.type("application/json");
         String id = request.params("id");
+        if(id.equals("-1")) return gson.toJson(new ArrayList<Comment>());
         try {
             UserController.validateLoggedinManager(request, id);
             return gson.toJson(commentService.getAllCommentsByRestaurant(id));
