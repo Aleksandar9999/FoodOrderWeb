@@ -33,6 +33,7 @@ Vue.component("registration", {
             
             </div>
                 <p>Datum rodjenja</p>
+                <input id="txtDateOfBirth" type="date" v-model = "user.dateOfBirthString">
             <div class="field">    
                 <input id="txtUsername" placeholder="Korisnicko ime" type="text" v-model = "user.username">
             </div>
@@ -53,6 +54,7 @@ Vue.component("registration", {
 	methods : {
 		registerUser : function (event) {
 			event.preventDefault();
+            this.user.dateOfBirthString=new Date(this.user.dateOfBirthString);
 			axios.post('/rest/users/buyers', this.user).
 			then(response => {
                 router.push(`/`); 
