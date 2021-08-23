@@ -1,6 +1,7 @@
 package beans;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import enumerations.UserRole;
 
 public class User {
@@ -8,15 +9,29 @@ public class User {
 	private String password;
 	private String name;
 	private String surname;
-	private LocalDate dateOfBirth;
+	private LocalDateTime dateOfBirth;
 	private UserRole userRole;
-
+	private String dateOfBirthString;
+	private boolean valid;
 	public User() {}
 	
 	public User(UserRole userRole) {
 		this.userRole = userRole;
 	}
-
+	public User(User user){
+		this.username=user.getUsername();
+		this.password=user.getPassword();
+		this.name=user.getName();
+		this.surname=user.getSurname();
+		this.dateOfBirth=user.getDateOfBirth();
+		this.userRole=user.getUserRole();
+		this.valid=user.isValid();
+	}
+	public User copy() {
+        return new User(this);
+    }
+	
+	
 	public User(String username, String password, String name, String surname,UserRole userRole) {
 		super();
 		this.username = username;
@@ -26,7 +41,12 @@ public class User {
 		this.userRole = userRole;
 	}
 
-	public User(User user) {
+	public String getDateOfBirthString() {
+		return dateOfBirthString;
+	}
+
+	public void setDateOfBirthString(String dateOfBirthString) {
+		this.dateOfBirthString = dateOfBirthString;
 	}
 
 	public String getUsername() {
@@ -49,11 +69,11 @@ public class User {
 		this.surname = surname;
 	}
 
-	public LocalDate getDateOfBirth() {
+	public LocalDateTime getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(LocalDate dateOfBirth) {
+	public void setDateOfBirth(LocalDateTime dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
@@ -77,6 +97,14 @@ public class User {
 		this.password = password;
 	}
 
+	public boolean isValid() {
+		return valid;
+	}
+
+	public void setValid(boolean valid) {
+		this.valid = valid;
+	}
+
 	@Override
 	public int hashCode() {
 		return super.hashCode();
@@ -90,6 +118,7 @@ public class User {
 		setUsername(newUserInfo.getUsername());
 		setName(newUserInfo.getName());
 		setSurname(newUserInfo.getSurname());
+		setValid(newUserInfo.isValid());
 		if(!newUserInfo.getPassword().isEmpty() && !newUserInfo.getPassword().equals(getPassword())){
 			setPassword(newUserInfo.getPassword());
 		}
