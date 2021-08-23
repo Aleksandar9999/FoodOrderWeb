@@ -9,6 +9,10 @@ public abstract class GenericFileService<T extends Entity> {
 
 	protected GenericFileRepository<T> repository;
 
+	public GenericFileRepository<T> getRepository() {
+		return repository;
+	}
+
 	public GenericFileService(GenericFileRepository<T> repository) {
 		this.repository=repository;
 	}

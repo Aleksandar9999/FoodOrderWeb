@@ -2,11 +2,36 @@
   {
     "pointsCollected": 0.0,
     "orders": [],
+    "username": "ss",
+    "password": "ss",
+    "name": "assas",
+    "surname": "asdasd",
+    "dateOfBirth": {
+      "date": {
+        "year": 2021,
+        "month": 8,
+        "day": 9
+      },
+      "time": {
+        "hour": 0,
+        "minute": 0,
+        "second": 0,
+        "nano": 0
+      }
+    },
+    "userRole": "Buyer",
+    "dateOfBirthString": "2021-08-09T00:00:00.000Z",
+    "valid": true
+  },
+  {
+    "pointsCollected": 0.0,
+    "orders": [],
     "username": "Novi",
     "password": "123",
     "name": "NoviKorisnik",
     "surname": "Korisnik",
-    "userRole": "Buyer"
+    "userRole": "Buyer",
+    "valid": true
   },
   {
     "restaurantId": "1",
@@ -14,7 +39,8 @@
     "password": "manager",
     "name": "Aleksandar",
     "surname": "Brkljac",
-    "userRole": "Manager"
+    "userRole": "Manager",
+    "valid": true
   },
   {
     "pointsCollected": 4.787999999999999,
@@ -23,7 +49,8 @@
     "password": "aca",
     "name": "Andrea",
     "surname": "Kojic",
-    "userRole": "Buyer"
+    "userRole": "Buyer",
+    "valid": true
   },
   {
     "orderIds": [
@@ -34,7 +61,8 @@
     "password": "test",
     "name": "test",
     "surname": "teste",
-    "userRole": "Deliverer"
+    "userRole": "Deliverer",
+    "valid": true
   },
   {
     "restaurantId": "ee1c2637-e98c-4fa6-80c4-6d3bc9b83628",
@@ -42,7 +70,8 @@
     "password": "aman",
     "name": "ManagerNovi",
     "surname": "Manager",
-    "userRole": "Manager"
+    "userRole": "Manager",
+    "valid": true
   },
   {
     "restaurantId": "5a9a5837-6243-4dcd-8c26-1a5b640b15fc",
@@ -50,7 +79,8 @@
     "password": "sadas",
     "name": "NobiiManager",
     "surname": "prezimenovog",
-    "userRole": "Manager"
+    "userRole": "Manager",
+    "valid": true
   },
   {
     "pointsCollected": -93.1,
@@ -59,13 +89,15 @@
     "password": "123",
     "name": "Aleksandarr",
     "surname": "Sima",
-    "userRole": "Buyer"
+    "userRole": "Buyer",
+    "valid": true
   },
   {
     "username": "aca",
     "password": "123",
     "name": "Aleksandar",
     "surname": "Brkljac",
-    "userRole": "Administrator"
+    "userRole": "Administrator",
+    "valid": true
   }
 ]

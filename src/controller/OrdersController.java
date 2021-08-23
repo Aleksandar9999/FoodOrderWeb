@@ -84,6 +84,12 @@ public class OrdersController {
             return e.getMessage();
         }
     };
+
+    public static Route handleGetSuspiciousUsers = (Request request, Response response) -> {
+        response.type("application/json");
+        return gson.toJson(ordersService.getSuspiciousUsers());
+    };
+
     public static Route handleUpdateOrder = (Request request, Response response) -> {
         response.type("application/json");
         Order order = gson.fromJson(request.body(), Order.class);
@@ -112,5 +118,6 @@ public class OrdersController {
 
         }
     }
+
 
 }

@@ -1,9 +1,11 @@
 package service;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import beans.Buyer;
 import beans.Order;
+import beans.SuspiciousUser;
 import beans.User;
 import enumerations.OrderStatus;
 import exceptions.CanUpdateOrderException;
@@ -12,11 +14,7 @@ import generic.GenericFileService;
 import repository.orders.OrdersRepository;
 
 public class OrderService extends GenericFileService<Order>{
-
-	public OrderService(GenericFileRepository<Order> repository) {
-		super(repository);
-	}
-
+	private OrdersRepository ordersRepository = new OrdersRepository();
 	public OrderService() {
 		super(new OrdersRepository());
 	}
@@ -39,6 +37,10 @@ public class OrderService extends GenericFileService<Order>{
 		return ((OrdersRepository)this.repository).getAllForDeliverer(username);
 	}
 
+	public ArrayList<SuspiciousUser> getSuspiciousUsers(){
+		return ((OrdersRepository)this.repository).getSuspiciousUsers();
+	}
+
 	@Override
 	public Order addNew(Order order) {
 		updateBuyerCollectedPoints(order.getBuyerUsername(),order.getPointsCollected());
@@ -59,4 +61,6 @@ public class OrderService extends GenericFileService<Order>{
 		buyer.addCollectedPoints(collectedPoints);
 		usersService.update(buyer.getUsername(), buyer);
 	}
+
+
 }

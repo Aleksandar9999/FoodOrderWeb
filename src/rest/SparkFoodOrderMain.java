@@ -20,7 +20,6 @@ public class SparkFoodOrderMain {
         get("/rest/users/managers", UserController.handleGetAllManagers);
         get("/rest/users/:id", UserController.handleGetUser); 
         put("/rest/users/:id", UserController.handleUpdateUserInfo);
-
         post("/rest/cart/articles",CartController.addArticleInCart);
         get("/rest/cart",CartController.getCart);
         get("/rest/cart/total",CartController.getTotal);
@@ -55,6 +54,7 @@ public class SparkFoodOrderMain {
         get("/rest/user/:username/comments",CommentController.handleGetCommentsByUser);
         put("/rest/comments/:id",CommentController.handleUpdateComment);
         
+        get("/rest/orders/users/suspicious",OrdersController.handleGetSuspiciousUsers);
 
         post("/rest/deliver-request",DeliverRequestController.handleAddRequest);
         put("/rest/deliver-request/:id",DeliverRequestController.handleUpdateRequest);

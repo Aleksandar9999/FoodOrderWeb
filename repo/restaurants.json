@@ -1,4 +1,90 @@
 {
+  "7b6889c3-2564-45f9-804b-02e1d3b47e67": {
+    "name": "skrskr",
+    "restaurantType": "Other",
+    "status": false,
+    "location": {
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "address": {
+        "street": "skrulica",
+        "number": "44",
+        "city": "44",
+        "zipCode": "44"
+      }
+    },
+    "avgRate": 0.0,
+    "id": "7b6889c3-2564-45f9-804b-02e1d3b47e67"
+  },
+  "04345527-8079-4eae-aa98-29ece2f8354e": {
+    "name": "NovaPizza",
+    "restaurantType": "Other",
+    "status": true,
+    "location": {
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "address": {
+        "street": "BUlevar",
+        "number": "12",
+        "city": "Novi Sad",
+        "zipCode": "21000"
+      }
+    },
+    "logoUrl": "logo",
+    "avgRate": 0.0,
+    "id": "04345527-8079-4eae-aa98-29ece2f8354e"
+  },
+  "bf006b2e-33c0-4f66-90d4-dbb4e1092754": {
+    "name": "NoviRestoranTest",
+    "restaurantType": "Italian",
+    "status": false,
+    "location": {
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "address": {
+        "street": "Neka ulica",
+        "number": "55",
+        "city": "Prijedor",
+        "zipCode": "21000"
+      }
+    },
+    "avgRate": 0.0,
+    "id": "bf006b2e-33c0-4f66-90d4-dbb4e1092754"
+  },
+  "97d9b429-af37-4f0e-9f69-7f5f6172869e": {
+    "name": "novi sa menagerom",
+    "restaurantType": "Chinese",
+    "status": false,
+    "location": {
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "address": {
+        "street": "ss",
+        "number": "2",
+        "city": "ss",
+        "zipCode": "2"
+      }
+    },
+    "avgRate": 0.0,
+    "id": "97d9b429-af37-4f0e-9f69-7f5f6172869e"
+  },
+  "ee1c2637-e98c-4fa6-80c4-6d3bc9b83628": {
+    "name": "AmanREst",
+    "restaurantType": "Other",
+    "status": false,
+    "location": {
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "address": {
+        "street": "ulicamana",
+        "number": "55",
+        "city": "sadas",
+        "zipCode": "211"
+      }
+    },
+    "avgRate": 0.0,
+    "id": "ee1c2637-e98c-4fa6-80c4-6d3bc9b83628"
+  },
   "1": {
     "name": "RomaPizza",
     "restaurantType": "Italian",
@@ -14,6 +100,7 @@
       }
     },
     "logoUrl": "logo",
+    "avgRate": 4.0,
     "id": "1"
   },
   "2": {
@@ -21,8 +108,8 @@
     "restaurantType": "Grill",
     "status": true,
     "location": {
-      "longitude": 0.0,
-      "latitude": 0.0,
+      "longitude": 30.0,
+      "latitude": 20.0,
       "address": {
         "street": "Bulevar Oslobodjenja",
         "number": "11",
@@ -31,23 +118,8 @@
       }
     },
     "logoUrl": "logo",
+    "avgRate": 0.0,
     "id": "2"
-  },
-  "7b6889c3-2564-45f9-804b-02e1d3b47e67": {
-    "name": "skrskr",
-    "restaurantType": "Other",
-    "status": false,
-    "location": {
-      "longitude": 0.0,
-      "latitude": 0.0,
-      "address": {
-        "street": "skrulica",
-        "number": "44",
-        "city": "44",
-        "zipCode": "44"
-      }
-    },
-    "id": "7b6889c3-2564-45f9-804b-02e1d3b47e67"
   },
   "3": {
     "name": "Tortilja",
@@ -64,6 +136,7 @@
       }
     },
     "logoUrl": "logo",
+    "avgRate": 0.0,
     "id": "3"
   },
   "022345527-8079-4eae-aa98-29ece2f8354e": {
@@ -81,40 +154,25 @@
       }
     },
     "logoUrl": "logo",
+    "avgRate": 0.0,
     "id": "022345527-8079-4eae-aa98-29ece2f8354e"
   },
-  "04345527-8079-4eae-aa98-29ece2f8354e": {
-    "name": "NovaPizza",
-    "restaurantType": "Other",
-    "status": true,
-    "location": {
-      "longitude": 0.0,
-      "latitude": 0.0,
-      "address": {
-        "street": "BUlevar",
-        "number": "12",
-        "city": "Novi Sad",
-        "zipCode": "21000"
-      }
-    },
-    "logoUrl": "logo",
-    "id": "04345527-8079-4eae-aa98-29ece2f8354e"
-  },
-  "bf006b2e-33c0-4f66-90d4-dbb4e1092754": {
-    "name": "NoviRestoranTest",
+  "b155c869-c524-4e91-a093-a5e444773ad6": {
+    "name": "Novi Sa Mapom",
     "restaurantType": "Italian",
     "status": false,
     "location": {
-      "longitude": 0.0,
-      "latitude": 0.0,
+      "longitude": 19.824722,
+      "latitude": 45.234421,
       "address": {
-        "street": "Neka ulica",
-        "number": "55",
-        "city": "Prijedor",
+        "street": "Sime Matavulja",
+        "number": "17",
+        "city": "Novi Sad City",
         "zipCode": "21000"
       }
     },
-    "id": "bf006b2e-33c0-4f66-90d4-dbb4e1092754"
+    "avgRate": 0.0,
+    "id": "b155c869-c524-4e91-a093-a5e444773ad6"
   },
   "5a9a5837-6243-4dcd-8c26-1a5b640b15fc": {
     "name": "bez managera",
@@ -130,6 +188,7 @@
         "zipCode": "22"
       }
     },
+    "avgRate": 0.0,
     "id": "5a9a5837-6243-4dcd-8c26-1a5b640b15fc"
   },
   "dd7a393b-9dbf-4089-a01c-0c4089fe510d": {
@@ -146,38 +205,7 @@
         "zipCode": "22"
       }
     },
+    "avgRate": 0.0,
     "id": "dd7a393b-9dbf-4089-a01c-0c4089fe510d"
-  },
-  "97d9b429-af37-4f0e-9f69-7f5f6172869e": {
-    "name": "novi sa menagerom",
-    "restaurantType": "Chinese",
-    "status": false,
-    "location": {
-      "longitude": 0.0,
-      "latitude": 0.0,
-      "address": {
-        "street": "ss",
-        "number": "2",
-        "city": "ss",
-        "zipCode": "2"
-      }
-    },
-    "id": "97d9b429-af37-4f0e-9f69-7f5f6172869e"
-  },
-  "ee1c2637-e98c-4fa6-80c4-6d3bc9b83628": {
-    "name": "AmanREst",
-    "restaurantType": "Other",
-    "status": false,
-    "location": {
-      "longitude": 0.0,
-      "latitude": 0.0,
-      "address": {
-        "street": "ulicamana",
-        "number": "55",
-        "city": "sadas",
-        "zipCode": "211"
-      }
-    },
-    "id": "ee1c2637-e98c-4fa6-80c4-6d3bc9b83628"
   }
 }
