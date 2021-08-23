@@ -119,3 +119,7 @@ table tr:hover{
     background-color:#3a3a3a5d;
     border: 10px solid rgba(216, 198, 198, 0.5);
 }
+.suspicious-user{
+    background-color:#bd00005d;
+    border: 10px solid rgba(216, 198, 198, 0.5);
+}

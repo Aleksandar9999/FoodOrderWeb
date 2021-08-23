@@ -97,7 +97,7 @@ Vue.component("restaurant-settings", {
                             </td>
                             <td>
                                 <div class="field">
-                                    <input type="submit" value="Potvrdi" @click="updateRestaurant">
+                                    <button @click="updateRestaurant"> Potvrdi</button>
                                 </div>
                             </td>
                         </tr>
@@ -124,7 +124,10 @@ Vue.component("restaurant-settings", {
                 </tr>
             </table>
         </div>
+        <restaurant-map :location=restaurant.location></restaurant-map>
         <restaurant-comments type='settings'></restaurant-comments>
+        
+
         <div v-if="myModel">
 		<transition name="model">
 		 <div class="modal-mask">
@@ -181,6 +184,7 @@ Vue.component("restaurant-settings", {
   </div>
 `
     ,
+    
     mounted() {
         axios
             .get('rest/restaurants/' + this.$route.params.id+'/settings')
@@ -204,6 +208,10 @@ Vue.component("restaurant-settings", {
     methods: {
         updateRestaurant() {
             if (this.$route.params.id === "-1") {
+                if(!this.restaurant.name){
+                    alert("Unesite ime restorana");
+                    return;
+                }
                 axios.post('/rest/restaurants', this.restaurant).
                     then(response => {
                         if (!this.selectedManager) {
@@ -211,9 +219,11 @@ Vue.component("restaurant-settings", {
                         }
                         else {
                             axios.put('/rest/restaurants/' + response.data.id + '/managers/' + this.selectedManager)
-                            .then(response => { this.$router.push('/restaurants'); })
-                        }
-                    })
+                                .then(response => { this.$router.push('/restaurants'); })
+                            }
+
+                    });
+                
             } else {
                 axios.put('/rest/restaurants/' + this.$route.params.id, this.restaurant).
                     then(response => (alert("uspjesno azuriran")))

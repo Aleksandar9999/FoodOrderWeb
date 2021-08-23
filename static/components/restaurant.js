@@ -48,18 +48,20 @@ Vue.component("restaurant", {
 		        </table>
             </div>
             <restaurant-comments></restaurant-comments>
+            <restaurant-map :location=restaurant.location></restaurant-map>
         </div>
 `
     ,
     mounted() {
         axios
             .get('rest/restaurants/' + this.$route.params.id)
-            .then(response => (this.restaurant = response.data))
+            .then(response => {
+                this.restaurant = response.data;
+                console.log(this.restaurant)})
         
         axios
             .get('rest/restaurants/' + this.$route.params.id+'/articlesincart')
             .then(response => {
-                console.log(response.data)
                 this.articles = response.data
             })
         
@@ -73,7 +75,7 @@ Vue.component("restaurant", {
     methods: {
         addToCart(p){
             axios.post('/rest/cart/articles',{article:p.article,quantity:p.quantity}).
-                then(response=> (console.log("DODAO u Korpu")));
+                then(response=> (console.log("DODAO u Korpu"))).catch(error =>{ alert(error.response.data,"Greska");});
         }
         
     }

@@ -9,6 +9,12 @@
 	<link href="styles/administrator.css" rel="stylesheet">
 	<link href="styles/profile.css" rel="stylesheet">
 	<link href="styles/restaurant.css" rel="stylesheet">
+	
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.6.1/css/ol.css" type="text/css">
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL,fetch"></script>
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.6.1/build/ol.js"></script>
+	<link href="styles/CustomMap.css" rel="stylesheet">
+	</style>
 </head>
 
 <body>
@@ -19,6 +25,7 @@
 				<li><a href="/index.html#/restaurants">Restorani</a></li>
 			</ul>
 		</div>
+		
 		<div id="main">
 			<router-view></router-view>
 		</div>
@@ -26,7 +33,11 @@
 	<script src="js/vue.js"></script>
 	<script src="js/vue-router.js"></script>
 	<script src="js/axios.js"></script>
+	
+	<script src="js/CustomMap.js"></script>	
 	<script src="js/DateCompare.js"></script>
+	<script src="components/SuspiciousUsers.js"></script>
+	<script src="components/MapComponent.js"></script>
 	<script src="components/RestaurantComments.js"></script>
 	<script src="components/Profile.js"></script>
 	<script src="components/RegistrationBuyer.js"></script>
