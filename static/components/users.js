@@ -11,6 +11,7 @@ Vue.component("users", {
 			currentFilterRole:''
 		}
 	},
+	props:['mode','susp_users'],
 	template: ` 
 	<div id="itemslist">
 		<h3 id="title">Korisnici</h3>
@@ -36,11 +37,11 @@ Vue.component("users", {
 				<th @click="sort('name')">Ime</th>
 				<th @click="sort('surname')">Prezime</th>
 				<th @click="sort('username')">Korisnicko ime</th>
-				
 				<th>Uloga</th>
+				<th v-if="mode === 'suspicious'">Broj otkazanih narudzbi</th>
 			</tr>
 				
-			<tr v-for="(p) in sortedList" >
+			<tr v-for="(p) in sortedList" :class="p.countOfCanceledOrders >= 5 ? 'suspicious-user' : 'user'" >
 				<td>
 						<p>{{p.name}}</p>
 				</td>
@@ -51,6 +52,8 @@ Vue.component("users", {
 					<p id="usernamep">@{{p.username}}</p>
 				</td>
 				<td><p id="userrolep">{{p.userRole}}</p></td>
+				<td v-if="mode === 'suspicious'"><p>{{p.countOfCanceledOrders}}</p></td>
+				<td v-if="p.userRole !=='Administrator' && p.valid === true"><button @click="blockUser(p)">Blokiraj</button></td>
 			</tr>
 		</table>
 </div>
@@ -58,9 +61,18 @@ Vue.component("users", {
 `
 	,
 	mounted() {
-		axios
-			.get('/rest/users')
-			.then(response => (this.users = response.data)).catch((error)=>{alert(error.response.data,"greska")})
+		if(!this.mode){
+			axios
+				.get('/rest/users')
+				.then(response => (this.users = response.data))
+				.catch((error)=>{alert(error.response.data,"greska")})
+		}else{
+			axios
+			.get('/rest/orders/users/suspicious')
+				.then(response => {this.users = response.data;console.log(this.users)})
+				.catch((error)=>{alert(error.response.data,"greska")})
+		}
+		
 	},
 	computed: {
 		sortedList() {
@@ -93,14 +105,19 @@ Vue.component("users", {
 	},
 
 	methods: {
-		sort: function (s) {
+		sort(s) {
 			if (s === this.currentSort) {
 				this.currentSortDir = this.currentSortDir === 'asc' ? 'desc' : 'asc';
 			}
 			this.currentSort = s
 		},
-		filterRole:function(s){
+		filterRole(s){
 			this.currentFilterRole = s
+		},
+		blockUser(user){
+			user.valid=false;
+			axios.put('/rest/users/'+user.username,user).then(response=>{alert(response.data.username + 'is blocked.')})
 		}
+		
 	}
 });
