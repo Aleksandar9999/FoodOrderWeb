@@ -4,7 +4,8 @@ Vue.component("restaurant-buyers", {
             buyers:[]
 		}
 	},
-	template: ` 
+	template: `
+	<div><custom-header/> 
 	<div id="itemslist">
 		<h3 id="title">Kupci</h3>
 		<table id="userList" border="0" CELLSPACING=0>
@@ -30,7 +31,7 @@ Vue.component("restaurant-buyers", {
 			</tr>
 		</table>
 </div>
-  
+  </div>
 `
 	,
 	mounted() {

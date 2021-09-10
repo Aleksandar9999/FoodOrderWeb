@@ -13,12 +13,14 @@ Vue.component("restaurant-orders", {
 		}
 	},
 	template: ` 
+	<div><custom-header/>
 	<div id="itemslist">
 		<h3 id="title">Narudzbe</h3>
 		<table id="userList" border="0" CELLSPACING=0>
 			<tr id="headertable">
 				<th><p>Status</p>
 					<select v-model="currentSelectedOrderStatus"  style="height: 30px;" name="currentSelectedOrderStatus">
+						<option value=""></option>	
 						<option value="Processing">Processing</option>
 						<option value="InPreparation">In Preparation</option>
 						<option value="WaitingDeliverer">Waiting Deliverer</option>
@@ -61,8 +63,8 @@ Vue.component("restaurant-orders", {
 					<button v-if="request.deliverer && request.status == 'Pending'" @click='submitDeliverer(request)'>Submit deliverer</button> 
 				</td>
 			</tr>
-		</table>
-		
+		</table>	
+</div>
 </div>
   
 `
@@ -130,6 +132,7 @@ Vue.component("restaurant-orders", {
 		},
 		submitDeliverer(request) {
 			request.status = 'Confirmed';
+			request.order.orderStatus == 'Transport';
 			axios.put('/rest/deliver-request/' + request.id, request).then(response => { alert("Succes") })
 		},
 		setDateMin(val) {

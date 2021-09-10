@@ -1,7 +1,7 @@
 Vue.component("restaurant-comments", {
     data: function () {
         return {
-            comments: null,
+            comments: [],
             userRole: null,
 
         }
@@ -9,6 +9,7 @@ Vue.component("restaurant-comments", {
     props: ['type'],
     template: ` 
      <div class="hederInfo" style="margin-top: 10px;">
+        <h3>Komentari </h3><span v-if="comments.length === 0"> <p>Nema komentara</p></span>
         <table id="userList" border="0" CELLSPACING=0>
             <tr v-for="(p) in comments" >
                 <td>
