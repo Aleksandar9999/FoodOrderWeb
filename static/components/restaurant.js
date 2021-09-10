@@ -7,30 +7,33 @@ Vue.component("restaurant", {
         }
     },
     template: ` 
+    <div><custom-header></custom-header>
 	<div class="restaurantInfo">
             <div class="hederInfo">
                 <div style="display: inline-block;">
                     <h2>Osnovne informacije</h2>
                     
                     <div style="margin-top: 18px; " >
-                        <img width="90px" height="90px" style="overflow : visible;" src="../files/images/pizza.jpg">
+                        <img width="90px" height="90px" style="overflow : visible;" :src="'../files/images/'+restaurant.logoUrl">
                     </div>
                 
                     <p>{{restaurant.name}}</p>
                     <p>{{restaurant.restaurantType}}</p>
-                    <p>{{restaurant.status}}</p>
+                    <p v-if="!restaurant.status">Zatvoreno</p>
+                    <p v-if="restaurant.status">Otvoreno</p>
                     <p>{{restaurant.location.address.street}} {{restaurant.location.address.number}}</p>
                     <p>{{restaurant.location.address.city}} {{restaurant.location.address.zipCode}}</p>
-                    <p>Ocena</p>
+                    <p>Ocena {{restaurant.avgRate}}</p>
                 </div>
             </div>
 
             <div class="hederInfo" style="margin-top: 10px;">
+            <span v-if="articles && articles.length === 0"> <p>Nema artikala</p></span>
                 <table id="userList" border="0" CELLSPACING=0>
                     <tr v-for="(p) in articles" >
-                        <td>
-                            <img width="50px" height="50px" style="overflow : visible;" src="../files/images/pizza.jpg">
-                        </td>    
+                    <td>
+                    <img width="50px" height="50px" style="overflow : visible;" :src="'../files/images/'+p.article.imageUrl">
+                </td>  
                         <td>
                             <p>{{p.article.name}}</p>
                             <p style="color:gray;">{{p.article.comment}}</p>
@@ -49,6 +52,7 @@ Vue.component("restaurant", {
             </div>
             <restaurant-comments></restaurant-comments>
             <restaurant-map :location=restaurant.location></restaurant-map>
+        </div>
         </div>
 `
     ,

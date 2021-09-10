@@ -1,8 +1,5 @@
 Vue.component("suspicious-users", {
-	template: ` 
+	template: `
 	    <users mode='suspicious'></users>
     `,
-	methods: {
-        
-	}
 });

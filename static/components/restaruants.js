@@ -1,7 +1,7 @@
 Vue.component("restaurants", {
 	data: function () {
 		return {
-			idAdmin: -1,
+			isAdmin: false,
 			restaurants: null,
 			searchName: '',
 			searchLocation: '',
@@ -9,12 +9,16 @@ Vue.component("restaurants", {
 			currentSort: 'name',
 			currentSortDir: "asc",
 			currentFilterType: '',
-			currentFilterTypeStatus:'',
+			currentFilterTypeStatus: '',
+			noRestaurats: false,
 		}
 	},
 	template: ` 
+	<div><custom-header></custom-header>
 	<div id="itemslist">
-		<h3 id="title">Restorani</h3>
+		<h3 id="title">Restorani <span v-if="isAdmin"><button @click="addNewPage">Dodaj novi</button></span></h3> 
+		<p v-if="noRestaurats">Nema restorana u ponudi</p>
+		<div v-if="!noRestaurats">
 		<table id="searchtabe" border="0" cellspacing=0>
 			<tr>
 				<td><div class="field"><input v-model="searchName" type="text" placeholder="Naziv" name="name"></div></td>
@@ -51,7 +55,7 @@ Vue.component("restaurants", {
 				
 			<tr v-for="(p, index) in sortedList" @click=showRestaurant(p.id)  :class="p.status ? 'open-restaurant' : 'closed-restaruant'">
 				<td>
-					<img width="90px" height="90px"  src="../files/images/pizza.jpg">
+					<img width="90px" height="90px"  :src="'../files/images/'+p.logoUrl">
 					<p>{{p.name}}</p>
 				</td>
 				<td>
@@ -65,14 +69,19 @@ Vue.component("restaurants", {
 				<td><p>{{p.avgRate}}</p></td>
 			</tr>
 		</table>
-</div>
-  
+		</div>
+	 </div>
+  </div>
 `
 	,
 	mounted() {
 		axios
 			.get('rest/restaurants')
-			.then(response => (this.restaurants = response.data))
+			.then(response => {
+				this.restaurants = response.data;
+				if (this.restaurants.length == 0) this.noRestaurats = true;
+			});
+		axios.get('/rest/users/me').then(response => (this.isAdmin = response.data?.userRole === 'Administrator'))
 	},
 	computed: {
 		sortedList() {
@@ -111,6 +120,9 @@ Vue.component("restaurants", {
 		},
 		showRestaurant: function (s) {
 			router.push('restaurants/' + s)
+		},
+		addNewPage() {
+			this.$router.push('/restaurants/-1/settings');
 		}
 	}
 });

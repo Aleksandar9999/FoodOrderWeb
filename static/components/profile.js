@@ -1,11 +1,12 @@
 Vue.component("profile", {
     data: function () {
         return {
-            user: null,
+            user: {},
             username:'',
         }
     },
     template: ` 
+    <div><custom-header></custom-header>
 	<div class="personalInfo">
             <div class="hederInfo">
                 <div style="display: inline-block;">
@@ -16,9 +17,9 @@ Vue.component("profile", {
                     </div>
                 </div>
                 <div style="display: inline-block;">
-                    <div style="margin-top: 18px;">
-                        <p>{{user.pointsCollected}}</p>
-                        <p>TIP</p>
+                    <div style="margin-top: 18px;" v-if="user.userRole=='Buyer'">
+                        <p>Broj sakupljenih poena: {{user.pointsCollected}}</p>
+                        <p v-if="user.userRole=='Buyer'">{{user.buyerType?.name}}</p>
                     </div>
                 </div>
             </div>
@@ -30,13 +31,13 @@ Vue.component("profile", {
                             <td style=" padding: 10px 30px 10px 0px; ">
                                 <p>Ime</p>
                                 <div class="field">
-                                    <input type="text"  v-model=user.name>
+                                    <input type="text"  v-model='user.name'>
                                 </div>
                             </td>
                             <td>
                                 <p>Prezime</p>
                                 <div class="field">
-                                    <input type="text"  v-model=user.surname>
+                                    <input type="text"  v-model='user.surname'>
                                 </div>
                             </td>
                         </tr>
@@ -44,7 +45,7 @@ Vue.component("profile", {
                             <td style=" padding: 10px 30px 10px 0px; ">
                                 <p>Korisnicko ime</p>
                                 <div class="field">
-                                    <input type="text" v-model=user.username>
+                                    <input type="text" v-model='user.username'>
                                 </div>
                             </td>
                             <td>
@@ -67,6 +68,7 @@ Vue.component("profile", {
                 </form>
             </div>
         </div>
+        </div>
 `
     ,
     mounted() {
@@ -81,6 +83,7 @@ Vue.component("profile", {
                 .get('rest/users/me')
                 .then(response => {
                     this.user = response.data;
+                    console.log(this.user)
                     this.username=response.data.username;
                 })
     },

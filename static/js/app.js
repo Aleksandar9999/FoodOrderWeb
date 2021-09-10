@@ -2,7 +2,7 @@ const router = new VueRouter({
 	mode: 'hash',
 	  routes: [
 		{ path: '/', name: 'login', component: { template: '<login></login>' }},
-		{ path: '/registration', name: 'registration', component: { template: '<registration></registration>' }},
+		{ path: '/registration/:role', name: 'registration', component: { template: '<registration></registration>' }},
 		{ path: '/users', name: 'users', component: { template: '<users></users>' }},
 		{ path: '/restaurants', name: 'restautants', component: { template: '<restaurants></restaurants>' }},
 		{ path: '/profile/:id', name: 'profile', component: { template: '<profile></profile>' }},

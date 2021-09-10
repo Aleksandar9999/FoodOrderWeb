@@ -1,16 +1,20 @@
 Vue.component("orders", {
 	data: function () {
-		    return {
-                orders:null,
-				userRole:'',
-				currentFilterStatus:'',
-				comment:'',
-				mark:0,
-				myModel:false,
-				orderForComment:null,
-            }
+		return {
+			orders: [],
+			comments: [],
+			username:'',
+			userRole: '',
+			currentFilterStatus: '',
+			comment: '',
+			mark: 0,
+			myModel: false,
+			orderForComment: null,
+		}
 	},
 	template: ` 
+	<div>
+	<custom-header></custom-header>
 <div>
 	<table border="1">
 		<tr bgcolor="lightgrey">
@@ -36,7 +40,7 @@ Vue.component("orders", {
 				<td v-if="userRole == 'Deliverer' && p.orderStatus == 'WaitingDeliverer'"><button @click='sendRequest(p)'>Preuzmi</button></td>
 				<td v-if="userRole == 'Deliverer' && p.orderStatus == 'Transport'"><button @click='finishOrder(p)'>Dostavljeno</button></td>
 				<td v-if="userRole == 'Buyer' && p.orderStatus == 'Processing'"><button @click='cancelOrder(p)'>Otkazi</button></td>
-				<td v-if="userRole == 'Buyer' && p.orderStatus == 'Delivered'"><button @click='openDialog(p)'>Dodaj komentar</button></td>
+				<td v-if="userRole == 'Buyer' && p.orderStatus == 'Delivered' && !p.commented"><button @click='openDialog(p)'>Dodaj komentar</button></td>
 			</tr>
 		</table>
 		<br /> 
@@ -59,7 +63,7 @@ Vue.component("orders", {
 					</div>
 					<div class="form-group">
 					 <label>Ocena</label>
-					 <input type="number" class="form-control" v-model="mark" />
+					 <input type="number" class="form-control" v-model="mark" max="5" min="1"/>
 					</div>
                     
                     <div>
@@ -73,56 +77,72 @@ Vue.component("orders", {
 		 </div>
 		</transition>
 	   </div>
+	   </div>
 </div>		  
 `
-	, 
-	methods : {
-		init : function() {
+	,
+	methods: {
+		init: function () {
 			this.orders = {};
 		},
-		sendRequest(order){
-			axios.post('/rest/deliver-request',order).then(response=>{
+		sendRequest(order) {
+			axios.post('/rest/deliver-request', order).then(response => {
 				alert("Success.")
 			})
 		},
-		finishOrder(order){
-			order.orderStatus='Delivered';
-			axios.put('/rest/orders/'+order.id,order).then(response=>{alert("Completed")})
+		finishOrder(order) {
+			order.orderStatus = 'Delivered';
+			axios.put('/rest/orders/' + order.id, order).then(response => { alert("Completed") })
 		},
-		cancelOrder(order){
-			order.orderStatus='Canceled';
-			axios.put('/rest/orders/'+order.id,order).then(response=>{alert("Order canceled")})
+		cancelOrder(order) {
+			order.orderStatus = 'Canceled';
+			axios.put('/rest/orders/' + order.id, order).then(response => { alert("Order canceled") })
 		},
-		openDialog(order){
-			this.orderForComment=order;
-			this.myModel=true;
+		openDialog(order) {
+			this.orderForComment = order;
+			this.myModel = true;
 		},
-		sendComment(){
-			axios.post('/rest/comments',{mark:this.mark, comment:this.comment, restaurantId:this.orderForComment.restaurantId}).then(
+		sendComment() {
+			this.orderForComment.commented = true;
+			axios.post('/rest/comments', { mark: this.mark, comment: this.comment, restaurantId: this.orderForComment.restaurantId, orderId: this.orderForComment.id }).then(
 				response => (alert("Success."))
-			)
+			);
+
 		}
 	},
-	computed:{
+	computed: {
 		filteredList() {
 			if (this.orders == null) return;
-			return this.orders.filter(order => {
-				if(this.currentFilterStatus == ''){
+			return this.checkCommented.filter(order => {
+				if (this.currentFilterStatus == '') {
 					return true;
-				}else{
+				} else {
 					return order.orderStatus != this.currentFilterStatus
 				}
 			})
+		},
+		checkCommented(){
+			this.orders.forEach(order => {
+				if (this.comments.find(comment => comment.orderId === order.id))
+				 order.commented = true;
+			});
+			return this.orders;
 		}
 	},
-	mounted () {
+	mounted() {
 		axios.get('/rest/users/me').then(response => {
-			this.userRole=response.data.userRole; 
-			axios.get('/rest/orders/'+this.userRole.toLowerCase()+'/me').then(response => {
+			this.userRole = response.data.userRole;
+			this.username=response.data.username;
+			axios.get('/rest/orders/' + this.userRole.toLowerCase() + '/me').then(response => {
 				this.orders = response.data;
-			})
+				axios.get('/rest/user/' + this.username + '/comments').then(response => {
+					this.comments = response.data;
+					
+				});
+			});
+			
 		})
 
-        
-    }
+
+	}
 });

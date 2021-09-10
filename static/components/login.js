@@ -6,6 +6,8 @@ Vue.component("login", {
 		    }
 	},
 	template: ` 
+    <div>
+    <custom-header></custom-header>
 	<div id="loginForm">
     <p id="title">Prijava</p>
         <form>  
@@ -20,8 +22,9 @@ Vue.component("login", {
             <div class="field">       
                 <input type = "submit" v-on:click = "loginUser" value = "LOGIN">
             </div>    
-        <a href="#/registration">Registrujte se.</a>
+        <a href="#/registration/buyer">Registrujte se.</a>
         </form>	  
+    </div>
     </div>
        `
 	, 
@@ -30,11 +33,7 @@ Vue.component("login", {
 			event.preventDefault();
 			axios.post('/rest/users/login', this.user).
 			then(response => {
-                if(response.data['userRole']=="Administrator")
-                    router.push('/users');
-                else if(response.data['userRole']=="Manager")
-                    router.push('/restaurants/'+response.data['restaurantId']+'/settings');
-                else router.push('/profile');
+                router.push('/profile');
             })
             .catch(function(error){
                 alert(error.response.data,"Greska")

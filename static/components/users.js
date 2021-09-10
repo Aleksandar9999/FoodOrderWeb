@@ -8,12 +8,14 @@ Vue.component("users", {
 			searchSurname: '',
 			currentSort: 'name',
 			currentSortDir: "asc",
-			currentFilterRole:''
+			currentFilterRole:'',
+			error:false,
 		}
 	},
 	props:['mode','susp_users'],
 	template: ` 
-	<div id="itemslist">
+	<div><custom-header></custom-header>
+	<div id="itemslist" v-if="!error">
 		<h3 id="title">Korisnici</h3>
 		<table id="searchtabe" border="0" cellspacing=0>
 			<tr>
@@ -57,6 +59,7 @@ Vue.component("users", {
 			</tr>
 		</table>
 </div>
+</div>
   
 `
 	,
@@ -65,12 +68,12 @@ Vue.component("users", {
 			axios
 				.get('/rest/users')
 				.then(response => (this.users = response.data))
-				.catch((error)=>{alert(error.response.data,"greska")})
+				.catch((error)=>{this.error=true;alert(error.response.data,"greska");})
 		}else{
 			axios
 			.get('/rest/orders/users/suspicious')
 				.then(response => {this.users = response.data;console.log(this.users)})
-				.catch((error)=>{alert(error.response.data,"greska")})
+				.catch((error)=>{this.error=true;alert(error.response.data,"greska");})
 		}
 		
 	},
