@@ -1,19 +1,22 @@
 Vue.component("cart", {
 	data: function () {
-		    return {
-		      sc: null,
-		      total: 0
-		    }
+		return {
+			sc: null,
+			total: 0,
+			discount: 0
+		}
 	},
-	template: ` 
-<div>
+	template: `
+	<div>
+	<custom-header></custom-header> 
+	<div>
 		Proizvodi u korpi:
 		<table border="1">
 		<tr bgcolor="lightgrey">
 			<th>Naziv</th><th>Jedinicna cena</th><th>Komada</th><th>Ukupna cena</th></tr>
 			<tr v-for="i in sc.articles">
-			<td> {{i.article.name}}</td>
-			<td> {{i.article.price}}</td>
+			<td> <p style="color: white;">{{i.article.name}}</p></td>
+			<td> <p style="color: white;">{{i.article.price}}</p></td>
 			<td> <input v-model="i.quantity" type="number"/> </td>
 			<td> {{i.quantity * i.article.price}} </td>
 			</tr>
@@ -22,49 +25,56 @@ Vue.component("cart", {
 		<button v-on:click="clearSc" >Obriši korpu</button>
         <button v-on:click="createOrder" >Kreiraj narudzbinu</button>
 		
-		<p>
+		<p style="color: white;">
 		Ukupno: {{totalPriceCalculator}} dinara.
 		</p>
 	<p>
 		<a href="#/">Proizvodi</a>
 	</p>
-	
+	</div>
 </div>		  
 `
-	, 
-	methods : {
-		init : function() {
+	,
+	methods: {
+		init: function () {
 			this.sc = {};
 			this.total = 0.0;
-		}, 
-		clearSc : function () {
+		},
+		clearSc: function () {
 			if (confirm('Da li ste sigurni?') == true) {
 				axios
-		          .post('rest/proizvodi/clearSc')
-		          .then(response => (this.init()))
+					.post('rest/proizvodi/clearSc')
+					.then(response => (this.init()))
 			}
 		},
-        createOrder:function(){
+		createOrder() {
 			console.log(this.sc)
-            axios.post('/rest/orders',this.sc).then(response=>alert("Uspijesno kreirana narudzba"))
-        }
+			axios.post('/rest/orders', this.sc).then(response => {
+				alert("Uspijesno kreirana narudzba");
+				this.$router.push('/orders');
+			})
+		}
 	},
-    computed:{
-        totalPriceCalculator:function(){
-            let total=0;
-            this.sc.articles.forEach(element => {
-                total+=element.article.price*element.quantity;
-            });
-			this.sc.total=total;
-            return total;
-        }
-    },
-	mounted () {
-        axios
-          .get('rest/cart')
-          .then(response => {
-        	  this.sc = response.data;
-              console.log(this.sc)
-          });
-    }
+	computed: {
+		totalPriceCalculator: function () {
+			let total = 0;
+			this.sc.articles.forEach(element => {
+				total += element.article.price * element.quantity;
+			});
+			total -= total * this.discount / 100;
+			this.sc.price = total;
+			return total;
+		}
+	},
+	mounted() {
+		axios
+			.get('rest/cart')
+			.then(response => {
+				this.sc = response.data;
+			})
+			.catch(error => (alert(error.response.data)));
+		axios.get('/rest/users/me').then(response => {
+			this.discount = response.data.buyerType.discount ? response.data.buyerType.discount : 0;
+		})
+	}
 });
