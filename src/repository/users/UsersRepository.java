@@ -14,12 +14,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import beans.Buyer;
 import beans.Deliverer;
 import beans.Manager;
 import beans.User;
 import enumerations.UserRole;
 import exceptions.RegistrationException;
 import exceptions.UserDataException;
+import repository.buyerType.BuyerTypeRepository;
 import repository.orders.OrdersRepository;
 
 public class UsersRepository{
@@ -102,9 +104,16 @@ public class UsersRepository{
 		for (User user : users.values()) {
 			if(user.getUserRole().equals(UserRole.Deliverer)){
 				mergeWithOrders((Deliverer)user);
+			}else if(user.getUserRole().equals(UserRole.Buyer)){
+				mergeWithBuyerType((Buyer)user);
 			}
 		}
 	}
+	private void mergeWithBuyerType(Buyer user) {
+		BuyerTypeRepository buyerTypeRepository=new BuyerTypeRepository();
+		user.setBuyerType(buyerTypeRepository.getBuyerTypeByCollectedPoints(user.getPointsCollected()));
+	}
+
 	private void mergeWithOrders(Deliverer user) {
 		OrdersRepository ordersRepository=new OrdersRepository();
 		List<String> orderIds=user.getOrderIds();

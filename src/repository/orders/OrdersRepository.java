@@ -10,11 +10,13 @@ import java.util.List;
 import com.google.gson.reflect.TypeToken;
 
 import beans.Buyer;
+import beans.DeliverRequest;
 import beans.Deliverer;
 import beans.Order;
 import beans.SuspiciousUser;
 import beans.User;
 import enumerations.OrderStatus;
+import enumerations.RequestStatus;
 import generic.GenericFileRepository;
 import repository.deliverRequest.DeliverRequestRepository;
 import repository.restaurants.RestaurantRepository;
@@ -75,17 +77,31 @@ public class OrdersRepository extends GenericFileRepository<Order> {
 	}
 
 	public ArrayList<Order> getAllForDeliverer(String username) {
-		// getAllWaitingForDevliver
 		ArrayList<Order> orders = new ArrayList<>(readAll().values());
-		orders.removeIf(order -> !order.getOrderStatus().equals(OrderStatus.WaitingDeliverer));
-		// TODO: remove if request exist
-		// getAllFor transport
+		removeIfOrdersNotWaitingForDeliverer(orders);
+		removeIfDeliverRequestExist(orders);
+		addUserOrders(orders, username);
+		return orders;
+	}
+
+	private void addUserOrders(ArrayList<Order> orders, String username) {
 		UsersService usersService = new UsersService();
 		Deliverer deliverer = (Deliverer) usersService.getByUsername(username);
 		for (Order ord : deliverer.getOrders()) {
 			orders.add(ord);
 		}
-		return orders;
+	}
+
+	private void removeIfOrdersNotWaitingForDeliverer(ArrayList<Order> orders) {
+		orders.removeIf(order -> !order.getOrderStatus().equals(OrderStatus.WaitingDeliverer));
+	}
+
+	private void removeIfDeliverRequestExist(ArrayList<Order> orders) {
+		DeliverRequestRepository deliverRequestRepository = new DeliverRequestRepository();
+		for (DeliverRequest request : deliverRequestRepository.getAll()) {
+			orders.removeIf(order -> order.getId().equals(request.getOrderId())
+					&& request.getStatus().equals(RequestStatus.Pending));
+		}
 	}
 
 	private ArrayList<Order> getCanceledOrders() {
@@ -98,8 +114,8 @@ public class OrdersRepository extends GenericFileRepository<Order> {
 		ArrayList<Order> orders = getCanceledOrders();
 		ArrayList<SuspiciousUser> suspiciousUsers = new ArrayList<SuspiciousUser>();
 		for (Order order : orders) {
-			SuspiciousUser suspiciousUser=this.createSuspiciousUser(orders, order);
-			if(suspiciousUser.isValid())
+			SuspiciousUser suspiciousUser = this.createSuspiciousUser(orders, order);
+			if (suspiciousUser.isValid())
 				suspiciousUsers.add(suspiciousUser);
 		}
 		return suspiciousUsers;
@@ -121,8 +137,9 @@ public class OrdersRepository extends GenericFileRepository<Order> {
 		}
 		return count;
 	}
-	private boolean isOrderInLast30Days(Order order){
-		LocalDateTime monthAgo=LocalDateTime.now().minusDays(30);
+
+	private boolean isOrderInLast30Days(Order order) {
+		LocalDateTime monthAgo = LocalDateTime.now().minusDays(30);
 		return order.getTimestamp().isAfter(monthAgo);
 	}
 

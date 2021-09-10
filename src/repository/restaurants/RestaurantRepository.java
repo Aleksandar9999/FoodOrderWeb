@@ -26,6 +26,7 @@ public class RestaurantRepository extends GenericFileRepository<Restaurant> {
 		Type type = new TypeToken<HashMap<String, Restaurant>>() {
 		}.getType();
 		HashMap<String, Restaurant> data = gson.fromJson(json, type);
+		if(data==null) data=new HashMap<>();
 		return mergeData(data);
 	}
 	private HashMap<String, Restaurant> mergeData(HashMap<String, Restaurant> data){
