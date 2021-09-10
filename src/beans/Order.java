@@ -29,6 +29,7 @@ public class Order extends Entity {
 	public void setBuyerUsername(String buyerUsername) {
 		this.buyerUsername = buyerUsername;
 	}
+	
 	public String getBuyerNameSurname() {
 		return buyerNameSurname;
 	}

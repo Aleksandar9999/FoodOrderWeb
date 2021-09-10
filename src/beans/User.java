@@ -13,11 +13,15 @@ public class User {
 	private UserRole userRole;
 	private String dateOfBirthString;
 	private boolean valid;
-	public User() {}
-	
+	private String gender;
+
+	public User() {
+	}
+
 	public User(UserRole userRole) {
 		this.userRole = userRole;
 	}
+
 	public User(User user){
 		this.username=user.getUsername();
 		this.password=user.getPassword();
@@ -26,19 +30,28 @@ public class User {
 		this.dateOfBirth=user.getDateOfBirth();
 		this.userRole=user.getUserRole();
 		this.valid=user.isValid();
+		this.gender=user.getGender();
 	}
+
 	public User copy() {
-        return new User(this);
-    }
-	
-	
-	public User(String username, String password, String name, String surname,UserRole userRole) {
+		return new User(this);
+	}
+
+	public User(String username, String password, String name, String surname, UserRole userRole) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.name = name;
 		this.surname = surname;
 		this.userRole = userRole;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	public String getDateOfBirthString() {
@@ -112,14 +125,15 @@ public class User {
 
 	@Override
 	public boolean equals(Object obj) {
-		return ((User)obj).getUsername().equals(username);
+		return ((User) obj).getUsername().equals(username);
 	}
+
 	public void updateUserInfo(User newUserInfo) {
 		setUsername(newUserInfo.getUsername());
 		setName(newUserInfo.getName());
 		setSurname(newUserInfo.getSurname());
 		setValid(newUserInfo.isValid());
-		if(!newUserInfo.getPassword().isEmpty() && !newUserInfo.getPassword().equals(getPassword())){
+		if (!newUserInfo.getPassword().isEmpty() && !newUserInfo.getPassword().equals(getPassword())) {
 			setPassword(newUserInfo.getPassword());
 		}
 	}

@@ -29,10 +29,6 @@ public class Cart extends Entity{
 		this.buyer = buyer;
 	}
 	public double getPrice() {
-		this.price=0.0;
-		for (ArticleInCart articleInCart : articles) {
-			this.price+=articleInCart.getQauantity()*articleInCart.getArticle().getPrice();
-		}
 		return this.price;
 	}
 	

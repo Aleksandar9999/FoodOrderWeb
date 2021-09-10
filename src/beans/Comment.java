@@ -10,9 +10,17 @@ public class Comment extends Entity {
 	private String comment;
 	private int mark;
 	private RequestStatus status;
-
+	private String orderId;
 	public RequestStatus getStatus() {
 		return status;
+	}
+
+	public String getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
 	}
 
 	public void setStatus(RequestStatus status) {
