@@ -52,6 +52,7 @@ public class OrdersController {
         response.type("application/json");
         Cart cart = gson.fromJson(request.body(), Cart.class);
         ordersService.addNew(new Order(cart));
+        CartController.deleteCart(request);
         return ("OK");
     };
 

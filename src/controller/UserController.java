@@ -57,12 +57,33 @@ public class UserController {
             return response;
         }
     };
+    public static Route handleRegisterDeliverer = (Request request, Response response) -> {
+        response.type("application/json");
+        System.out.println(request.body());
+        Deliverer user = gson.fromJson(request.body(), Deliverer.class);
+        try {
+            validateLoggedinAdministrator(request);
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            user.setDateOfBirth(LocalDateTime.parse(user.getDateOfBirthString(), inputFormatter));
+            user.setUserRole(UserRole.Deliverer);
+            user.setValid(true);
+            user = (Deliverer) usersService.addNew(user);
+            return gson.toJson(user);
+        } catch (RuntimeException ex) {
+            response.body(ex.getMessage());
+            return response;
+        }
+    };
     public static Route handleRegisterManager = (Request request, Response response) -> {
         response.type("application/json");
         Manager user = gson.fromJson(request.body(), Manager.class);
         try {
-            user = (Manager) usersService.addNew(user);
+            validateLoggedinAdministrator(request);
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            user.setDateOfBirth(LocalDateTime.parse(user.getDateOfBirthString(), inputFormatter));
+            user.setUserRole(UserRole.Manager);
             user.setValid(true);
+            user = (Manager) usersService.addNew(user);
             response.status(201);
             return gson.toJson(user);
         } catch (RegistrationException ex) {
@@ -161,7 +182,7 @@ public class UserController {
     private static void validateLoggedinUserByRole(Request request, UserRole role) {
         validateLoggedinUserExist(request);
         if (!getLoggedingUser(request).getUserRole().equals(role))
-            throw new AccessException("Loggedin user is not" + role.toString().toLowerCase());
+            throw new AccessException("Loggedin user is not " + role.toString().toLowerCase());
     }
 
     public static void validateLoggedinManager(Request request, String restaurantId) {
