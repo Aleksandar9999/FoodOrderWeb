@@ -47,5 +47,13 @@ public class Buyer extends User {
 		this.pointsCollected += points;
 	}
 
+	public BuyerType getBuyerType() {
+		return buyerType;
+	}
+
+	public void setBuyerType(BuyerType buyerType) {
+		this.buyerType = buyerType;
+	}
+
 	
 }
