@@ -1,6 +1,7 @@
 Vue.component("restaurant-settings", {
     data: function () {
         return {
+            url: '',
             restaurant: {},
             articles: null,
             managers: null,
@@ -20,15 +21,16 @@ Vue.component("restaurant-settings", {
         }
     },
     template: ` 
+    <div><custom-header></custom-header>
 	<div class="restaurantInfo">
             <div class="hederInfo">
                 <div style="display: inline-block;">
                     <h2>Osnovne informacije</h2>
                     <div style="margin-top: 18px; " >
-                        <img width="90px" height="90px" style="overflow : visible;" src="../files/images/pizza.jpg">
-                        <input type="button" id="changelogo" value="Izmeni logo">
+                        <img width="90px" height="90px" style="overflow : visible;"  :src="'../files/images/'+restaurant.logoUrl">
+                        <input type="file" id="changelogo" name="logo" accept="image/png, image/jpeg" value="Izaberi logo" @change="setLogo">
                     </div>
-                    <div style="margin-top: 18px; " >
+                    <div style="margin-top: 18px; "  v-if="restaurant.id === '' ">
                         <p>Menadzer</p>
                         <select style="height: 30px;" v-model="selectedManager">
                             <option v-for="manager in managers">{{manager.username}}</option>  
@@ -104,15 +106,15 @@ Vue.component("restaurant-settings", {
                     </table>
                 </form>
             </div>
-            <div class="hederInfo" style="margin-top: 10px;">
+            <div class="hederInfo" style="margin-top: 10px;" v-if="restaurant.id !== ''">
             <h2>Artikli</h2>
             <div class=field>
-                <input type="button" value="Dodaj artikal" @click=openModel>
+                <input type="button" value="Dodaj artikal" @click='openModel'>
             </div>
             <table  border="0" CELLSPACING=0>
                 <tr v-for="(p) in articles" @click=updateArticle(p) >
                     <td>
-                        <img width="50px" height="50px" style="overflow : visible;" src="../files/images/pizza.jpg">
+                        <img width="50px" height="50px" style="overflow : visible;" :src="'../files/images/'+p.imageUrl">
                     </td>    
                     <td>
                         <p>{{p.name}}</p>
@@ -125,69 +127,20 @@ Vue.component("restaurant-settings", {
             </table>
         </div>
         <restaurant-map :location=restaurant.location></restaurant-map>
-        <restaurant-comments type='settings'></restaurant-comments>
+        <restaurant-comments  type='settings'  v-if="restaurant.id !== ''"></restaurant-comments>
         
 
-        <div v-if="myModel">
-		<transition name="model">
-		 <div class="modal-mask">
-		  <div class="modal-wrapper">
-		   <div class="modal-dialog" style="color: black;" >
-			<div class="modal-content" style="background-color: white; width: 80%; margin: 0 auto;">
-				<div class="modal-header">
-					<button type="button" class="close" @click="myModel=false"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" >{{dynamicTitle}}</h4>
-				</div>
-				
-				<div class="modal-body">
-					<div class="form-group">
-					 <label>Naziv</label> 
-					 <input type="text" class="form-control" v-model="article.name"/>
-					</div>
-					<div class="form-group">
-					 <label>Cena</label>
-					 <input type="text" class="form-control" v-model="article.price" />
-					</div>
-                    <div class="form-group">
-					 <label>Tip</label>
-                        <select v-model="article.articleType"  style="height: 30px;">
-                            <option value=""></option>
-                            <option value="Food">Hrana</option>
-                            <option value="Drink">Piće</option>
-                        </select>
-					</div>
-                    <div class="form-group">
-					 <label>Slika</label>
-					 <input type="text" class="form-control" v-model="article.imageUrl"/>
-					</div>
-                    <div class="form-group">
-					 <label>Opis</label>
-					 <input type="text" class="form-control" v-model="article.comment"/>
-					</div><div class="form-group">
-                    <label>Kolicina</label>
-                    <input type="text" class="form-control" v-model="article.amount"/>
-                   </div>
-					<br />
-					<div>
-					 <input type="hidden"  />
-					 <input type="button" class="btn btn-success btn-xs" v-model="actionButton" @click="submitData" />
-					</div>
-				   </div>
-			</div>
-		   </div>
-		  </div>
-		 </div>
-		</transition>
-	   </div>
+        <add-new-article :show='myModel' :actionButton='actionButton' :dynamicTitle='dynamicTitle' :articleOperation='articleOperation' :article='article'></add-new-article>
 
         </div>
   </div>
+  </div>
 `
     ,
-    
+
     mounted() {
         axios
-            .get('rest/restaurants/' + this.$route.params.id+'/settings')
+            .get('rest/restaurants/' + this.$route.params.id + '/settings')
             .then(response => { this.restaurant = response.data; console.log(this.restaurant) })
             .catch(function (error) {
                 alert(error.response.data, "Greska")
@@ -206,9 +159,21 @@ Vue.component("restaurant-settings", {
 
     },
     methods: {
+        setLogo(event) {
+            const formData = new FormData();
+            formData.append("logo", event.target.files[0]);
+            formData.append("id", 7878);
+            axios.post("/rest/upload", formData)
+                .then(function (result) {
+                    console.log(result);
+                }, function (error) {
+                    console.log(error);
+                });
+            this.restaurant.logoUrl = event.target.files[0].name;
+        },
         updateRestaurant() {
             if (this.$route.params.id === "-1") {
-                if(!this.restaurant.name){
+                if (!this.restaurant.name) {
                     alert("Unesite ime restorana");
                     return;
                 }
@@ -219,50 +184,19 @@ Vue.component("restaurant-settings", {
                         }
                         else {
                             axios.put('/rest/restaurants/' + response.data.id + '/managers/' + this.selectedManager)
-                                .then(response => { this.$router.push('/restaurants'); })
-                            }
+                                .then(response => (this.$router.push('/restaurants')))
+                        }
 
                     });
-                
+
             } else {
                 axios.put('/rest/restaurants/' + this.$route.params.id, this.restaurant).
                     then(response => (alert("uspjesno azuriran")))
             }
         },
-        submitData() {
-            if (this.articleOperation === 'Create') {
-                axios
-                    .post('rest/restaurants/' + this.$route.params.id + '/articles', this.article)
-                    .then(response => {
-                        this.restaurant = response.data;
-                        axios
-                            .get('rest/restaurants/' + this.$route.params.id + '/articles')
-                            .then(response => {
-                                this.articles = response.data;
-                                console.log("getovvao")
-                            })
-                        alert("Uspijesno ste dodali artikal");
-                    })
-                    .catch(function (error) {
-                        alert(error.response.data, "Greska")
-                    })
-            }
-            else {
-                axios
-                    .put('rest/restaurants/' + this.$route.params.id + '/articles/' + this.article.id, this.article)
-                    .then(response => {
-                        this.restaurant = response.data;
-                        alert("Success.")
-                    })
-                    .catch(function (error) {
-                        alert(error.response.data, "Greska")
-                    })
-            }
-            
-
-        },
+        
         openModel() {
-            this.article={
+            this.article = {
                 name: '',
                 price: '',
                 articleType: '',
@@ -270,7 +204,7 @@ Vue.component("restaurant-settings", {
                 comment: '',
                 imageUrl: '',
             },
-            this.articleOperation = 'Create'
+                this.articleOperation = 'Create'
             this.actionButton = "Dodaj"
             this.dynamicTitle = "Dodavanje artikla"
             this.myModel = true
