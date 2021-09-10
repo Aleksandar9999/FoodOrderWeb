@@ -1,117 +1,22 @@
 {
-  "412c28ad-89b9-4c3e-9713-4f7e1939261a": {
-    "name": "Madjarica",
-    "price": 350.0,
-    "articleType": "Food",
-    "amount": 500.0,
-    "comment": "Akcija",
-    "imageUrl": "image",
-    "restaurantId": "1",
-    "id": "412c28ad-89b9-4c3e-9713-4f7e1939261a"
-  },
-  "asda": {
-    "name": "Madjarica",
-    "price": 350.0,
-    "articleType": "Food",
-    "amount": 500.0,
-    "comment": "Akcija",
-    "imageUrl": "image",
-    "restaurantId": "1",
-    "id": "asda"
-  },
-  "de9aa31e-7853-4508-bc14-74610d3da8f8": {
-    "name": "prvi",
-    "price": 1.0,
-    "articleType": "Drink",
-    "amount": 1.0,
-    "comment": "1",
-    "imageUrl": "1",
-    "restaurantId": "ee1c2637-e98c-4fa6-80c4-6d3bc9b83628",
-    "id": "de9aa31e-7853-4508-bc14-74610d3da8f8"
-  },
-  "6bd683eb-e822-401d-9340-88c3007acbf9": {
-    "name": "treciIzmijena",
-    "price": 5.0,
-    "articleType": "Food",
-    "amount": 5.0,
-    "comment": "s",
-    "imageUrl": "s",
-    "restaurantId": "ee1c2637-e98c-4fa6-80c4-6d3bc9b83628",
-    "id": "6bd683eb-e822-401d-9340-88c3007acbf9"
-  },
-  "3c24c9a5-53ca-4a60-aa97-d6e1a81f0c58": {
-    "name": "kk",
-    "price": 777.0,
-    "amount": 55.0,
-    "comment": "kjlkj",
-    "imageUrl": "zasd",
-    "restaurantId": "1",
-    "id": "3c24c9a5-53ca-4a60-aa97-d6e1a81f0c58"
-  },
-  "496f4042-5b6c-46d5-9d1c-5adbb27157ec": {
-    "name": "kjl",
-    "price": 55.0,
-    "amount": 55.0,
-    "comment": "55",
-    "imageUrl": "jk",
-    "restaurantId": "1",
-    "id": "496f4042-5b6c-46d5-9d1c-5adbb27157ec"
-  },
-  "7ed820de-3274-4a12-b819-5a24b9031c84": {
-    "name": "Prvi ArtikalUpdatee",
-    "price": 222.0,
-    "amount": 2.0,
-    "comment": "asd",
-    "imageUrl": "aa",
-    "restaurantId": "dd7a393b-9dbf-4089-a01c-0c4089fe510d",
-    "id": "7ed820de-3274-4a12-b819-5a24b9031c84"
-  },
-  "61da6b8b-225a-4252-a561-a664cf6ab44f": {
-    "name": "NovaPizzaaaaa",
+  "8951793b-f33e-4610-89c7-35be6228b8c9": {
+    "name": "Kapricoza",
     "price": 150.0,
     "articleType": "Food",
-    "amount": 500.0,
-    "comment": "Akcija",
-    "imageUrl": "image",
-    "restaurantId": "1",
-    "id": "61da6b8b-225a-4252-a561-a664cf6ab44f"
-  },
-  "4348c3aa-d494-4ff7-aea8-500095a74792": {
-    "name": "drugi",
-    "price": 1.0,
     "amount": 1.0,
-    "comment": "11",
-    "imageUrl": "1",
-    "restaurantId": "ee1c2637-e98c-4fa6-80c4-6d3bc9b83628",
-    "id": "4348c3aa-d494-4ff7-aea8-500095a74792"
+    "comment": "opis neki",
+    "imageUrl": "ABPV (2).png",
+    "restaurantId": "21fe6e10-a60c-4bcf-9745-fd2e8b6b817e",
+    "id": "8951793b-f33e-4610-89c7-35be6228b8c9"
   },
-  "c881e8f6-ad82-4ff8-9806-bdb6bef1546f": {
-    "name": "NivSatipom",
-    "price": 5.0,
+  "53ab552a-73cf-4d0b-a0b0-bd63b51c1526": {
+    "name": "NoviArtikalSaSlikom",
+    "price": 150.0,
     "articleType": "Food",
-    "amount": 5.0,
-    "comment": "s",
-    "imageUrl": "s",
-    "restaurantId": "ee1c2637-e98c-4fa6-80c4-6d3bc9b83628",
-    "id": "c881e8f6-ad82-4ff8-9806-bdb6bef1546f"
-  },
-  "23f43744-1455-45a5-a083-de89fab4d75b": {
-    "name": "kjl",
-    "price": 55.0,
-    "amount": 55.0,
-    "comment": "55",
-    "imageUrl": "jk",
-    "restaurantId": "1",
-    "id": "23f43744-1455-45a5-a083-de89fab4d75b"
-  },
-  "418c28ad-89b9-4c3e-9713-4f7e1939261a": {
-    "name": "Pizza",
-    "price": 300.0,
-    "articleType": "Food",
-    "amount": 500.0,
-    "comment": "TOP TOP PONUDA",
-    "imageUrl": "image",
-    "restaurantId": "1",
-    "id": "418c28ad-89b9-4c3e-9713-4f7e1939261a"
+    "amount": 150.0,
+    "comment": "NovOpis",
+    "imageUrl": "Screenshot_20210818-231731_Chrome.jpg",
+    "restaurantId": "21fe6e10-a60c-4bcf-9745-fd2e8b6b817e",
+    "id": "53ab552a-73cf-4d0b-a0b0-bd63b51c1526"
   }
 }

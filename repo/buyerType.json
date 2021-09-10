@@ -1,0 +1,17 @@
+{
+  "Silver": {
+    "name": "Silver",
+    "discount": 3.0,
+    "reqCollectedPoints": 3000.0
+  },
+  "Gold": {
+    "name": "Gold",
+    "discount": 5.0,
+    "reqCollectedPoints": 4000.0
+  },
+  "Bronze": {
+    "name": "Bronze",
+    "discount": 0.0,
+    "reqCollectedPoints": 0.0
+  }
+}

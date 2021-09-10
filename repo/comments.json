@@ -1,18 +1,11 @@
 {
-  "1": {
-    "buyerUsername": "andrea",
-    "restaurantId": "1",
-    "comment": "comment",
-    "mark": 3,
-    "status": "Rejected",
-    "id": "1"
-  },
-  "83d0d559-90dc-4887-881a-a0b100430764": {
-    "buyerUsername": "aca11",
-    "restaurantId": "1",
-    "comment": "Top Usluga",
+  "1b03d520-433e-4eb0-a974-815f955851fc": {
+    "buyerUsername": "aca99",
+    "restaurantId": "21fe6e10-a60c-4bcf-9745-fd2e8b6b817e",
+    "comment": "Brzo ukusno",
     "mark": 5,
-    "status": "Confirmed",
-    "id": "83d0d559-90dc-4887-881a-a0b100430764"
+    "status": "Pending",
+    "orderId": "2d981c37-e297-4fb3-8778-bd9caf772b32",
+    "id": "1b03d520-433e-4eb0-a974-815f955851fc"
   }
 }

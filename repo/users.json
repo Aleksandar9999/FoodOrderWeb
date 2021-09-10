@@ -1,16 +1,25 @@
 [
   {
-    "pointsCollected": 0.0,
+    "restaurantId": "21fe6e10-a60c-4bcf-9745-fd2e8b6b817e",
+    "username": "manager",
+    "password": "4444",
+    "name": "Aleksandar",
+    "surname": "ManagerRome",
+    "userRole": "Manager",
+    "valid": true
+  },
+  {
+    "pointsCollected": -99.75,
     "orders": [],
-    "username": "ss",
-    "password": "ss",
-    "name": "assas",
-    "surname": "asdasd",
+    "username": "aca999",
+    "password": "1234",
+    "name": "Aleksandar",
+    "surname": "Brkjlac",
     "dateOfBirth": {
       "date": {
         "year": 2021,
-        "month": 8,
-        "day": 9
+        "month": 5,
+        "day": 5
       },
       "time": {
         "hour": 0,
@@ -20,77 +29,67 @@
       }
     },
     "userRole": "Buyer",
-    "dateOfBirthString": "2021-08-09T00:00:00.000Z",
-    "valid": true
-  },
-  {
-    "pointsCollected": 0.0,
-    "orders": [],
-    "username": "Novi",
-    "password": "123",
-    "name": "NoviKorisnik",
-    "surname": "Korisnik",
-    "userRole": "Buyer",
-    "valid": true
-  },
-  {
-    "restaurantId": "1",
-    "username": "manager",
-    "password": "manager",
-    "name": "Aleksandar",
-    "surname": "Brkljac",
-    "userRole": "Manager",
-    "valid": true
-  },
-  {
-    "pointsCollected": 4.787999999999999,
-    "orders": [],
-    "username": "andrea",
-    "password": "aca",
-    "name": "Andrea",
-    "surname": "Kojic",
-    "userRole": "Buyer",
+    "dateOfBirthString": "2021-05-05T00:00:00.000Z",
     "valid": true
   },
   {
     "orderIds": [
-      "ef2dd546-e293-43de-9c71-93f06048a9c8",
-      "85ebb970-6b37-4c98-91eb-2646a42ce040"
+      "2d981c37-e297-4fb3-8778-bd9caf772b32"
     ],
-    "username": "test",
-    "password": "test",
-    "name": "test",
-    "surname": "teste",
+    "username": "dostavljac",
+    "password": "123",
+    "name": "Aleksandar",
+    "surname": "Brkljac",
     "userRole": "Deliverer",
     "valid": true
   },
   {
-    "restaurantId": "ee1c2637-e98c-4fa6-80c4-6d3bc9b83628",
-    "username": "aman",
-    "password": "aman",
-    "name": "ManagerNovi",
-    "surname": "Manager",
+    "restaurantId": "7e75d7c2-7870-46f7-a01a-814df14f953e",
+    "username": "restaurantId",
+    "password": "restaurantId",
+    "name": "restaurantId",
+    "surname": "restaurantId",
+    "dateOfBirth": {
+      "date": {
+        "year": 2021,
+        "month": 9,
+        "day": 1
+      },
+      "time": {
+        "hour": 0,
+        "minute": 0,
+        "second": 0,
+        "nano": 0
+      }
+    },
     "userRole": "Manager",
-    "valid": true
+    "dateOfBirthString": "2021-09-01T00:00:00.000Z",
+    "valid": true,
+    "gender": "male"
   },
   {
-    "restaurantId": "5a9a5837-6243-4dcd-8c26-1a5b640b15fc",
-    "username": "ssskk",
-    "password": "sadas",
-    "name": "NobiiManager",
-    "surname": "prezimenovog",
+    "restaurantId": "d377a1e2-fcd9-4547-a0a3-0c59a4bd79aa",
+    "username": "dmarc",
+    "password": "dmarc",
+    "name": "dmarc",
+    "surname": "dmarc",
+    "dateOfBirth": {
+      "date": {
+        "year": 2021,
+        "month": 9,
+        "day": 1
+      },
+      "time": {
+        "hour": 0,
+        "minute": 0,
+        "second": 0,
+        "nano": 0
+      }
+    },
     "userRole": "Manager",
-    "valid": true
-  },
-  {
-    "pointsCollected": -93.1,
-    "orders": [],
-    "username": "aca11",
-    "password": "123",
-    "name": "Aleksandarr",
-    "surname": "Sima",
-    "userRole": "Buyer",
-    "valid": true
+    "dateOfBirthString": "2021-09-01T00:00:00.000Z",
+    "valid": true,
+    "gender": "male"
   },
   {
     "username": "aca",

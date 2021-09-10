@@ -1,171 +1,110 @@
 {
-  "85ebb970-6b37-4c98-91eb-2646a42ce040": {
+  "2d981c37-e297-4fb3-8778-bd9caf772b32": {
     "articles": [
       {
         "article": {
-          "name": "Madjarica",
-          "price": 350.0,
-          "articleType": "Food",
-          "amount": 500.0,
-          "comment": "Akcija",
-          "imageUrl": "image",
-          "restaurantId": "1",
-          "id": "asda"
-        },
-        "quantity": 1
-      }
-    ],
-    "buyerUsername": "aca11",
-    "restaurantId": "1",
-    "timestamp": {
-      "date": {
-        "year": 2021,
-        "month": 8,
-        "day": 17
-      },
-      "time": {
-        "hour": 15,
-        "minute": 34,
-        "second": 17,
-        "nano": 86188600
-      }
-    },
-    "price": 350.0,
-    "orderStatus": "Delivered",
-    "buyerNameSurname": "Aleksandarr Sima",
-    "id": "85ebb970-6b37-4c98-91eb-2646a42ce040"
-  },
-  "16041e6a-0f40-464b-a17a-63109a753df0": {
-    "articles": [
-      {
-        "article": {
-          "name": "NovaPizzaaaaa",
+          "name": "Kapricoza",
           "price": 150.0,
           "articleType": "Food",
-          "amount": 500.0,
-          "comment": "Akcija",
-          "imageUrl": "image",
-          "restaurantId": "1",
-          "id": "61da6b8b-225a-4252-a561-a664cf6ab44f"
+          "amount": 1.0,
+          "comment": "opis neki",
+          "imageUrl": "dodaj sliku",
+          "restaurantId": "21fe6e10-a60c-4bcf-9745-fd2e8b6b817e",
+          "id": "8951793b-f33e-4610-89c7-35be6228b8c9"
         },
         "quantity": 1
       }
     ],
-    "buyerUsername": "aca11",
-    "restaurantId": "1",
+    "buyerUsername": "aca99",
+    "restaurantId": "21fe6e10-a60c-4bcf-9745-fd2e8b6b817e",
     "timestamp": {
       "date": {
         "year": 2021,
-        "month": 8,
-        "day": 17
+        "month": 9,
+        "day": 5
       },
       "time": {
-        "hour": 13,
-        "minute": 18,
-        "second": 53,
-        "nano": 721576200
+        "hour": 22,
+        "minute": 53,
+        "second": 5,
+        "nano": 876390300
       }
     },
     "price": 150.0,
-    "orderStatus": "WaitingDeliverer",
-    "buyerNameSurname": "Aleksandarr Sima",
-    "id": "16041e6a-0f40-464b-a17a-63109a753df0"
-  },
-  "ef2dd546-e293-43de-9c71-93f06048a9c8": {
-    "articles": [
-      {
-        "article": {
-          "name": "Madjarica",
-          "price": 350.0,
-          "articleType": "Food",
-          "amount": 500.0,
-          "comment": "Akcija",
-          "imageUrl": "image",
-          "restaurantId": "1",
-          "id": "412c28ad-89b9-4c3e-9713-4f7e1939261a"
-        },
-        "quantity": 1
-      },
-      {
-        "article": {
-          "name": "Madjarica",
-          "price": 350.0,
-          "articleType": "Food",
-          "amount": 500.0,
-          "comment": "Akcija",
-          "imageUrl": "image",
-          "restaurantId": "1",
-          "id": "412c28ad-89b9-4c3e-9713-4f7e1939261a"
-        },
-        "quantity": 1
-      },
-      {
-        "article": {
-          "name": "kk",
-          "price": 777.0,
-          "amount": 55.0,
-          "comment": "kjlkj",
-          "imageUrl": "zasd",
-          "restaurantId": "1",
-          "id": "3c24c9a5-53ca-4a60-aa97-d6e1a81f0c58"
-        },
-        "quantity": 2
-      }
-    ],
-    "buyerUsername": "aca11",
-    "restaurantId": "1",
-    "timestamp": {
-      "date": {
-        "year": 2021,
-        "month": 8,
-        "day": 16
-      },
-      "time": {
-        "hour": 17,
-        "minute": 42,
-        "second": 58,
-        "nano": 942974900
-      }
-    },
-    "price": 2254.0,
     "orderStatus": "Delivered",
-    "buyerNameSurname": "Aleksandarr Sima",
-    "id": "ef2dd546-e293-43de-9c71-93f06048a9c8"
+    "buyerNameSurname": "Aleksandar Brkjlac",
+    "id": "2d981c37-e297-4fb3-8778-bd9caf772b32"
   },
-  "772221af-dc22-40a7-88d0-dd5c5e2e9a38": {
+  "5f299610-febd-48f5-a31a-a4c3c574f669": {
     "articles": [
       {
         "article": {
-          "name": "Madjarica",
-          "price": 350.0,
+          "name": "Kapricoza",
+          "price": 150.0,
           "articleType": "Food",
-          "amount": 500.0,
-          "comment": "Akcija",
-          "imageUrl": "image",
-          "restaurantId": "1",
-          "id": "412c28ad-89b9-4c3e-9713-4f7e1939261a"
+          "amount": 1.0,
+          "comment": "opis neki",
+          "imageUrl": "ABPV (2).png",
+          "restaurantId": "21fe6e10-a60c-4bcf-9745-fd2e8b6b817e",
+          "id": "8951793b-f33e-4610-89c7-35be6228b8c9"
         },
-        "quantity": 1
+        "quantity": 3
       }
     ],
-    "buyerUsername": "aca11",
-    "restaurantId": "1",
+    "buyerUsername": "aca99",
+    "restaurantId": "21fe6e10-a60c-4bcf-9745-fd2e8b6b817e",
     "timestamp": {
       "date": {
         "year": 2021,
-        "month": 8,
-        "day": 17
+        "month": 9,
+        "day": 10
       },
       "time": {
-        "hour": 19,
-        "minute": 34,
-        "second": 6,
-        "nano": 611356200
+        "hour": 23,
+        "minute": 29,
+        "second": 8,
+        "nano": 983589900
       }
     },
-    "price": 350.0,
+    "price": 450.0,
+    "orderStatus": "WaitingDeliverer",
+    "buyerNameSurname": "Aleksandar Brkjlac",
+    "id": "5f299610-febd-48f5-a31a-a4c3c574f669"
+  },
+  "c04d0406-bb68-43ae-afc4-6b2f8138dc8a": {
+    "articles": [
+      {
+        "article": {
+          "name": "Kapricoza",
+          "price": 150.0,
+          "articleType": "Food",
+          "amount": 1.0,
+          "comment": "opis neki",
+          "imageUrl": "dodaj sliku",
+          "restaurantId": "21fe6e10-a60c-4bcf-9745-fd2e8b6b817e",
+          "id": "8951793b-f33e-4610-89c7-35be6228b8c9"
+        },
+        "quantity": 3
+      }
+    ],
+    "buyerUsername": "aca99",
+    "restaurantId": "21fe6e10-a60c-4bcf-9745-fd2e8b6b817e",
+    "timestamp": {
+      "date": {
+        "year": 2021,
+        "month": 9,
+        "day": 5
+      },
+      "time": {
+        "hour": 22,
+        "minute": 48,
+        "second": 38,
+        "nano": 591917500
+      }
+    },
+    "price": 450.0,
     "orderStatus": "Canceled",
-    "buyerNameSurname": "Aleksandarr Sima",
-    "id": "772221af-dc22-40a7-88d0-dd5c5e2e9a38"
+    "buyerNameSurname": "Aleksandar Brkjlac",
+    "id": "c04d0406-bb68-43ae-afc4-6b2f8138dc8a"
   }
 }
