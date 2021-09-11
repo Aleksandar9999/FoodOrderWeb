@@ -61,6 +61,18 @@ public class Comment extends Entity {
 		return buyerUsername;
 	}
 
+	public String getBuyerUsername() {
+		return buyerUsername;
+	}
+
+	public void setBuyerUsername(String buyerUsername) {
+		this.buyerUsername = buyerUsername;
+	}
+
+	public void setRestaurantId(String restaurantId) {
+		this.restaurantId = restaurantId;
+	}
+
 	public String getRestaurantId() {
 		return restaurantId;
 	}

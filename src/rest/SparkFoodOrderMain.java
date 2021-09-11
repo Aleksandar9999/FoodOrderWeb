@@ -34,6 +34,7 @@ public class SparkFoodOrderMain {
         get("/rest/users/:id", UserController.handleGetUser); 
         put("/rest/users/:id", UserController.handleUpdateUserInfo);
         post("/rest/cart/articles",CartController.addArticleInCart);
+        post("/rest/cart/delete",CartController.deleteCartRoute);
         get("/rest/cart",CartController.getCart);
         get("/rest/cart/total",CartController.getTotal);
         

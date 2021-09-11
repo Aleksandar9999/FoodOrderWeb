@@ -37,6 +37,16 @@ public class CartController {
             return (e.getMessage());
         }
     };
+    public static Route deleteCartRoute = (request, response) -> {
+        try {
+            UserController.validateLoggedinBuyer(request);
+            CartController.deleteCart(request);
+            return ("ok");
+        } catch (RuntimeException e) {
+            response.status(401);
+            return (e.getMessage());
+        }
+    };
     public static Route getTotal = (request, respons) -> {
         return gson.toJson(calculatePriceWithDiscount(request));
     };
