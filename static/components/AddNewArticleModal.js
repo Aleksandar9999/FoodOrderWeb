@@ -20,7 +20,7 @@ Vue.component("add-new-article", {
                 </div>
                 <div class="form-group">
                  <label>Cena</label>
-                 <input type="text" class="form-control" v-model="article.price" />
+                 <input type="number" class="form-control" v-model="article.price" />
                 </div>
                 <div class="form-group">
                  <label>Tip</label>
@@ -39,7 +39,7 @@ Vue.component("add-new-article", {
                  <input type="text" class="form-control" v-model="article.comment"/>
                 </div><div class="form-group">
                 <label>Kolicina</label>
-                <input type="text" class="form-control" v-model="article.amount"/>
+                <input type="number" class="form-control" v-model="article.amount"/>
                </div>
                 <br />
                 <div>

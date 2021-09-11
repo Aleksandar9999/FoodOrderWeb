@@ -7,7 +7,7 @@ Vue.component("restaurants", {
 			searchLocation: '',
 			searchAvgRate: '',
 			currentSort: 'name',
-			currentSortDir: "asc",
+			currentSortDir: "desc",
 			currentFilterType: '',
 			currentFilterTypeStatus: '',
 			noRestaurats: false,
@@ -89,9 +89,15 @@ Vue.component("restaurants", {
 			return this.searchList.sort((a, b) => {
 				let modifier = 1;
 				if (this.currentSortDir === 'desc') modifier = -1;
-				if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier * a.status
-				if (a[this.currentSort] > b[this.currentSort]) return modifier * a.status
-				return 0
+				if(this.currentSort!=='location'){
+					if (a[this.currentSort] < b[this.currentSort] && b.status) return -1 * modifier
+					if (a[this.currentSort] > b[this.currentSort] && a.status) return modifier 
+					return 0
+				}else{
+					if (a[this.currentSort].address.zipCode < b[this.currentSort].address.zipCode) return -1 * modifier
+					if (a[this.currentSort].address.zipCode > b[this.currentSort].address.zipCode) return modifier 
+					return 0
+				}
 			})
 		},
 		searchList() {

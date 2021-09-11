@@ -13,8 +13,12 @@ Vue.component("cart", {
 		Proizvodi u korpi:
 		<table border="1">
 		<tr bgcolor="lightgrey">
-			<th>Naziv</th><th>Jedinicna cena</th><th>Komada</th><th>Ukupna cena</th></tr>
+			<th></th><th>Naziv</th><th>Jedinicna cena</th><th>Komada</th><th>Ukupna cena</th></tr>
 			<tr v-for="i in sc.articles">
+			<td>
+					<img width="90px" height="90px"  :src="'../files/images/'+i.article.imageUrl">
+					
+			</td>
 			<td> <p style="color: white;">{{i.article.name}}</p></td>
 			<td> <p style="color: white;">{{i.article.price}}</p></td>
 			<td> <input v-model="i.quantity" type="number"/> </td>
@@ -41,11 +45,9 @@ Vue.component("cart", {
 			this.total = 0.0;
 		},
 		clearSc: function () {
-			if (confirm('Da li ste sigurni?') == true) {
 				axios
-					.post('rest/proizvodi/clearSc')
+					.post('/rest/cart/delete')
 					.then(response => (this.init()))
-			}
 		},
 		createOrder() {
 			console.log(this.sc)
@@ -71,6 +73,7 @@ Vue.component("cart", {
 			.get('rest/cart')
 			.then(response => {
 				this.sc = response.data;
+				console.log(this.sc)
 			})
 			.catch(error => (alert(error.response.data)));
 		axios.get('/rest/users/me').then(response => {
